@@ -1633,7 +1633,7 @@ bool CWallet::SelectCoinsMinConf(int64_t nTargetValue, unsigned int nSpendTime, 
         nValueRet += coinLowestLarger.first;
 
         nSize = nMaxOutputsToSpend;
-        for (unsigned int i = 0; i < vValue.size(); i++)
+        for (int i = vValue.size() - 1; i >= 0; i--)
             if (vfBest[i])
             {
                 if (nSize-- > 0) {
