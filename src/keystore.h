@@ -70,7 +70,7 @@ public:
             }
         }
     }
-    bool GetKey(const CKeyID &address, CKey &keyOut) const
+    virtual bool GetKey(const CKeyID &address, CKey &keyOut) const
     {
         {
             LOCK(cs_KeyStore);
@@ -86,6 +86,17 @@ public:
     virtual bool AddCScript(const CScript& redeemScript);
     virtual bool HaveCScript(const CScriptID &hash) const;
     virtual bool GetCScript(const CScriptID &hash, CScript& redeemScriptOut) const;
+};
+
+class CMergedKeyStore : public CBasicKeyStore
+{
+private:
+    CKeyStore* other;
+public:
+    CMergedKeyStore(CKeyStore* otherIn) : other(otherIn) {
+    }
+    bool GetKey(const CKeyID &address, CKey &keyOut) const;
+    bool GetCScript(const CScriptID &hash, CScript& redeemScriptOut) const;
 };
 
 typedef std::map<CKeyID, std::pair<CPubKey, std::vector<unsigned char> > > CryptedKeyMap;

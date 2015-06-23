@@ -53,3 +53,25 @@ bool CBasicKeyStore::GetCScript(const CScriptID &hash, CScript& redeemScriptOut)
     }
     return false;
 }
+
+bool CMergedKeyStore::GetKey(const CKeyID &address, CKey &keyOut) const
+{
+    if (CBasicKeyStore::GetKey(address, keyOut))
+        return true;
+
+    if (!other)
+        return false;
+
+    return other->GetKey(address, keyOut);
+}
+
+bool CMergedKeyStore::GetCScript(const CScriptID &hash, CScript& redeemScriptOut) const
+{
+    if (CBasicKeyStore::GetCScript(hash, redeemScriptOut))
+        return true;
+
+    if (!other)
+        return false;
+
+    return other->GetCScript(hash, redeemScriptOut);
+}

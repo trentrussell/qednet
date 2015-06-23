@@ -385,7 +385,7 @@ Value signrawtransaction(const Array& params, bool fHelp)
             "Second optional argument (may be null) is an array of previous transaction outputs that\n"
             "this transaction depends on but may not yet be in the blockchain.\n"
             "Third optional argument (may be null) is an array of base58-encoded private\n"
-            "keys that, if given, will be the only keys used to sign the transaction.\n"
+            "keys that can also be used to sign the transaction.\n"
             "Fourth optional argument is a string that is one of six values; ALL, NONE, SINGLE or\n"
             "ALL|ANYONECANPAY, NONE|ANYONECANPAY, SINGLE|ANYONECANPAY.\n"
             "Returns json object with keys:\n"
@@ -445,7 +445,11 @@ Value signrawtransaction(const Array& params, bool fHelp)
     }
 
     bool fGivenKeys = false;
+#ifdef ENABLE_WALLET
+    CMergedKeyStore tempKeystore(pwalletMain);
+#else
     CBasicKeyStore tempKeystore;
+#endif
     if (params.size() > 2 && params[2].type() != null_type)
     {
         fGivenKeys = true;
@@ -531,12 +535,6 @@ Value signrawtransaction(const Array& params, bool fHelp)
         }
     }
 
-#ifdef ENABLE_WALLET
-    const CKeyStore& keystore = ((fGivenKeys || !pwalletMain) ? tempKeystore : *pwalletMain);
-#else
-    const CKeyStore& keystore = tempKeystore;
-#endif
-
     int nHashType = SIGHASH_ALL;
     if (params.size() > 3 && params[3].type() != null_type)
     {
@@ -572,7 +570,7 @@ Value signrawtransaction(const Array& params, bool fHelp)
         txin.scriptSig.clear();
         // Only sign SIGHASH_SINGLE if there's a corresponding output:
         if (!fHashSingle || (i < mergedTx.vout.size()))
-            SignSignature(keystore, prevPubKey, mergedTx, i, nHashType);
+            SignSignature(tempKeystore, prevPubKey, mergedTx, i, nHashType);
 
         // ... and merge in other signatures:
         BOOST_FOREACH(const CTransaction& txv, txVariants)
