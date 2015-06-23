@@ -27,6 +27,10 @@ int64_t nTransactionFee = MIN_TX_FEE;
 int64_t nReserveBalance = 0;
 int64_t nMinimumInputValue = 0;
 
+// limit the number of small outputs we spend at once, unless we have no option
+int     nMaxOutputsToSpend = 500; // each output we spend adds 147 or 148 bytes per compressed address, and 179 or 180 bytes per uncompressed address
+                                  // 500 * 180 bytes = 90k bytes, which is close to the transaction size limit
+
 extern int64_t nMaxStakeValue;
 extern int64_t nSplitSize;
 extern int64_t nCombineLimit;
@@ -1213,7 +1217,7 @@ void CWallet::AvailableCoinsForStaking(vector<COutput>& vCoins, unsigned int nSp
 }
 
 static void ApproximateBestSubset(vector<pair<int64_t, pair<const CWalletTx*,unsigned int> > >vValue, int64_t nTotalLower, int64_t nTargetValue,
-                                  vector<char>& vfBest, int64_t& nBest, int iterations = 1000)
+                                  vector<char>& vfBest, int64_t& nBest, int& nSize, int iterations = 1000)
 {
     vector<char> vfIncluded;
 
@@ -1256,6 +1260,12 @@ static void ApproximateBestSubset(vector<pair<int64_t, pair<const CWalletTx*,uns
             }
         }
     }
+
+    // count the included outputs
+    nSize = 0;
+    for (unsigned int i = 0; i < vValue.size(); i++)
+        if (vfBest[i])
+            nSize++;
 }
 
 // ppcoin: total coins staked (non-spendable until maturity)
@@ -1609,13 +1619,39 @@ bool CWallet::SelectCoinsMinConf(int64_t nTargetValue, unsigned int nSpendTime, 
     sort(vValue.rbegin(), vValue.rend(), CompareValueOnly());
     vector<char> vfBest;
     int64_t nBest;
+    int nSize;
 
-    ApproximateBestSubset(vValue, nTotalLower, nTargetValue, vfBest, nBest, 1000);
+    ApproximateBestSubset(vValue, nTotalLower, nTargetValue, vfBest, nBest, nSize, 1000);
     if (nBest != nTargetValue && nTotalLower >= nTargetValue + CENT)
-        ApproximateBestSubset(vValue, nTotalLower, nTargetValue + CENT, vfBest, nBest, 1000);
+        ApproximateBestSubset(vValue, nTotalLower, nTargetValue + CENT, vfBest, nBest, nSize, 1000);
 
+    // If we have a bigger coin and the stochastic approximation found more than 500 outputs to spend,
+    // tidy up the dust in the wallet by spending just 500 of the found outputs plus the bigger coin
+    if (coinLowestLarger.second.first && nSize > nMaxOutputsToSpend)
+    {
+        setCoinsRet.insert(coinLowestLarger.second);
+        nValueRet += coinLowestLarger.first;
+
+        nSize = nMaxOutputsToSpend;
+        for (int i = vValue.size() - 1; i >= 0; i--)
+            if (vfBest[i])
+            {
+                if (nSize-- > 0) {
+                    setCoinsRet.insert(vValue[i].second);
+                    nValueRet += vValue[i].first;
+                } else
+                    vfBest[i] = false;
+            }
+
+        LogPrint("selectcoins", "SelectCoins() smallest bigger plus truncated subset: ");
+        LogPrint("selectcoins", "%s ", FormatMoney(coinLowestLarger.first));
+        for (unsigned int i = 0; i < vValue.size(); i++)
+            if (vfBest[i])
+                LogPrint("selectcoins", "%s ", FormatMoney(vValue[i].first));
+        LogPrint("selectcoins", "total %s\n", FormatMoney(nValueRet));
     // If we have a bigger coin and (either the stochastic approximation didn't find a good solution,
     //                                   or the next bigger coin is closer), return the bigger coin
+    } else
     if (coinLowestLarger.second.first &&
         ((nBest != nTargetValue && nBest < nTargetValue + CENT) || coinLowestLarger.first <= nBest))
     {
