@@ -162,9 +162,6 @@ static void validateoutputs_check_unconfirmed_spend(COutPoint& outpoint, CTransa
         entry.push_back(Pair("spent", details));
     } else {
         entry.push_back(Pair("status", "unspent"));
-
-        const CScript& pk = tx.vout[outpoint.n].scriptPubKey;
-        entry.push_back(Pair("scriptPubKey", HexStr(pk.begin(), pk.end())));
     }
 }
 
@@ -233,6 +230,9 @@ Value validateoutputs(const Array& params, bool fHelp)
             if (pwalletMain->mapAddressBook.count(address))
                 entry.push_back(Pair("account", pwalletMain->mapAddressBook[address]));
         }
+
+        const CScript& pk = tx.vout[outpoint.n].scriptPubKey;
+        entry.push_back(Pair("scriptPubKey", HexStr(pk.begin(), pk.end())));
 
         // is the output confirmed?
         if (hashBlock == 0) {
