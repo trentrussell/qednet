@@ -51,6 +51,7 @@ unsigned int nMinerSleep;
 int64_t nMaxStakeValue;
 int64_t nSplitSize;
 int64_t nCombineLimit;
+bool fCombineAny;
 bool fUseFastIndex;
 bool fCreditStakesToAccounts;
 enum Checkpoints::CPMode CheckpointsMode;
@@ -360,6 +361,7 @@ bool AppInit2(boost::thread_group& threadGroup)
     nMaxStakeValue = GetMoneyArg("-maxstakevalue", 0*COIN);
     nSplitSize     = GetMoneyArg("-splitsize",     0*COIN);
     nCombineLimit  = GetMoneyArg("-combinelimit",  1*COIN);
+    fCombineAny    = GetBoolArg( "-combineany",    false );
 
     // we want to avoid spending coins in these addresses if possible
     if (mapArgs.count("-spendlast")) {
