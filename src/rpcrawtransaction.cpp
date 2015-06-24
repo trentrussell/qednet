@@ -153,6 +153,7 @@ Value listunspent(const Array& params, bool fHelp)
             "Returns array of unspent transaction outputs\n"
             "with between minconf and maxconf (inclusive) confirmations.\n"
             "Optionally filtered to only include txouts paid to specified addresses.\n"
+            "Empty address list means do not filter.\n"
             "If mature is non-zero, only mature outputs will be listed.\n"
             "Results are an array of Objects, each of which has:\n"
             "{txid, vout, scriptPubKey, amount, confirmations}");
