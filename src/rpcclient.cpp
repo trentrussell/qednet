@@ -159,6 +159,7 @@ static const CRPCConvertParam vRPCConvertParams[] =
     { "importprivkey", 2 },
     { "importwallet", 2 },
     { "dumpbootstrap", 1 },
+    { "dumpbootstrap", 2 },
     { "validateoutputs", 0 },
 };
 

@@ -175,15 +175,21 @@ Value getbestblockhash(const Array& params, bool fHelp)
 
 Value dumpbootstrap(const Array& params, bool fHelp)
 {
-    if (fHelp || params.size() != 2)
+    if (fHelp || params.size() < 2 || params.size() > 3)
         throw runtime_error(
-            "dumpbootstrap \"destination\" \"blocks\"\n"
-            "\nCreates a bootstrap format block dump of the blockchain in destination, which can be a directory or a path with filename, up to the given block number.");
+            "dumpbootstrap <destination> <endblock> [startblock=0]\n"
+            "Creates a bootstrap format block dump of the blockchain in destination, which can be a directory or a path with filename, up to the given endblock number.\n"
+            "Optional <startblock> is the first block number to dump.");
 
     string strDest = params[0].get_str();
-    int nBlocks = params[1].get_int();
-    if (nBlocks < 0 || nBlocks > nBestHeight)
-        throw runtime_error("Block number out of range.");
+    int nEndBlock = params[1].get_int();
+    if (nEndBlock < 0 || nEndBlock > nBestHeight)
+        throw runtime_error("End block number out of range.");
+    int nStartBlock = 0;
+    if (params.size() > 2)
+        nStartBlock = params[2].get_int();
+    if (nStartBlock < 0 || nStartBlock > nEndBlock)
+        throw runtime_error("Start block number out of range.");
 
     boost::filesystem::path pathDest(strDest);
     if (boost::filesystem::is_directory(pathDest))
@@ -198,7 +204,7 @@ Value dumpbootstrap(const Array& params, bool fHelp)
         if (!fileout)
             throw JSONRPCError(RPC_MISC_ERROR, "Error: Could not open bootstrap file for writing.");
 
-        for (int nHeight = 0; nHeight <= nBlocks; nHeight++)
+        for (int nHeight = nStartBlock; nHeight <= nEndBlock; nHeight++)
         {
             CBlock block;
             CBlockIndex* pblockindex = FindBlockByHeight(nHeight);
@@ -325,7 +331,7 @@ Value getblockbynumber(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 1 || params.size() > 3)
         throw runtime_error(
-		     "getblockbynumber <number> [txinfo]\n"
+		     "getblockbynumber <number> [txinfo] [raw]\n"
 		     "txinfo optional to print more detailed tx info\n"
 		     "raw optional to return block as raw hex data\n"
 		     "Returns details of a block with given block-number.");
