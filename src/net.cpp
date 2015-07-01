@@ -1173,6 +1173,8 @@ void ThreadOpenConnections()
     // Connect to specific addresses
     if (mapArgs.count("-connect") && mapMultiArgs["-connect"].size() > 0)
     {
+        // this is an infinite loop, which is how specifying -connect
+        // prevents connections to any other than the listed peers
         for (int64_t nLoop = 0;; nLoop++)
         {
             ProcessOneShot();
