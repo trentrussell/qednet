@@ -57,6 +57,7 @@ bool fCreditStakesToAccounts;
 enum Checkpoints::CPMode CheckpointsMode;
 vector<CKeyID> vChangeAddresses;
 set<CBitcoinAddress> setSpendLastAddresses;
+set<CBitcoinAddress> setStakeAddresses;
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -261,6 +262,7 @@ std::string HelpMessage()
     strUsage += "                         " + _(" %s in cmd is replaced by the total amount staked by the address which just staked)") + "\n";
     strUsage += "  -change=<addr>         " + _("Address to send change to") + "\n";
     strUsage += "  -spendlast=<addr>      " + _("Avoid spending outputs from given address(es) if possible") + "\n";
+    strUsage += "  -stake=<addr>          " + _("Stake only outputs at the specified address(es)") + "\n";
     strUsage += "  -confchange            " + _("Require a confirmations for change (default: 0)") + "\n";
     strUsage += "  -minimizecoinage       " + _("Minimize weight consumption (experimental) (default: 0)") + "\n";
     strUsage += "  -alertnotify=<cmd>     " + _("Execute command when a relevant alert is received (%s in cmd is replaced by message)") + "\n";
@@ -367,6 +369,12 @@ bool AppInit2(boost::thread_group& threadGroup)
     if (mapArgs.count("-spendlast")) {
         BOOST_FOREACH(std::string strKeep, mapMultiArgs["-spendlast"])
             setSpendLastAddresses.insert(CBitcoinAddress(strKeep));
+    }
+
+    // we only want to stake outputs at these addresses
+    if (mapArgs.count("-stake")) {
+        BOOST_FOREACH(std::string strAddr, mapMultiArgs["-stake"])
+            setStakeAddresses.insert(CBitcoinAddress(strAddr));
     }
 
     CheckpointsMode = Checkpoints::STRICT;

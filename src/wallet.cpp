@@ -40,6 +40,7 @@ static unsigned int GetStakeSplitAge() { return 1 * 24 * 60 * 60; }
 
 extern vector<CKeyID> vChangeAddresses;
 extern set<CBitcoinAddress> setSpendLastAddresses;
+extern set<CBitcoinAddress> setStakeAddresses;
 
 int64_t gcd(int64_t n,int64_t m) { return m == 0 ? n : gcd(m, n % m); }
 static inline uint64_t CoinWeightCost(const COutput &out)
@@ -1209,9 +1210,11 @@ void CWallet::AvailableCoinsForStaking(vector<COutput>& vCoins, unsigned int nSp
             if (nDepth < 1)
                 continue;
 
+            CTxDestination address;
             for (unsigned int i = 0; i < pcoin->vout.size(); i++)
                 if (!(pcoin->IsSpent(i)) && IsMine(pcoin->vout[i]) && pcoin->vout[i].nValue >= nMinimumInputValue &&
-                    (!nMaxStakeValue || pcoin->vout[i].nValue <= nMaxStakeValue))
+                    (!nMaxStakeValue || pcoin->vout[i].nValue <= nMaxStakeValue) &&
+                    (!setStakeAddresses.size() || (ExtractDestination(pcoin->vout[i].scriptPubKey, address) && setStakeAddresses.count(address))))
                     vCoins.push_back(COutput(pcoin, i, nDepth));
         }
     }
