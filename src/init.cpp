@@ -262,6 +262,7 @@ std::string HelpMessage()
     strUsage += "                         " + _(" %a in cmd is replaced by the address which staked,") + "\n";
     strUsage += "                         " + _(" %t in cmd is replaced by the total amount staked by this wallet, and") + "\n";
     strUsage += "                         " + _(" %s in cmd is replaced by the total amount staked by the address which just staked)") + "\n";
+    strUsage += "  -staketo=<addr>        " + _("Address to move coins to as they stake") + "\n";
     strUsage += "  -change=<addr>         " + _("Address to send change to") + "\n";
     strUsage += "  -spendlast=<addr>      " + _("Avoid spending outputs from given address(es) if possible") + "\n";
     strUsage += "  -stake=<addr>          " + _("Stake only outputs at the specified address(es)") + "\n";
