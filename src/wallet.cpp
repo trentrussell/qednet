@@ -39,6 +39,8 @@ extern bool fCombineAny;
 static unsigned int GetStakeSplitAge() { return 1 * 24 * 60 * 60; }
 
 extern vector<CKeyID> vChangeAddresses;
+extern CKeyID staketokeyID;
+extern bool fStakeTo;
 extern set<CBitcoinAddress> setSpendLastAddresses;
 extern set<CBitcoinAddress> setStakeAddresses;
 
@@ -2069,6 +2071,7 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
     CScript scriptPubKeyKernel;
     int64_t nBlockTime;
     CTxDB txdb("r");
+    CKeyID stakingkeyID;
     BOOST_FOREACH(PAIRTYPE(const CWalletTx*, unsigned int) pcoin, setCoins)
     {
         if (!pcoin.first->hash)
@@ -2138,7 +2141,8 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
                 if (whichType == TX_PUBKEYHASH) // pay to address type
                 {
                     // convert to pay to public key type
-                    if (!keystore.GetKey(uint160(vSolutions[0]), key))
+                    stakingkeyID = uint160(vSolutions[0]);
+                    if (!keystore.GetKey(stakingkeyID, key))
                     {
                         LogPrint("stake", "[STAKE] fail %s:%-3d (%s CLAM) - can't get public key (a)\n",
                                   pcoin.first->hash.ToString(), pcoin.second, FormatMoney(pcoin.first->vout[pcoin.second].nValue));
@@ -2149,7 +2153,8 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
                 if (whichType == TX_PUBKEY)
                 {
                     valtype& vchPubKey = vSolutions[0];
-                    if (!keystore.GetKey(Hash160(vchPubKey), key))
+                    stakingkeyID = Hash160(vchPubKey);
+                    if (!keystore.GetKey(stakingkeyID, key))
                     {
                         LogPrint("stake", "[STAKE] fail %s:%-3d (%s CLAM) - can't get public key, type %d\n",
                                   pcoin.first->hash.ToString(), pcoin.second, FormatMoney(pcoin.first->vout[pcoin.second].nValue),
@@ -2209,17 +2214,29 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
             txNew.strCLAMSpeech.resize(MAX_TX_COMMENT_LEN);
     }
 
+    CScript scriptStakeTo;
+    int nFirstRealOutput;
+    // if we are staking to a specific address, and it's different than the address that is staking, make a new output for it
+    if (fStakeTo && stakingkeyID != staketokeyID) {
+        nFirstRealOutput = 2;
+        scriptStakeTo.SetDestination(staketokeyID);
+        txNew.vout.push_back(CTxOut(0, scriptStakeTo));
+    } else {
+        nFirstRealOutput = 1;
+        scriptStakeTo = txNew.vout[1].scriptPubKey;
+    }
+
     // if we're splitting on size, only split if the new size will make it at least double the split size
     // and if we're not, split on age
     if (( nSplitSize && nCredit >= nSplitSize * 2) ||
         (!nSplitSize && GetWeight(nBlockTime, (int64_t)txNew.nTime) < GetStakeSplitAge()))
     {
         if (nSplitSize) {
-            int n = 1;
+            int n = nFirstRealOutput;
 
             while (true) {
-                if (n > 1)
-                    txNew.vout.push_back(CTxOut(0, txNew.vout[1].scriptPubKey));
+                if (n > nFirstRealOutput)
+                    txNew.vout.push_back(CTxOut(0, scriptStakeTo));
 
                 if (nCredit < nSplitSize * 2) {
                     txNew.vout[n].nValue = nCredit;
@@ -2232,9 +2249,9 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
                 n++;
             }
         } else {
-            txNew.vout.push_back(CTxOut(0, txNew.vout[1].scriptPubKey)); //split stake
-            txNew.vout[1].nValue = (nCredit / 2 / CENT) * CENT;
-            txNew.vout[2].nValue = nCredit - txNew.vout[1].nValue;
+            txNew.vout.push_back(CTxOut(0, scriptStakeTo)); //split stake
+            txNew.vout[nFirstRealOutput].nValue = (nCredit / 2 / CENT) * CENT;
+            txNew.vout[nFirstRealOutput+1].nValue = nCredit - txNew.vout[1].nValue;
         }
     } else {
         // we're not splitting the output, so attempt to add more inputs
@@ -2264,7 +2281,7 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
         }
 
         // we're not splitting, so put all the value in the first and only real output
-        txNew.vout[1].nValue = nCredit;
+        txNew.vout[nFirstRealOutput].nValue = nCredit;
     }
 
     // Sign

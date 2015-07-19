@@ -55,6 +55,8 @@ bool fCombineAny;
 bool fUseFastIndex;
 bool fCreditStakesToAccounts;
 enum Checkpoints::CPMode CheckpointsMode;
+CKeyID staketokeyID;
+bool fStakeTo = false;
 vector<CKeyID> vChangeAddresses;
 set<CBitcoinAddress> setSpendLastAddresses;
 set<CBitcoinAddress> setStakeAddresses;
@@ -473,6 +475,12 @@ bool AppInit2(boost::thread_group& threadGroup)
             InitWarning(_("Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction."));
     }
 #endif
+
+    if (mapArgs.count("-staketo")) {
+        if (!CBitcoinAddress(GetArg("-staketo", "")).GetKeyID(staketokeyID))
+            return InitError(strprintf(_("Bad -staketo address: '%s'"), GetArg("-staketo", "")));
+        fStakeTo = true;
+    }
 
     if (mapArgs.count("-change"))
     {
