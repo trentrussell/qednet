@@ -46,7 +46,7 @@ const int64_t COIN = CENT * 100;
 #define CUINTBEGIN(a)        ((const uint32_t*)&(a))
 
 /* Format characters for (s)size_t and ptrdiff_t */
-#if defined(_MSC_VER) || defined(__MSVCRT__)
+#if (defined(_MSC_VER) || defined(__MSVCRT__)) && !defined(__MINGW32__)
   /* (s)size_t and ptrdiff_t have the same size specifier in MSVC:
      http://msdn.microsoft.com/en-us/library/tcxf1dw6%28v=vs.100%29.aspx
    */
