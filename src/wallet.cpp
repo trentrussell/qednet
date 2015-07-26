@@ -39,8 +39,8 @@ extern bool fCombineAny;
 static unsigned int GetStakeSplitAge() { return 1 * 24 * 60 * 60; }
 
 extern vector<CKeyID> vChangeAddresses;
-extern CKeyID staketokeyID;
-extern bool fStakeTo;
+extern CKeyID staketokeyID, rewardtokeyID;
+extern bool fStakeTo, fRewardTo;
 extern set<CBitcoinAddress> setSpendLastAddresses;
 extern set<CBitcoinAddress> setStakeAddresses;
 
@@ -2194,17 +2194,19 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
         return false;
 
     // Calculate coin age reward
+    int64_t nReward;
     {
         uint64_t nCoinAge;
         CTxDB txdb("r");
         if (!txNew.GetCoinAge(txdb, nCoinAge))
             return error("CreateCoinStake : failed to calculate coin age");
 
-        int64_t nReward = GetProofOfStakeReward(pindexBest, nCoinAge, nFees);
+        nReward = GetProofOfStakeReward(pindexBest, nCoinAge, nFees);
         if (nReward <= 0)
             return false;
 
-        nCredit += nReward;
+        if (!fRewardTo)
+            nCredit += nReward;
     }
 
     // set clamSpeech when staking a block
@@ -2282,6 +2284,12 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
 
         // we're not splitting, so put all the value in the first and only real output
         txNew.vout[nFirstRealOutput].nValue = nCredit;
+    }
+
+    // if we're sending just the staking reward to a separate address, add that output on at the end
+    if (fRewardTo) {
+        scriptStakeTo.SetDestination(rewardtokeyID);
+        txNew.vout.push_back(CTxOut(nReward, scriptStakeTo));
     }
 
     // Sign

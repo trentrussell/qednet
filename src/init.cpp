@@ -56,7 +56,9 @@ bool fUseFastIndex;
 bool fCreditStakesToAccounts;
 enum Checkpoints::CPMode CheckpointsMode;
 CKeyID staketokeyID;
+CKeyID rewardtokeyID;
 bool fStakeTo = false;
+bool fRewardTo = false;
 vector<CKeyID> vChangeAddresses;
 set<CBitcoinAddress> setSpendLastAddresses;
 set<CBitcoinAddress> setStakeAddresses;
@@ -263,6 +265,7 @@ std::string HelpMessage()
     strUsage += "                         " + _(" %t in cmd is replaced by the total amount staked by this wallet, and") + "\n";
     strUsage += "                         " + _(" %s in cmd is replaced by the total amount staked by the address which just staked)") + "\n";
     strUsage += "  -staketo=<addr>        " + _("Address to move coins to as they stake") + "\n";
+    strUsage += "  -rewardto=<addr>       " + _("Address to credit with just the reward from staking a block") + "\n";
     strUsage += "  -change=<addr>         " + _("Address to send change to") + "\n";
     strUsage += "  -spendlast=<addr>      " + _("Avoid spending outputs from given address(es) if possible") + "\n";
     strUsage += "  -stake=<addr>          " + _("Stake only outputs at the specified address(es)") + "\n";
@@ -481,6 +484,12 @@ bool AppInit2(boost::thread_group& threadGroup)
         if (!CBitcoinAddress(GetArg("-staketo", "")).GetKeyID(staketokeyID))
             return InitError(strprintf(_("Bad -staketo address: '%s'"), GetArg("-staketo", "")));
         fStakeTo = true;
+    }
+
+    if (mapArgs.count("-rewardto")) {
+        if (!CBitcoinAddress(GetArg("-rewardto", "")).GetKeyID(rewardtokeyID))
+            return InitError(strprintf(_("Bad -rewardto address: '%s'"), GetArg("-rewardto", "")));
+        fRewardTo = true;
     }
 
     if (mapArgs.count("-change"))
