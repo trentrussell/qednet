@@ -83,6 +83,7 @@ public:
 
         // push peer seeders running this network crawler: https://github.com/dooglus/bitcoin-seeder/tree/clam
         PUSH_SEED("clam.just-dice.com")
+        PUSH_SEED("seed.clams.xyz")
 
         base58Prefixes[PUBKEY_ADDRESS] = list_of(137);
         base58Prefixes[SCRIPT_ADDRESS] = list_of(13);
