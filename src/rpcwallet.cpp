@@ -19,6 +19,11 @@ using namespace json_spirit;
 int64_t nWalletUnlockTime;
 static CCriticalSection cs_nWalletUnlockTime;
 
+extern CKeyID staketokeyID;
+extern CKeyID rewardtokeyID;
+extern bool fStakeTo;
+extern bool fRewardTo;
+
 extern void TxToJSON(const CTransaction& tx, const uint256 hashBlock, json_spirit::Object& entry);
 
 static void accountingDeprecationCheck()
@@ -1770,6 +1775,48 @@ Value settxfee(const Array& params, bool fHelp)
 
     nTransactionFee = AmountFromValue(params[0]);
     nTransactionFee = ((nTransactionFee + CENT/200) / (CENT/100)) * (CENT/100);  // round to hundredth of cent
+
+    return true;
+}
+
+Value setrewardto(const Array& params, bool fHelp)
+{
+    if (fHelp || params.size() > 1)
+        throw runtime_error(
+            "setrewardto [address]\n"
+            "Sets the -rewardto address. If address isn't specified, -rewardto is turned off.");
+
+    if (params.size() == 0)
+        fRewardTo = false;
+    else {
+        std::string address = params[0].get_str();
+
+        if (!CBitcoinAddress(address).GetKeyID(rewardtokeyID))
+            return strprintf(_("Bad -rewardto address: '%s'"), address);
+
+        fRewardTo = true;
+    }
+
+    return true;
+}
+
+Value setstaketo(const Array& params, bool fHelp)
+{
+    if (fHelp || params.size() > 1)
+        throw runtime_error(
+            "setstaketo [address]\n"
+            "Sets the -staketo address. If address isn't specified, -staketo is turned off.");
+
+    if (params.size() == 0)
+        fStakeTo = false;
+    else {
+        std::string address = params[0].get_str();
+
+        if (!CBitcoinAddress(address).GetKeyID(staketokeyID))
+            return strprintf(_("Bad -staketo address: '%s'"), address);
+
+        fStakeTo = true;
+    }
 
     return true;
 }
