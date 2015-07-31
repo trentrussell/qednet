@@ -2882,6 +2882,7 @@ void CWallet::SumStakingRewards()
             }
 
             std::string addr(CBitcoinAddress(address).ToString());
+            // this can happen when the stake transaction has multiple outputs, and one of them goes to us
             if (!::IsMine(*this, address)) {
                 LogPrintf("staked address %s is not mine in txid %s\n", addr, wtx.GetHash().ToString());
                 continue;
