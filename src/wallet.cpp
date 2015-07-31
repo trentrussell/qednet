@@ -2883,7 +2883,7 @@ void CWallet::SumStakingRewards()
 
             std::string addr(CBitcoinAddress(address).ToString());
             if (!::IsMine(*this, address)) {
-                LogPrintf("address %s is not mine\n", addr);
+                LogPrintf("staked address %s is not mine in txid %s\n", addr, wtx.GetHash().ToString());
                 continue;
             }
 
