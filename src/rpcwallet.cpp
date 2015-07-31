@@ -1779,6 +1779,19 @@ Value settxfee(const Array& params, bool fHelp)
     return true;
 }
 
+Value getrewardto(const Array& params, bool fHelp)
+{
+    if (fHelp || params.size() != 0)
+        throw runtime_error(
+            "getrewardto\n"
+            "Gets the -rewardto address. Returns false if -rewardto is turned off.");
+
+    if (!fRewardTo)
+        return false;
+
+    return CBitcoinAddress(rewardtokeyID).ToString();
+}
+
 Value setrewardto(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 1)
@@ -1798,6 +1811,19 @@ Value setrewardto(const Array& params, bool fHelp)
     }
 
     return true;
+}
+
+Value getstaketo(const Array& params, bool fHelp)
+{
+    if (fHelp || params.size() != 0)
+        throw runtime_error(
+            "getstaketo\n"
+            "Gets the -staketo address. Returns false if -staketo is turned off.");
+
+    if (!fStakeTo)
+        return false;
+
+    return CBitcoinAddress(staketokeyID).ToString();
 }
 
 Value setstaketo(const Array& params, bool fHelp)
