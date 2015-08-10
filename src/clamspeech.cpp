@@ -7,807 +7,814 @@ vector<string> clamSpeech;
 vector<string> quoteList;
 
 void CSLoad() {
-	clamSpeechList.push_back("The Times 03/Jan/2009 Chancellor on brink of second bailout for banks. -Satoshi Nakamoto");
-	clamSpeechList.push_back("If you don’t believe me or don’t get it, I don’t have time to try to convince you, sorry. -Satoshi Nakamoto");
-	clamSpeechList.push_back("Institutional momentum is to stick with the last decision. -Satoshi Nakamoto");
-	clamSpeechList.push_back("WikiLeaks has kicked the hornet’s nest, and the swarm is headed towards us. -Satoshi Nakamoto");
-	clamSpeechList.push_back("I am not Dorian Nakamoto. -Satoshi Nakamoto");
-	clamSpeechList.push_back("It is regulated by algorithm instead of being regulated by government bureaucracies. Un-corrupted. -Andreas Antonopolous");
-	clamSpeechList.push_back("...if a government bans bitcoin it will instantly be more credible as an alternative choice. -Andreas Antonopolous");
-	clamSpeechList.push_back("Bitcoin will survive the banking regulators and oppressive governments. The converse however is unlikely. -Andreas Antonopolous");
-	clamSpeechList.push_back("Countries rejecting bitcoin reminds me of the time when countries were resisting the Internet. -Andreas Antonopolous");
-	clamSpeechList.push_back("Most people are yet to understand how disruptive the Bitcoin technology really is. -Andreas Antonopolous");
-	clamSpeechList.push_back("Bitcoin’s success is owed to creativity and innovation. It has nothing to do with the government’s endorsement -Andreas Antonopolous");
-	clamSpeechList.push_back("Bitcoin is global, decentralized and unstoppable. Let government try, it will be hilarious to watch. -Andreas Antonopolous");
-	clamSpeechList.push_back("When the regulators come to regulate Bitcoin for your own good, your reply should be ‘Fuck Off! -Andreas Antonopolous");
-	clamSpeechList.push_back("Expression of Religious Freedom: The Great CLAM");
-	clamSpeechList.push_back("Expression of Religious Freedom: Atheism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Agnosticism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Bábism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Bahá'í Faith");
-	clamSpeechList.push_back("Expression of Religious Freedom: Christianity");
-	clamSpeechList.push_back("Expression of Religious Freedom: Mormonism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Gnosticism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Islam");
-	clamSpeechList.push_back("Expression of Religious Freedom: Druze");
-	clamSpeechList.push_back("Expression of Religious Freedom: Judaism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Black Hebrew Israelites");
-	clamSpeechList.push_back("Expression of Religious Freedom: Rastafari");
-	clamSpeechList.push_back("Expression of Religious Freedom: Mandaeism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Sabianism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Shabakism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Ayyavazhi");
-	clamSpeechList.push_back("Expression of Religious Freedom: Bhakti");
-	clamSpeechList.push_back("Expression of Religious Freedom: Buddhism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Din-e Ilahi");
-	clamSpeechList.push_back("Expression of Religious Freedom: Hinduism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Jainism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Meivazhi");
-	clamSpeechList.push_back("Expression of Religious Freedom: Sikhism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Zoroastrianism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Gnosticism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Bábí");
-	clamSpeechList.push_back("Expression of Religious Freedom: Yazdânism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Confucianism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Shinto");
-	clamSpeechList.push_back("Expression of Religious Freedom: Taoism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Chan Buddhism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Chinese Folk");
-	clamSpeechList.push_back("Expression of Religious Freedom: Falun Gong");
-	clamSpeechList.push_back("Expression of Religious Freedom: Yiguandao");
-	clamSpeechList.push_back("Expression of Religious Freedom: Mohism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Xiantiandao");
-	clamSpeechList.push_back("Expression of Religious Freedom: Cheondoism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Daejongism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Daesun Jinrihoe");
-	clamSpeechList.push_back("Expression of Religious Freedom: Gasin");
-	clamSpeechList.push_back("Expression of Religious Freedom: Jeung San Do");
-	clamSpeechList.push_back("Expression of Religious Freedom: Juche");
-	clamSpeechList.push_back("Expression of Religious Freedom: Korean Shamanism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Suwunism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Batuque");
-	clamSpeechList.push_back("Expression of Religious Freedom: Candomblé");
-	clamSpeechList.push_back("Expression of Religious Freedom: Dahomey Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Haitian Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Kumina");
-	clamSpeechList.push_back("Expression of Religious Freedom: Macumba");
-	clamSpeechList.push_back("Expression of Religious Freedom: Mami Wata");
-	clamSpeechList.push_back("Expression of Religious Freedom: Obeah");
-	clamSpeechList.push_back("Expression of Religious Freedom: Oyotunji");
-	clamSpeechList.push_back("Expression of Religious Freedom: Palo");
-	clamSpeechList.push_back("Expression of Religious Freedom: Quimbanda");
-	clamSpeechList.push_back("Expression of Religious Freedom: Santería");
-	clamSpeechList.push_back("Expression of Religious Freedom: Umbanda");
-	clamSpeechList.push_back("Expression of Religious Freedom: Vodou");
-	clamSpeechList.push_back("Expression of Religious Freedom: Akan Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Ashanti Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Dahomey Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Efik Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Igbo Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Isoko Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Yoruba Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Bushongo Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Bambuti Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Lugbara Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Akamba Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Dinka Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Lotuko Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Masai Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Khoisan");
-	clamSpeechList.push_back("Expression of Religious Freedom: Lozi Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Tumbuka Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Zulu Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Abenaki Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Anishinaabe");
-	clamSpeechList.push_back("Expression of Religious Freedom: Aztec Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Blackfoot Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Cherokee Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Chickasaw Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Choctaw Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Creek Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Crow Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Ghost Dance");
-	clamSpeechList.push_back("Expression of Religious Freedom: Guarani Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Haida Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Ho-Chunk Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Hopi Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Inca Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Indian Shaker");
-	clamSpeechList.push_back("Expression of Religious Freedom: Inuit Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Iroquois Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Keetoowah Nighthawk");
-	clamSpeechList.push_back("Expression of Religious Freedom: Kuksu");
-	clamSpeechList.push_back("Expression of Religious Freedom: Kwakiutl Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Lakota Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Leni Lenape Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Longhouse");
-	clamSpeechList.push_back("Expression of Religious Freedom: Mapuche Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Maya Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Midewiwin");
-	clamSpeechList.push_back("Expression of Religious Freedom: Miwok");
-	clamSpeechList.push_back("Expression of Religious Freedom: Native American");
-	clamSpeechList.push_back("Expression of Religious Freedom: Navajo Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Nootka Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Ohlone Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Olmec Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Pomo Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Pawnee Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Salish Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Selk'nam");
-	clamSpeechList.push_back("Expression of Religious Freedom: Seneca Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Southeastern Ceremonial");
-	clamSpeechList.push_back("Expression of Religious Freedom: Sun Dance");
-	clamSpeechList.push_back("Expression of Religious Freedom: Tsimshian Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Urarina");
-	clamSpeechList.push_back("Expression of Religious Freedom: Ute Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Wyandot");
-	clamSpeechList.push_back("Expression of Religious Freedom: Zuni Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Benzhuism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Bimoism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Bon");
-	clamSpeechList.push_back("Expression of Religious Freedom: Chinese Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Japanese Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Korean Shamanism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Koshinto");
-	clamSpeechList.push_back("Expression of Religious Freedom: Manchu Shamanism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Mun");
-	clamSpeechList.push_back("Expression of Religious Freedom: Siberian Shamanism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Tengrism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Ua Dab");
-	clamSpeechList.push_back("Expression of Religious Freedom: Vietnamese Folk");
-	clamSpeechList.push_back("Expression of Religious Freedom: Asatru");
-	clamSpeechList.push_back("Expression of Religious Freedom: Estonian Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Eskimo");
-	clamSpeechList.push_back("Expression of Religious Freedom: Finnish Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Finnish Paganism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Marla");
-	clamSpeechList.push_back("Expression of Religious Freedom: Odinism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Romuva");
-	clamSpeechList.push_back("Expression of Religious Freedom: Hungarian Folk");
-	clamSpeechList.push_back("Expression of Religious Freedom: Sami");
-	clamSpeechList.push_back("Expression of Religious Freedom: Wotanism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Australian Aboriginal Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Balinese Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Javanese");
-	clamSpeechList.push_back("Expression of Religious Freedom: Melanesian Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Micronesian Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Modekngei");
-	clamSpeechList.push_back("Expression of Religious Freedom: Nauruan");
-	clamSpeechList.push_back("Expression of Religious Freedom: Philippine Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Anito");
-	clamSpeechList.push_back("Expression of Religious Freedom: Gabâ");
-	clamSpeechList.push_back("Expression of Religious Freedom: Kulam");
-	clamSpeechList.push_back("Expression of Religious Freedom: Polynesian Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Hawaiian Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Maori Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Rapa Nui Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Moai");
-	clamSpeechList.push_back("Expression of Religious Freedom: Tangata Manu");
-	clamSpeechList.push_back("Expression of Religious Freedom: John Frum");
-	clamSpeechList.push_back("Expression of Religious Freedom: Johnson Cult");
-	clamSpeechList.push_back("Expression of Religious Freedom: Prince Philip Movement");
-	clamSpeechList.push_back("Expression of Religious Freedom: Vailala Madness");
-	clamSpeechList.push_back("Expression of Religious Freedom: Ancient Egyptian");
-	clamSpeechList.push_back("Expression of Religious Freedom: Ancient Semitic");
-	clamSpeechList.push_back("Expression of Religious Freedom: Canaanite Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Mesopotamian Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Arabian Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Assyrian Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Babylonian Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Chaldean Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Sumerian Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Proto-Indo-Iranian");
-	clamSpeechList.push_back("Expression of Religious Freedom: Historical Vedic");
-	clamSpeechList.push_back("Expression of Religious Freedom: Iranian Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Armenian Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Baltic Polytheism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Celtic Polytheism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Brythonic Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Gaelic Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Germanic Polytheism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Anglo-Saxon");
-	clamSpeechList.push_back("Expression of Religious Freedom: Continental Germanic");
-	clamSpeechList.push_back("Expression of Religious Freedom: Norse");
-	clamSpeechList.push_back("Expression of Religious Freedom: Greek Polytheism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Hittite Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Persian Mythology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Roman Polytheism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Slavic Polytheism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Eleusinian Mysteries");
-	clamSpeechList.push_back("Expression of Religious Freedom: Mithraism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Orphism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Pythagoreanism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Gallo-Roman");
-	clamSpeechList.push_back("Expression of Religious Freedom: Estonian Polytheism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Finnish Polytheism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Hungarian Polytheism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Hindu Mysticism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Tantra");
-	clamSpeechList.push_back("Expression of Religious Freedom: Vaastu Shastra");
-	clamSpeechList.push_back("Expression of Religious Freedom: Moorish Science");
-	clamSpeechList.push_back("Expression of Religious Freedom: Moorish Orthodox");
-	clamSpeechList.push_back("Expression of Religious Freedom: Neoplatonism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Pythagoreanism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Neopythagoreanism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Theosophy");
-	clamSpeechList.push_back("Expression of Religious Freedom: Sufism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Hermeticism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Builders of the Adytum");
-	clamSpeechList.push_back("Expression of Religious Freedom: Fraternitas Saturni");
-	clamSpeechList.push_back("Expression of Religious Freedom: Fraternity of the Inner Light");
-	clamSpeechList.push_back("Expression of Religious Freedom: Hermetic Order of the Golden Dawn");
-	clamSpeechList.push_back("Expression of Religious Freedom: The Open Source Order of the Golden Dawn");
-	clamSpeechList.push_back("Expression of Religious Freedom: Ordo Aurum Solis");
-	clamSpeechList.push_back("Expression of Religious Freedom: Rosicrucian");
-	clamSpeechList.push_back("Expression of Religious Freedom: Servants of the Light");
-	clamSpeechList.push_back("Expression of Religious Freedom: Ordo Templi Orientis");
-	clamSpeechList.push_back("Expression of Religious Freedom: Ecclesia Gnostica Catholica");
-	clamSpeechList.push_back("Expression of Religious Freedom: Typhonian Order");
-	clamSpeechList.push_back("Expression of Religious Freedom: Anthroposophy");
-	clamSpeechList.push_back("Expression of Religious Freedom: Behmenism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Christian Kabbalah");
-	clamSpeechList.push_back("Expression of Religious Freedom: Martinism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Ceremonial Magic");
-	clamSpeechList.push_back("Expression of Religious Freedom: Enochian Magic");
-	clamSpeechList.push_back("Expression of Religious Freedom: Goetic Magic");
-	clamSpeechList.push_back("Expression of Religious Freedom: Chaos Magic");
-	clamSpeechList.push_back("Expression of Religious Freedom: Illuminates of Thanateros");
-	clamSpeechList.push_back("Expression of Religious Freedom: Thee Temple ov Psychick Youth");
-	clamSpeechList.push_back("Expression of Religious Freedom: Hoodoo");
-	clamSpeechList.push_back("Expression of Religious Freedom: New Orleans Voodoo");
-	clamSpeechList.push_back("Expression of Religious Freedom: Kulam");
-	clamSpeechList.push_back("Expression of Religious Freedom: Pow-Wow");
-	clamSpeechList.push_back("Expression of Religious Freedom: Seiðr");
-	clamSpeechList.push_back("Expression of Religious Freedom: Magick");
-	clamSpeechList.push_back("Expression of Religious Freedom: Witchcraft");
-	clamSpeechList.push_back("Expression of Religious Freedom: Adonism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Church of All Worlds");
-	clamSpeechList.push_back("Expression of Religious Freedom: Church of Aphrodite");
-	clamSpeechList.push_back("Expression of Religious Freedom: Feraferia");
-	clamSpeechList.push_back("Expression of Religious Freedom: Neo-Druidism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Reformed Druids");
-	clamSpeechList.push_back("Expression of Religious Freedom: Neoshamanism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Neo-völkisch");
-	clamSpeechList.push_back("Expression of Religious Freedom: Technopaganism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Wicca");
-	clamSpeechList.push_back("Expression of Religious Freedom: British Traditional Wicca");
-	clamSpeechList.push_back("Expression of Religious Freedom: Gardnerian Wicca");
-	clamSpeechList.push_back("Expression of Religious Freedom: Alexandrian Wicca");
-	clamSpeechList.push_back("Expression of Religious Freedom: Central Valley Wicca");
-	clamSpeechList.push_back("Expression of Religious Freedom: Algard Wicca");
-	clamSpeechList.push_back("Expression of Religious Freedom: Chthonioi Alexandrian Wicca");
-	clamSpeechList.push_back("Expression of Religious Freedom: Blue Star Wicca");
-	clamSpeechList.push_back("Expression of Religious Freedom: Eclectic Wicca");
-	clamSpeechList.push_back("Expression of Religious Freedom: Celtic Wicca");
-	clamSpeechList.push_back("Expression of Religious Freedom: Saxon Wicca");
-	clamSpeechList.push_back("Expression of Religious Freedom: Dianic Wicca");
-	clamSpeechList.push_back("Expression of Religious Freedom: McFarland Dianic Wicca");
-	clamSpeechList.push_back("Expression of Religious Freedom: Faery Wicca");
-	clamSpeechList.push_back("Expression of Religious Freedom: Correllian Nativist");
-	clamSpeechList.push_back("Expression of Religious Freedom: Georgian Wicca");
-	clamSpeechList.push_back("Expression of Religious Freedom: Odyssean Wicca");
-	clamSpeechList.push_back("Expression of Religious Freedom: Covenant of the Goddess");
-	clamSpeechList.push_back("Expression of Religious Freedom: Baltic Neopaganism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Celtic Neopaganism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Finnish Neopaganism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Germanic Neopaganism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Hellenismos");
-	clamSpeechList.push_back("Expression of Religious Freedom: Kemetism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Roman Neopaganism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Semitic Neopaganism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Slavic Neopaganism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Taaraism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Zalmoxianism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Creativity");
-	clamSpeechList.push_back("Expression of Religious Freedom: Huna");
-	clamSpeechList.push_back("Expression of Religious Freedom: Raëlism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Scientology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Unitarian Universalist");
-	clamSpeechList.push_back("Expression of Religious Freedom: Christian Science");
-	clamSpeechList.push_back("Expression of Religious Freedom: Church Universal and Triumphant");
-	clamSpeechList.push_back("Expression of Religious Freedom: Divine Science");
-	clamSpeechList.push_back("Expression of Religious Freedom: Religious Science");
-	clamSpeechList.push_back("Expression of Religious Freedom: Unity Church");
-	clamSpeechList.push_back("Expression of Religious Freedom: Jewish Science");
-	clamSpeechList.push_back("Expression of Religious Freedom: Seicho-no-Ie");
-	clamSpeechList.push_back("Expression of Religious Freedom: Church of World Messianity");
-	clamSpeechList.push_back("Expression of Religious Freedom: Happy Science");
-	clamSpeechList.push_back("Expression of Religious Freedom: Konkokyo");
-	clamSpeechList.push_back("Expression of Religious Freedom: Oomoto");
-	clamSpeechList.push_back("Expression of Religious Freedom: PL Kyodan");
-	clamSpeechList.push_back("Expression of Religious Freedom: Seicho-No-Ie");
-	clamSpeechList.push_back("Expression of Religious Freedom: Tenrikyo");
-	clamSpeechList.push_back("Expression of Religious Freedom: Satanism");
-	clamSpeechList.push_back("Expression of Religious Freedom: LaVeyan Satanism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Theistic Satanism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Our Lady of Endor Coven");
-	clamSpeechList.push_back("Expression of Religious Freedom: Demonolatry");
-	clamSpeechList.push_back("Expression of Religious Freedom: Luciferianism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Setianism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Discordianism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Ethical Culture");
-	clamSpeechList.push_back("Expression of Religious Freedom: Freethought");
-	clamSpeechList.push_back("Expression of Religious Freedom: Jesusism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Naturalistic Pantheism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Secular Humanism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Yoism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Church of Euthanasia");
-	clamSpeechList.push_back("Expression of Religious Freedom: Pastafarianism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Church of the SubGenius");
-	clamSpeechList.push_back("Expression of Religious Freedom: Dudeism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Iglesia Maradoniana");
-	clamSpeechList.push_back("Expression of Religious Freedom: Invisible Pink Unicorn");
-	clamSpeechList.push_back("Expression of Religious Freedom: Jediism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Kibology");
-	clamSpeechList.push_back("Expression of Religious Freedom: Landover Baptist");
-	clamSpeechList.push_back("Expression of Religious Freedom: Last Thursdayism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Cult of the Supreme Being");
-	clamSpeechList.push_back("Expression of Religious Freedom: Deism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Eckankar");
-	clamSpeechList.push_back("Expression of Religious Freedom: Fourth Way");
-	clamSpeechList.push_back("Expression of Religious Freedom: Goddess Movement");
-	clamSpeechList.push_back("Expression of Religious Freedom: Humanism");
-	clamSpeechList.push_back("Expression of Religious Freedom: The New Message from God");
-	clamSpeechList.push_back("Expression of Religious Freedom: Nuwaubian Nation");
-	clamSpeechList.push_back("Expression of Religious Freedom: Open-source");
-	clamSpeechList.push_back("Expression of Religious Freedom: Plurationalism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Spiritism");
-	clamSpeechList.push_back("Expression of Religious Freedom: Subud");
-	clamSpeechList.push_back("Expression of Religious Freedom: Universal Life");
-	clamSpeechList.push_back("Expression of Political Freedom: Libertarianism");
-	clamSpeechList.push_back("Expression of Political Freedom: Far-left");
-	clamSpeechList.push_back("Expression of Political Freedom: Left-wing");
-	clamSpeechList.push_back("Expression of Political Freedom: Center-left");
-	clamSpeechList.push_back("Expression of Political Freedom: Center");
-	clamSpeechList.push_back("Expression of Political Freedom: Center-right");
-	clamSpeechList.push_back("Expression of Political Freedom: Right-wing");
-	clamSpeechList.push_back("Expression of Political Freedom: Far-right");
-	clamSpeechList.push_back("Expression of Political Freedom: Radical left");
-	clamSpeechList.push_back("Expression of Political Freedom: Radical center");
-	clamSpeechList.push_back("Expression of Political Freedom: Radical right");
-	clamSpeechList.push_back("Expression of Political Freedom: Radicalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Liberalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Moderate");
-	clamSpeechList.push_back("Expression of Political Freedom: Conservatism");
-	clamSpeechList.push_back("Expression of Political Freedom: Reactionism");
-	clamSpeechList.push_back("Expression of Political Freedom: Libertarianism");
-	clamSpeechList.push_back("Expression of Political Freedom: Syncretic");
-	clamSpeechList.push_back("Expression of Political Freedom: Extremism");
-	clamSpeechList.push_back("Expression of Political Freedom: Partisan");
-	clamSpeechList.push_back("Expression of Political Freedom: Fundamentalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Fanaticism");
-	clamSpeechList.push_back("Expression of Political Freedom: Dominant-party");
-	clamSpeechList.push_back("Expression of Political Freedom: Non-partisan");
-	clamSpeechList.push_back("Expression of Political Freedom: Single-party");
-	clamSpeechList.push_back("Expression of Political Freedom: Two-party");
-	clamSpeechList.push_back("Expression of Political Freedom: Multi-party");
-	clamSpeechList.push_back("Expression of Political Freedom: Minority Government");
-	clamSpeechList.push_back("Expression of Political Freedom: Confidence & Supply");
-	clamSpeechList.push_back("Expression of Political Freedom: Rainbow Coalition");
-	clamSpeechList.push_back("Expression of Political Freedom: Full Coalition");
-	clamSpeechList.push_back("Expression of Political Freedom: Majority Government");
-	clamSpeechList.push_back("Expression of Political Freedom: Grand Coalition");
-	clamSpeechList.push_back("Expression of Political Freedom: National Unity Government");
-	clamSpeechList.push_back("Expression of Political Freedom: Confederation");
-	clamSpeechList.push_back("Expression of Political Freedom: Federation");
-	clamSpeechList.push_back("Expression of Political Freedom: Hegemony");
-	clamSpeechList.push_back("Expression of Political Freedom: Empire");
-	clamSpeechList.push_back("Expression of Political Freedom: Unitary state");
-	clamSpeechList.push_back("Expression of Political Freedom: Autocracy");
-	clamSpeechList.push_back("Expression of Political Freedom: Despotism");
-	clamSpeechList.push_back("Expression of Political Freedom: Dictatorship");
-	clamSpeechList.push_back("Expression of Political Freedom: Totalitarianism");
-	clamSpeechList.push_back("Expression of Political Freedom: Direct Democracy");
-	clamSpeechList.push_back("Expression of Political Freedom: Representative Democracy");
-	clamSpeechList.push_back("Expression of Political Freedom: Absolute Monarchy");
-	clamSpeechList.push_back("Expression of Political Freedom: Constitutional Monarchy");
-	clamSpeechList.push_back("Expression of Political Freedom: Aristocracy");
-	clamSpeechList.push_back("Expression of Political Freedom: Military junta");
-	clamSpeechList.push_back("Expression of Political Freedom: Plutocracy");
-	clamSpeechList.push_back("Expression of Political Freedom: Stratocracy");
-	clamSpeechList.push_back("Expression of Political Freedom: Timocracy");
-	clamSpeechList.push_back("Expression of Political Freedom: Anarchy");
-	clamSpeechList.push_back("Expression of Political Freedom: Anocracy");
-	clamSpeechList.push_back("Expression of Political Freedom: Kritarchy");
-	clamSpeechList.push_back("Expression of Political Freedom: Particracy");
-	clamSpeechList.push_back("Expression of Political Freedom: Republic");
-	clamSpeechList.push_back("Expression of Political Freedom: Theocracy");
-	clamSpeechList.push_back("Expression of Political Freedom: Anarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Anarchism without adjectives");
-	clamSpeechList.push_back("Expression of Political Freedom: Individualist anarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Religious anarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Social anarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Anarchist communism");
-	clamSpeechList.push_back("Expression of Political Freedom: Communism");
-	clamSpeechList.push_back("Expression of Political Freedom: Marxism");
-	clamSpeechList.push_back("Expression of Political Freedom: Revisionism");
-	clamSpeechList.push_back("Expression of Political Freedom: Leninism");
-	clamSpeechList.push_back("Expression of Political Freedom: Anti-revisionism");
-	clamSpeechList.push_back("Expression of Political Freedom: Conservatism");
-	clamSpeechList.push_back("Expression of Political Freedom: Environmentalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Gender equality");
-	clamSpeechList.push_back("Expression of Political Freedom: Feminism");
-	clamSpeechList.push_back("Expression of Political Freedom: Religious feminism");
-	clamSpeechList.push_back("Expression of Political Freedom: LGBT");
-	clamSpeechList.push_back("Expression of Political Freedom: Masculism");
-	clamSpeechList.push_back("Expression of Political Freedom: Libertarianism");
-	clamSpeechList.push_back("Expression of Political Freedom: Libertarian socialism");
-	clamSpeechList.push_back("Expression of Political Freedom: Right libertarianism");
-	clamSpeechList.push_back("Expression of Political Freedom: Fascism");
-	clamSpeechList.push_back("Expression of Political Freedom: Zionism");
-	clamSpeechList.push_back("Expression of Political Freedom: Unification movements");
-	clamSpeechList.push_back("Expression of Political Freedom: Buddhism");
-	clamSpeechList.push_back("Expression of Political Freedom: Christianity");
-	clamSpeechList.push_back("Expression of Political Freedom: Hinduism");
-	clamSpeechList.push_back("Expression of Political Freedom: Islam");
-	clamSpeechList.push_back("Expression of Political Freedom: Judaism");
-	clamSpeechList.push_back("Expression of Political Freedom: Mormonism");
-	clamSpeechList.push_back("Expression of Political Freedom: Sikhism");
-	clamSpeechList.push_back("Expression of Political Freedom: Socialism");
-	clamSpeechList.push_back("Expression of Political Freedom: Libertarian Marxism");
-	clamSpeechList.push_back("Expression of Political Freedom: Reformist socialism");
-	clamSpeechList.push_back("Expression of Political Freedom: Democratic socialism");
-	clamSpeechList.push_back("Expression of Political Freedom: Social democracy");
-	clamSpeechList.push_back("Expression of Political Freedom: Religious socialism");
-	clamSpeechList.push_back("Expression of Political Freedom: Revolutionary socialism");
-	clamSpeechList.push_back("Expression of Political Freedom: Synthesis anarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Anarchist naturism");
-	clamSpeechList.push_back("Expression of Political Freedom: Egoist anarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Freiwirtschaft");
-	clamSpeechList.push_back("Expression of Political Freedom: Geoanarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Inclusive Democracy");
-	clamSpeechList.push_back("Expression of Political Freedom: Individualist anarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Insurrectionary anarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Illegalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Mutualism");
-	clamSpeechList.push_back("Expression of Political Freedom: Buddhist anarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Christian anarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Islamic anarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Jewish anarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Anarcha-feminism");
-	clamSpeechList.push_back("Expression of Political Freedom: Anarcho-syndicalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Collectivist anarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Participatory economics");
-	clamSpeechList.push_back("Expression of Political Freedom: Social anarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Social ecology");
-	clamSpeechList.push_back("Expression of Political Freedom: Magonism");
-	clamSpeechList.push_back("Expression of Political Freedom: Platformism");
-	clamSpeechList.push_back("Expression of Political Freedom: Autarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Autonomism");
-	clamSpeechList.push_back("Expression of Political Freedom: Crypto-anarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Indigenism");
-	clamSpeechList.push_back("Expression of Political Freedom: Infoanarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Makhnovism");
-	clamSpeechList.push_back("Expression of Political Freedom: National-Anarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Panarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Platformism");
-	clamSpeechList.push_back("Expression of Political Freedom: Post-anarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Post-left anarchy");
-	clamSpeechList.push_back("Expression of Political Freedom: Queer anarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Workerism");
-	clamSpeechList.push_back("Expression of Political Freedom: Pluralism");
-	clamSpeechList.push_back("Expression of Political Freedom: Stateless communism");
-	clamSpeechList.push_back("Expression of Political Freedom: Revolutionary socialism");
-	clamSpeechList.push_back("Expression of Political Freedom: Neo-Marxism");
-	clamSpeechList.push_back("Expression of Political Freedom: Classical Marxism");
-	clamSpeechList.push_back("Expression of Political Freedom: Autonomism");
-	clamSpeechList.push_back("Expression of Political Freedom: Luxemburgism");
-	clamSpeechList.push_back("Expression of Political Freedom: Left communism");
-	clamSpeechList.push_back("Expression of Political Freedom: Communization");
-	clamSpeechList.push_back("Expression of Political Freedom: Council communism");
-	clamSpeechList.push_back("Expression of Political Freedom: Titoism");
-	clamSpeechList.push_back("Expression of Political Freedom: Castroism");
-	clamSpeechList.push_back("Expression of Political Freedom: Religious communism");
-	clamSpeechList.push_back("Expression of Political Freedom: Christian communism");
-	clamSpeechList.push_back("Expression of Political Freedom: Anarchist communism");
-	clamSpeechList.push_back("Expression of Political Freedom: Platformism");
-	clamSpeechList.push_back("Expression of Political Freedom: Eurocommunism");
-	clamSpeechList.push_back("Expression of Political Freedom: Orthodox Marxism");
-	clamSpeechList.push_back("Expression of Political Freedom: Leninism");
-	clamSpeechList.push_back("Expression of Political Freedom: Marxism–Leninism");
-	clamSpeechList.push_back("Expression of Political Freedom: Guevarism");
-	clamSpeechList.push_back("Expression of Political Freedom: World communism");
-	clamSpeechList.push_back("Expression of Political Freedom: Primitive communism");
-	clamSpeechList.push_back("Expression of Political Freedom: Scientific communism");
-	clamSpeechList.push_back("Expression of Political Freedom: Stalinism");
-	clamSpeechList.push_back("Expression of Political Freedom: Maoism");
-	clamSpeechList.push_back("Expression of Political Freedom: Ho Chi Minh Thought");
-	clamSpeechList.push_back("Expression of Political Freedom: Hoxhaism");
-	clamSpeechList.push_back("Expression of Political Freedom: Conservative liberalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Cultural conservatism");
-	clamSpeechList.push_back("Expression of Political Freedom: Liberal conservatism");
-	clamSpeechList.push_back("Expression of Political Freedom: Libertarian conservatism");
-	clamSpeechList.push_back("Expression of Political Freedom: National conservatism");
-	clamSpeechList.push_back("Expression of Political Freedom: Neoconservatism");
-	clamSpeechList.push_back("Expression of Political Freedom: Paleoconservatism");
-	clamSpeechList.push_back("Expression of Political Freedom: Social conservatism");
-	clamSpeechList.push_back("Expression of Political Freedom: Agrarianism");
-	clamSpeechList.push_back("Expression of Political Freedom: Bioconservatism");
-	clamSpeechList.push_back("Expression of Political Freedom: Black conservatism");
-	clamSpeechList.push_back("Expression of Political Freedom: Carlism");
-	clamSpeechList.push_back("Expression of Political Freedom: Civic Conservatism");
-	clamSpeechList.push_back("Expression of Political Freedom: Christian democracy");
-	clamSpeechList.push_back("Expression of Political Freedom: Communitarianism");
-	clamSpeechList.push_back("Expression of Political Freedom: Fiscal conservatism");
-	clamSpeechList.push_back("Expression of Political Freedom: Green conservatism");
-	clamSpeechList.push_back("Expression of Political Freedom: Latin Conservatism");
-	clamSpeechList.push_back("Expression of Political Freedom: Monarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Right-libertarianism");
-	clamSpeechList.push_back("Expression of Political Freedom: Roman Catholic conservatism");
-	clamSpeechList.push_back("Expression of Political Freedom: Theoconservatism");
-	clamSpeechList.push_back("Expression of Political Freedom: Toryism");
-	clamSpeechList.push_back("Expression of Political Freedom: Traditionalist conservatism");
-	clamSpeechList.push_back("Expression of Political Freedom: Reactionary");
-	clamSpeechList.push_back("Expression of Political Freedom: Anarchist naturism");
-	clamSpeechList.push_back("Expression of Political Freedom: Anarcho-primitivism");
-	clamSpeechList.push_back("Expression of Political Freedom: Bioregionalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Bright green environmentalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Deep ecology");
-	clamSpeechList.push_back("Expression of Political Freedom: Eco-capitalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Ecofascism");
-	clamSpeechList.push_back("Expression of Political Freedom: Ecofeminism");
-	clamSpeechList.push_back("Expression of Political Freedom: Eco-socialism");
-	clamSpeechList.push_back("Expression of Political Freedom: Environmentalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Free-market environmentalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Green anarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Green conservatism");
-	clamSpeechList.push_back("Expression of Political Freedom: Green liberalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Green libertarianism");
-	clamSpeechList.push_back("Expression of Political Freedom: Green politics");
-	clamSpeechList.push_back("Expression of Political Freedom: Green municipalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Green syndicalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Social ecology");
-	clamSpeechList.push_back("Expression of Political Freedom: Cultural feminism");
-	clamSpeechList.push_back("Expression of Political Freedom: Ecofeminism");
-	clamSpeechList.push_back("Expression of Political Freedom: Feminism");
-	clamSpeechList.push_back("Expression of Political Freedom: Individualist feminism");
-	clamSpeechList.push_back("Expression of Political Freedom: Lesbian feminism");
-	clamSpeechList.push_back("Expression of Political Freedom: Liberal feminism");
-	clamSpeechList.push_back("Expression of Political Freedom: Marxist feminism");
-	clamSpeechList.push_back("Expression of Political Freedom: Masculism");
-	clamSpeechList.push_back("Expression of Political Freedom: Postmodern feminism");
-	clamSpeechList.push_back("Expression of Political Freedom: Psychoanalytic feminism");
-	clamSpeechList.push_back("Expression of Political Freedom: Radical feminism");
-	clamSpeechList.push_back("Expression of Political Freedom: Separatist feminism");
-	clamSpeechList.push_back("Expression of Political Freedom: Socialist feminism");
-	clamSpeechList.push_back("Expression of Political Freedom: Womanism");
-	clamSpeechList.push_back("Expression of Political Freedom: Religious feminism");
-	clamSpeechList.push_back("Expression of Political Freedom: Christian feminism");
-	clamSpeechList.push_back("Expression of Political Freedom: Islamic feminism");
-	clamSpeechList.push_back("Expression of Political Freedom: Jewish feminism");
-	clamSpeechList.push_back("Expression of Political Freedom: LGBT social movements");
-	clamSpeechList.push_back("Expression of Political Freedom: Classical liberalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Conservative liberalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Economic liberalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Individualism");
-	clamSpeechList.push_back("Expression of Political Freedom: Liberal feminism");
-	clamSpeechList.push_back("Expression of Political Freedom: Liberal socialism");
-	clamSpeechList.push_back("Expression of Political Freedom: Liberalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Market liberalism");
-	clamSpeechList.push_back("Expression of Political Freedom: National liberalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Neoliberalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Ordoliberalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Paleoliberalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Social liberalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Colonial liberalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Fourierism");
-	clamSpeechList.push_back("Expression of Political Freedom: Collectivist anarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Anarcho-communism");
-	clamSpeechList.push_back("Expression of Political Freedom: Anarcho-syndicalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Guild socialism");
-	clamSpeechList.push_back("Expression of Political Freedom: Revolutionary syndicalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Libertarian Marxism");
-	clamSpeechList.push_back("Expression of Political Freedom: Libertarian socialism");
-	clamSpeechList.push_back("Expression of Political Freedom: Left communism");
-	clamSpeechList.push_back("Expression of Political Freedom: Council communism");
-	clamSpeechList.push_back("Expression of Political Freedom: Platformism");
-	clamSpeechList.push_back("Expression of Political Freedom: Gandhian economics");
-	clamSpeechList.push_back("Expression of Political Freedom: Situationist International");
-	clamSpeechList.push_back("Expression of Political Freedom: Autonomism");
-	clamSpeechList.push_back("Expression of Political Freedom: Social ecology");
-	clamSpeechList.push_back("Expression of Political Freedom: Participism");
-	clamSpeechList.push_back("Expression of Political Freedom: Inclusive Democracy");
-	clamSpeechList.push_back("Expression of Political Freedom: Zapatismo");
-	clamSpeechList.push_back("Expression of Political Freedom: Insurrectionary anarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Communalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Communization");
-	clamSpeechList.push_back("Expression of Political Freedom: Anarcho-capitalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Classical liberalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Libertarian conservatism");
-	clamSpeechList.push_back("Expression of Political Freedom: Minarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Objectivism");
-	clamSpeechList.push_back("Expression of Political Freedom: Paleolibertarianism");
-	clamSpeechList.push_back("Expression of Political Freedom: Right libertarianism");
-	clamSpeechList.push_back("Expression of Political Freedom: Voluntaryism");
-	clamSpeechList.push_back("Expression of Political Freedom: Agorism");
-	clamSpeechList.push_back("Expression of Political Freedom: Cultural liberalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Geolibertarianism");
-	clamSpeechList.push_back("Expression of Political Freedom: Green liberalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Individualist feminism");
-	clamSpeechList.push_back("Expression of Political Freedom: Progressivism");
-	clamSpeechList.push_back("Expression of Political Freedom: Radicalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Internationalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Liberal nationalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Nationalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Romantic nationalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Austrofascism");
-	clamSpeechList.push_back("Expression of Political Freedom: Chilean Fascism");
-	clamSpeechList.push_back("Expression of Political Freedom: Clerical fascism");
-	clamSpeechList.push_back("Expression of Political Freedom: Ecofascism");
-	clamSpeechList.push_back("Expression of Political Freedom: Falangism");
-	clamSpeechList.push_back("Expression of Political Freedom: Greek fascism");
-	clamSpeechList.push_back("Expression of Political Freedom: Italian fascism");
-	clamSpeechList.push_back("Expression of Political Freedom: Iron Guard");
-	clamSpeechList.push_back("Expression of Political Freedom: Japanese fascism");
-	clamSpeechList.push_back("Expression of Political Freedom: Nazism");
-	clamSpeechList.push_back("Expression of Political Freedom: Neo-Fascism");
-	clamSpeechList.push_back("Expression of Political Freedom: Rexism");
-	clamSpeechList.push_back("Expression of Political Freedom: Strasserism");
-	clamSpeechList.push_back("Expression of Political Freedom: Ustaše");
-	clamSpeechList.push_back("Expression of Political Freedom: Zbor");
-	clamSpeechList.push_back("Expression of Political Freedom: Kemalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Brazilian Integralism");
-	clamSpeechList.push_back("Expression of Political Freedom: Gaullism");
-	clamSpeechList.push_back("Expression of Political Freedom: Irish Nationalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Irish Republicanism");
-	clamSpeechList.push_back("Expression of Political Freedom: Peronism");
-	clamSpeechList.push_back("Expression of Political Freedom: Portuguese Integralism");
-	clamSpeechList.push_back("Expression of Political Freedom: Baathism");
-	clamSpeechList.push_back("Expression of Political Freedom: Nasserism");
-	clamSpeechList.push_back("Expression of Political Freedom: Zionism");
-	clamSpeechList.push_back("Expression of Political Freedom: Labor Zionism");
-	clamSpeechList.push_back("Expression of Political Freedom: Religious Zionism");
-	clamSpeechList.push_back("Expression of Political Freedom: Revisionist Zionism");
-	clamSpeechList.push_back("Expression of Political Freedom: Neo-Zionism");
-	clamSpeechList.push_back("Expression of Political Freedom: African socialism");
-	clamSpeechList.push_back("Expression of Political Freedom: Arab socialism");
-	clamSpeechList.push_back("Expression of Political Freedom: Pan-Africanism");
-	clamSpeechList.push_back("Expression of Political Freedom: Pan-Arabism");
-	clamSpeechList.push_back("Expression of Political Freedom: Pan-Iranism");
-	clamSpeechList.push_back("Expression of Political Freedom: Pan-European nationalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Arab nationalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Black nationalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Chinese nationalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Corporatism");
-	clamSpeechList.push_back("Expression of Political Freedom: Left-wing nationalism");
-	clamSpeechList.push_back("Expression of Political Freedom: National-Anarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: National Bolshevism");
-	clamSpeechList.push_back("Expression of Political Freedom: National syndicalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Patriotism");
-	clamSpeechList.push_back("Expression of Political Freedom: Producerism");
-	clamSpeechList.push_back("Expression of Political Freedom: Queer nationalism");
-	clamSpeechList.push_back("Expression of Political Freedom: White nationalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Theocracy");
-	clamSpeechList.push_back("Expression of Political Freedom: Buddhist socialism");
-	clamSpeechList.push_back("Expression of Political Freedom: Christian anarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Christian communism");
-	clamSpeechList.push_back("Expression of Political Freedom: Christian democracy");
-	clamSpeechList.push_back("Expression of Political Freedom: Christian feminism");
-	clamSpeechList.push_back("Expression of Political Freedom: Christian socialism");
-	clamSpeechList.push_back("Expression of Political Freedom: Christian Left");
-	clamSpeechList.push_back("Expression of Political Freedom: Clerical fascism");
-	clamSpeechList.push_back("Expression of Political Freedom: Liberation Theology");
-	clamSpeechList.push_back("Expression of Political Freedom: Political Catholicism");
-	clamSpeechList.push_back("Expression of Political Freedom: Popolarismo");
-	clamSpeechList.push_back("Expression of Political Freedom: Christian Right");
-	clamSpeechList.push_back("Expression of Political Freedom: Christian Zionism");
-	clamSpeechList.push_back("Expression of Political Freedom: Christofascism");
-	clamSpeechList.push_back("Expression of Political Freedom: Dominionism");
-	clamSpeechList.push_back("Expression of Political Freedom: Caesaropapism");
-	clamSpeechList.push_back("Expression of Political Freedom: Ultramontanism");
-	clamSpeechList.push_back("Expression of Political Freedom: Hindu nationalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Islamic democracy");
-	clamSpeechList.push_back("Expression of Political Freedom: Islamic socialism");
-	clamSpeechList.push_back("Expression of Political Freedom: Islamism");
-	clamSpeechList.push_back("Expression of Political Freedom: Khilafat");
-	clamSpeechList.push_back("Expression of Political Freedom: Panislamism");
-	clamSpeechList.push_back("Expression of Political Freedom: Jewish anarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Jewish feminism");
-	clamSpeechList.push_back("Expression of Political Freedom: Religious Zionism");
-	clamSpeechList.push_back("Expression of Political Freedom: Theodemocracy");
-	clamSpeechList.push_back("Expression of Political Freedom: United Order");
-	clamSpeechList.push_back("Expression of Political Freedom: Khalistan movement");
-	clamSpeechList.push_back("Expression of Political Freedom: Fourierism");
-	clamSpeechList.push_back("Expression of Political Freedom: Guild socialism");
-	clamSpeechList.push_back("Expression of Political Freedom: Revolutionary syndicalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Gandhian economics");
-	clamSpeechList.push_back("Expression of Political Freedom: Zapatismo");
-	clamSpeechList.push_back("Expression of Political Freedom: Autonomism");
-	clamSpeechList.push_back("Expression of Political Freedom: Situationist International");
-	clamSpeechList.push_back("Expression of Political Freedom: Libertarian Marxism");
-	clamSpeechList.push_back("Expression of Political Freedom: Luxemburgism");
-	clamSpeechList.push_back("Expression of Political Freedom: Left communism");
-	clamSpeechList.push_back("Expression of Political Freedom: Council communism");
-	clamSpeechList.push_back("Expression of Political Freedom: Communization");
-	clamSpeechList.push_back("Expression of Political Freedom: Collectivist anarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Anarcho-communism");
-	clamSpeechList.push_back("Expression of Political Freedom: Anarcho-syndicalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Social anarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Platformism");
-	clamSpeechList.push_back("Expression of Political Freedom: Social ecology");
-	clamSpeechList.push_back("Expression of Political Freedom: Participism");
-	clamSpeechList.push_back("Expression of Political Freedom: Inclusive Democracy");
-	clamSpeechList.push_back("Expression of Political Freedom: Communalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Bernsteinism");
-	clamSpeechList.push_back("Expression of Political Freedom: Austromarxism");
-	clamSpeechList.push_back("Expression of Political Freedom: Bernsteinism");
-	clamSpeechList.push_back("Expression of Political Freedom: Democratic socialism");
-	clamSpeechList.push_back("Expression of Political Freedom: Fabianism");
-	clamSpeechList.push_back("Expression of Political Freedom: Reformism");
-	clamSpeechList.push_back("Expression of Political Freedom: Market socialism");
-	clamSpeechList.push_back("Expression of Political Freedom: Neosocialism");
-	clamSpeechList.push_back("Expression of Political Freedom: Social democracy");
-	clamSpeechList.push_back("Expression of Political Freedom: State socialism");
-	clamSpeechList.push_back("Expression of Political Freedom: African socialism");
-	clamSpeechList.push_back("Expression of Political Freedom: Arab socialism");
-	clamSpeechList.push_back("Expression of Political Freedom: Bolivarianism");
-	clamSpeechList.push_back("Expression of Political Freedom: Labor Zionism");
-	clamSpeechList.push_back("Expression of Political Freedom: Melanesian socialism");
-	clamSpeechList.push_back("Expression of Political Freedom: Revolutionary democracy");
-	clamSpeechList.push_back("Expression of Political Freedom: Religious socialism");
-	clamSpeechList.push_back("Expression of Political Freedom: Liberation Theology");
-	clamSpeechList.push_back("Expression of Political Freedom: Social capitalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Socialist feminism");
-	clamSpeechList.push_back("Expression of Political Freedom: Quotaism");
-	clamSpeechList.push_back("Expression of Political Freedom: Autonomist Marxism");
-	clamSpeechList.push_back("Expression of Political Freedom: Castroism");
-	clamSpeechList.push_back("Expression of Political Freedom: Council communism");
-	clamSpeechList.push_back("Expression of Political Freedom: De Leonism");
-	clamSpeechList.push_back("Expression of Political Freedom: Eurocommunism");
-	clamSpeechList.push_back("Expression of Political Freedom: Guevarism");
-	clamSpeechList.push_back("Expression of Political Freedom: Hoxhaism");
-	clamSpeechList.push_back("Expression of Political Freedom: Kautskyism");
-	clamSpeechList.push_back("Expression of Political Freedom: Left communism");
-	clamSpeechList.push_back("Expression of Political Freedom: Leninism");
-	clamSpeechList.push_back("Expression of Political Freedom: Luxemburgism");
-	clamSpeechList.push_back("Expression of Political Freedom: Maoism");
-	clamSpeechList.push_back("Expression of Political Freedom: Marxism");
-	clamSpeechList.push_back("Expression of Political Freedom: Marxism–Leninism");
-	clamSpeechList.push_back("Expression of Political Freedom: Marxist feminism");
-	clamSpeechList.push_back("Expression of Political Freedom: Marxist humanism");
-	clamSpeechList.push_back("Expression of Political Freedom: Neo-marxism");
-	clamSpeechList.push_back("Expression of Political Freedom: Orthodox Marxism");
-	clamSpeechList.push_back("Expression of Political Freedom: Situationism");
-	clamSpeechList.push_back("Expression of Political Freedom: Anti-Revisionism");
-	clamSpeechList.push_back("Expression of Political Freedom: Titoism");
-	clamSpeechList.push_back("Expression of Political Freedom: Trotskyism");
-	clamSpeechList.push_back("Expression of Political Freedom: Western Marxism");
-	clamSpeechList.push_back("Expression of Political Freedom: Anarcho-syndicalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Collectivist anarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Anarchist communism");
-	clamSpeechList.push_back("Expression of Political Freedom: Eco-socialism");
-	clamSpeechList.push_back("Expression of Political Freedom: Social anarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Social ecology");
-	clamSpeechList.push_back("Expression of Political Freedom: Individualist anarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Mutualist anarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Guild socialism");
-	clamSpeechList.push_back("Expression of Political Freedom: Libertarian socialism");
-	clamSpeechList.push_back("Expression of Political Freedom: Sankarism");
-	clamSpeechList.push_back("Expression of Political Freedom: Syndicalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Utopian socialism");
-	clamSpeechList.push_back("Expression of Political Freedom: National Bolshevism");
-	clamSpeechList.push_back("Expression of Political Freedom: Realism");
-	clamSpeechList.push_back("Expression of Political Freedom: Authoritarianism");
-	clamSpeechList.push_back("Expression of Political Freedom: Anarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Centrism");
-	clamSpeechList.push_back("Expression of Political Freedom: Christian democracy");
-	clamSpeechList.push_back("Expression of Political Freedom: Communism");
-	clamSpeechList.push_back("Expression of Political Freedom: Communitarianism");
-	clamSpeechList.push_back("Expression of Political Freedom: Conservatism");
-	clamSpeechList.push_back("Expression of Political Freedom: Fascism");
-	clamSpeechList.push_back("Expression of Political Freedom: Feminism");
-	clamSpeechList.push_back("Expression of Political Freedom: Green politics");
-	clamSpeechList.push_back("Expression of Political Freedom: Hegemonic masculinity");
-	clamSpeechList.push_back("Expression of Political Freedom: Individualism");
-	clamSpeechList.push_back("Expression of Political Freedom: Islamism");
-	clamSpeechList.push_back("Expression of Political Freedom: Left-wing politics");
-	clamSpeechList.push_back("Expression of Political Freedom: Liberalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Libertarianism");
-	clamSpeechList.push_back("Expression of Political Freedom: Monarchism");
-	clamSpeechList.push_back("Expression of Political Freedom: Nationalism");
-	clamSpeechList.push_back("Expression of Political Freedom: Republicanism");
-	clamSpeechList.push_back("Expression of Political Freedom: Right-wing politics");
-	clamSpeechList.push_back("Expression of Political Freedom: Social democracy");
-	clamSpeechList.push_back("Expression of Political Freedom: Socialism");
-	clamSpeechList.push_back("Expression of Political Freedom: Utilitarianism");
+    const char *texts[] = {
+        "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks. -Satoshi Nakamoto",
+        "If you don’t believe me or don’t get it, I don’t have time to try to convince you, sorry. -Satoshi Nakamoto",
+        "Institutional momentum is to stick with the last decision. -Satoshi Nakamoto",
+        "WikiLeaks has kicked the hornet’s nest, and the swarm is headed towards us. -Satoshi Nakamoto",
+        "I am not Dorian Nakamoto. -Satoshi Nakamoto",
+        "It is regulated by algorithm instead of being regulated by government bureaucracies. Un-corrupted. -Andreas Antonopolous",
+        "...if a government bans bitcoin it will instantly be more credible as an alternative choice. -Andreas Antonopolous",
+        "Bitcoin will survive the banking regulators and oppressive governments. The converse however is unlikely. -Andreas Antonopolous",
+        "Countries rejecting bitcoin reminds me of the time when countries were resisting the Internet. -Andreas Antonopolous",
+        "Most people are yet to understand how disruptive the Bitcoin technology really is. -Andreas Antonopolous",
+        "Bitcoin’s success is owed to creativity and innovation. It has nothing to do with the government’s endorsement -Andreas Antonopolous",
+        "Bitcoin is global, decentralized and unstoppable. Let government try, it will be hilarious to watch. -Andreas Antonopolous",
+        "When the regulators come to regulate Bitcoin for your own good, your reply should be ‘Fuck Off! -Andreas Antonopolous",
+        "Expression of Religious Freedom: The Great CLAM",
+        "Expression of Religious Freedom: Atheism",
+        "Expression of Religious Freedom: Agnosticism",
+        "Expression of Religious Freedom: Bábism",
+        "Expression of Religious Freedom: Bahá'í Faith",
+        "Expression of Religious Freedom: Christianity",
+        "Expression of Religious Freedom: Mormonism",
+        "Expression of Religious Freedom: Gnosticism",
+        "Expression of Religious Freedom: Islam",
+        "Expression of Religious Freedom: Druze",
+        "Expression of Religious Freedom: Judaism",
+        "Expression of Religious Freedom: Black Hebrew Israelites",
+        "Expression of Religious Freedom: Rastafari",
+        "Expression of Religious Freedom: Mandaeism",
+        "Expression of Religious Freedom: Sabianism",
+        "Expression of Religious Freedom: Shabakism",
+        "Expression of Religious Freedom: Ayyavazhi",
+        "Expression of Religious Freedom: Bhakti",
+        "Expression of Religious Freedom: Buddhism",
+        "Expression of Religious Freedom: Din-e Ilahi",
+        "Expression of Religious Freedom: Hinduism",
+        "Expression of Religious Freedom: Jainism",
+        "Expression of Religious Freedom: Meivazhi",
+        "Expression of Religious Freedom: Sikhism",
+        "Expression of Religious Freedom: Zoroastrianism",
+        "Expression of Religious Freedom: Gnosticism",
+        "Expression of Religious Freedom: Bábí",
+        "Expression of Religious Freedom: Yazdânism",
+        "Expression of Religious Freedom: Confucianism",
+        "Expression of Religious Freedom: Shinto",
+        "Expression of Religious Freedom: Taoism",
+        "Expression of Religious Freedom: Chan Buddhism",
+        "Expression of Religious Freedom: Chinese Folk",
+        "Expression of Religious Freedom: Falun Gong",
+        "Expression of Religious Freedom: Yiguandao",
+        "Expression of Religious Freedom: Mohism",
+        "Expression of Religious Freedom: Xiantiandao",
+        "Expression of Religious Freedom: Cheondoism",
+        "Expression of Religious Freedom: Daejongism",
+        "Expression of Religious Freedom: Daesun Jinrihoe",
+        "Expression of Religious Freedom: Gasin",
+        "Expression of Religious Freedom: Jeung San Do",
+        "Expression of Religious Freedom: Juche",
+        "Expression of Religious Freedom: Korean Shamanism",
+        "Expression of Religious Freedom: Suwunism",
+        "Expression of Religious Freedom: Batuque",
+        "Expression of Religious Freedom: Candomblé",
+        "Expression of Religious Freedom: Dahomey Mythology",
+        "Expression of Religious Freedom: Haitian Mythology",
+        "Expression of Religious Freedom: Kumina",
+        "Expression of Religious Freedom: Macumba",
+        "Expression of Religious Freedom: Mami Wata",
+        "Expression of Religious Freedom: Obeah",
+        "Expression of Religious Freedom: Oyotunji",
+        "Expression of Religious Freedom: Palo",
+        "Expression of Religious Freedom: Quimbanda",
+        "Expression of Religious Freedom: Santería",
+        "Expression of Religious Freedom: Umbanda",
+        "Expression of Religious Freedom: Vodou",
+        "Expression of Religious Freedom: Akan Mythology",
+        "Expression of Religious Freedom: Ashanti Mythology",
+        "Expression of Religious Freedom: Dahomey Mythology",
+        "Expression of Religious Freedom: Efik Mythology",
+        "Expression of Religious Freedom: Igbo Mythology",
+        "Expression of Religious Freedom: Isoko Mythology",
+        "Expression of Religious Freedom: Yoruba Mythology",
+        "Expression of Religious Freedom: Bushongo Mythology",
+        "Expression of Religious Freedom: Bambuti Mythology",
+        "Expression of Religious Freedom: Lugbara Mythology",
+        "Expression of Religious Freedom: Akamba Mythology",
+        "Expression of Religious Freedom: Dinka Mythology",
+        "Expression of Religious Freedom: Lotuko Mythology",
+        "Expression of Religious Freedom: Masai Mythology",
+        "Expression of Religious Freedom: Khoisan",
+        "Expression of Religious Freedom: Lozi Mythology",
+        "Expression of Religious Freedom: Tumbuka Mythology",
+        "Expression of Religious Freedom: Zulu Mythology",
+        "Expression of Religious Freedom: Abenaki Mythology",
+        "Expression of Religious Freedom: Anishinaabe",
+        "Expression of Religious Freedom: Aztec Mythology",
+        "Expression of Religious Freedom: Blackfoot Mythology",
+        "Expression of Religious Freedom: Cherokee Mythology",
+        "Expression of Religious Freedom: Chickasaw Mythology",
+        "Expression of Religious Freedom: Choctaw Mythology",
+        "Expression of Religious Freedom: Creek Mythology",
+        "Expression of Religious Freedom: Crow Mythology",
+        "Expression of Religious Freedom: Ghost Dance",
+        "Expression of Religious Freedom: Guarani Mythology",
+        "Expression of Religious Freedom: Haida Mythology",
+        "Expression of Religious Freedom: Ho-Chunk Mythology",
+        "Expression of Religious Freedom: Hopi Mythology",
+        "Expression of Religious Freedom: Inca Mythology",
+        "Expression of Religious Freedom: Indian Shaker",
+        "Expression of Religious Freedom: Inuit Mythology",
+        "Expression of Religious Freedom: Iroquois Mythology",
+        "Expression of Religious Freedom: Keetoowah Nighthawk",
+        "Expression of Religious Freedom: Kuksu",
+        "Expression of Religious Freedom: Kwakiutl Mythology",
+        "Expression of Religious Freedom: Lakota Mythology",
+        "Expression of Religious Freedom: Leni Lenape Mythology",
+        "Expression of Religious Freedom: Longhouse",
+        "Expression of Religious Freedom: Mapuche Mythology",
+        "Expression of Religious Freedom: Maya Mythology",
+        "Expression of Religious Freedom: Midewiwin",
+        "Expression of Religious Freedom: Miwok",
+        "Expression of Religious Freedom: Native American",
+        "Expression of Religious Freedom: Navajo Mythology",
+        "Expression of Religious Freedom: Nootka Mythology",
+        "Expression of Religious Freedom: Ohlone Mythology",
+        "Expression of Religious Freedom: Olmec Mythology",
+        "Expression of Religious Freedom: Pomo Mythology",
+        "Expression of Religious Freedom: Pawnee Mythology",
+        "Expression of Religious Freedom: Salish Mythology",
+        "Expression of Religious Freedom: Selk'nam",
+        "Expression of Religious Freedom: Seneca Mythology",
+        "Expression of Religious Freedom: Southeastern Ceremonial",
+        "Expression of Religious Freedom: Sun Dance",
+        "Expression of Religious Freedom: Tsimshian Mythology",
+        "Expression of Religious Freedom: Urarina",
+        "Expression of Religious Freedom: Ute Mythology",
+        "Expression of Religious Freedom: Wyandot",
+        "Expression of Religious Freedom: Zuni Mythology",
+        "Expression of Religious Freedom: Benzhuism",
+        "Expression of Religious Freedom: Bimoism",
+        "Expression of Religious Freedom: Bon",
+        "Expression of Religious Freedom: Chinese Mythology",
+        "Expression of Religious Freedom: Japanese Mythology",
+        "Expression of Religious Freedom: Korean Shamanism",
+        "Expression of Religious Freedom: Koshinto",
+        "Expression of Religious Freedom: Manchu Shamanism",
+        "Expression of Religious Freedom: Mun",
+        "Expression of Religious Freedom: Siberian Shamanism",
+        "Expression of Religious Freedom: Tengrism",
+        "Expression of Religious Freedom: Ua Dab",
+        "Expression of Religious Freedom: Vietnamese Folk",
+        "Expression of Religious Freedom: Asatru",
+        "Expression of Religious Freedom: Estonian Mythology",
+        "Expression of Religious Freedom: Eskimo",
+        "Expression of Religious Freedom: Finnish Mythology",
+        "Expression of Religious Freedom: Finnish Paganism",
+        "Expression of Religious Freedom: Marla",
+        "Expression of Religious Freedom: Odinism",
+        "Expression of Religious Freedom: Romuva",
+        "Expression of Religious Freedom: Hungarian Folk",
+        "Expression of Religious Freedom: Sami",
+        "Expression of Religious Freedom: Wotanism",
+        "Expression of Religious Freedom: Australian Aboriginal Mythology",
+        "Expression of Religious Freedom: Balinese Mythology",
+        "Expression of Religious Freedom: Javanese",
+        "Expression of Religious Freedom: Melanesian Mythology",
+        "Expression of Religious Freedom: Micronesian Mythology",
+        "Expression of Religious Freedom: Modekngei",
+        "Expression of Religious Freedom: Nauruan",
+        "Expression of Religious Freedom: Philippine Mythology",
+        "Expression of Religious Freedom: Anito",
+        "Expression of Religious Freedom: Gabâ",
+        "Expression of Religious Freedom: Kulam",
+        "Expression of Religious Freedom: Polynesian Mythology",
+        "Expression of Religious Freedom: Hawaiian Mythology",
+        "Expression of Religious Freedom: Maori Mythology",
+        "Expression of Religious Freedom: Rapa Nui Mythology",
+        "Expression of Religious Freedom: Moai",
+        "Expression of Religious Freedom: Tangata Manu",
+        "Expression of Religious Freedom: John Frum",
+        "Expression of Religious Freedom: Johnson Cult",
+        "Expression of Religious Freedom: Prince Philip Movement",
+        "Expression of Religious Freedom: Vailala Madness",
+        "Expression of Religious Freedom: Ancient Egyptian",
+        "Expression of Religious Freedom: Ancient Semitic",
+        "Expression of Religious Freedom: Canaanite Mythology",
+        "Expression of Religious Freedom: Mesopotamian Mythology",
+        "Expression of Religious Freedom: Arabian Mythology",
+        "Expression of Religious Freedom: Assyrian Mythology",
+        "Expression of Religious Freedom: Babylonian Mythology",
+        "Expression of Religious Freedom: Chaldean Mythology",
+        "Expression of Religious Freedom: Sumerian Mythology",
+        "Expression of Religious Freedom: Proto-Indo-Iranian",
+        "Expression of Religious Freedom: Historical Vedic",
+        "Expression of Religious Freedom: Iranian Mythology",
+        "Expression of Religious Freedom: Armenian Mythology",
+        "Expression of Religious Freedom: Baltic Polytheism",
+        "Expression of Religious Freedom: Celtic Polytheism",
+        "Expression of Religious Freedom: Brythonic Mythology",
+        "Expression of Religious Freedom: Gaelic Mythology",
+        "Expression of Religious Freedom: Germanic Polytheism",
+        "Expression of Religious Freedom: Anglo-Saxon",
+        "Expression of Religious Freedom: Continental Germanic",
+        "Expression of Religious Freedom: Norse",
+        "Expression of Religious Freedom: Greek Polytheism",
+        "Expression of Religious Freedom: Hittite Mythology",
+        "Expression of Religious Freedom: Persian Mythology",
+        "Expression of Religious Freedom: Roman Polytheism",
+        "Expression of Religious Freedom: Slavic Polytheism",
+        "Expression of Religious Freedom: Eleusinian Mysteries",
+        "Expression of Religious Freedom: Mithraism",
+        "Expression of Religious Freedom: Orphism",
+        "Expression of Religious Freedom: Pythagoreanism",
+        "Expression of Religious Freedom: Gallo-Roman",
+        "Expression of Religious Freedom: Estonian Polytheism",
+        "Expression of Religious Freedom: Finnish Polytheism",
+        "Expression of Religious Freedom: Hungarian Polytheism",
+        "Expression of Religious Freedom: Hindu Mysticism",
+        "Expression of Religious Freedom: Tantra",
+        "Expression of Religious Freedom: Vaastu Shastra",
+        "Expression of Religious Freedom: Moorish Science",
+        "Expression of Religious Freedom: Moorish Orthodox",
+        "Expression of Religious Freedom: Neoplatonism",
+        "Expression of Religious Freedom: Pythagoreanism",
+        "Expression of Religious Freedom: Neopythagoreanism",
+        "Expression of Religious Freedom: Theosophy",
+        "Expression of Religious Freedom: Sufism",
+        "Expression of Religious Freedom: Hermeticism",
+        "Expression of Religious Freedom: Builders of the Adytum",
+        "Expression of Religious Freedom: Fraternitas Saturni",
+        "Expression of Religious Freedom: Fraternity of the Inner Light",
+        "Expression of Religious Freedom: Hermetic Order of the Golden Dawn",
+        "Expression of Religious Freedom: The Open Source Order of the Golden Dawn",
+        "Expression of Religious Freedom: Ordo Aurum Solis",
+        "Expression of Religious Freedom: Rosicrucian",
+        "Expression of Religious Freedom: Servants of the Light",
+        "Expression of Religious Freedom: Ordo Templi Orientis",
+        "Expression of Religious Freedom: Ecclesia Gnostica Catholica",
+        "Expression of Religious Freedom: Typhonian Order",
+        "Expression of Religious Freedom: Anthroposophy",
+        "Expression of Religious Freedom: Behmenism",
+        "Expression of Religious Freedom: Christian Kabbalah",
+        "Expression of Religious Freedom: Martinism",
+        "Expression of Religious Freedom: Ceremonial Magic",
+        "Expression of Religious Freedom: Enochian Magic",
+        "Expression of Religious Freedom: Goetic Magic",
+        "Expression of Religious Freedom: Chaos Magic",
+        "Expression of Religious Freedom: Illuminates of Thanateros",
+        "Expression of Religious Freedom: Thee Temple ov Psychick Youth",
+        "Expression of Religious Freedom: Hoodoo",
+        "Expression of Religious Freedom: New Orleans Voodoo",
+        "Expression of Religious Freedom: Kulam",
+        "Expression of Religious Freedom: Pow-Wow",
+        "Expression of Religious Freedom: Seiðr",
+        "Expression of Religious Freedom: Magick",
+        "Expression of Religious Freedom: Witchcraft",
+        "Expression of Religious Freedom: Adonism",
+        "Expression of Religious Freedom: Church of All Worlds",
+        "Expression of Religious Freedom: Church of Aphrodite",
+        "Expression of Religious Freedom: Feraferia",
+        "Expression of Religious Freedom: Neo-Druidism",
+        "Expression of Religious Freedom: Reformed Druids",
+        "Expression of Religious Freedom: Neoshamanism",
+        "Expression of Religious Freedom: Neo-völkisch",
+        "Expression of Religious Freedom: Technopaganism",
+        "Expression of Religious Freedom: Wicca",
+        "Expression of Religious Freedom: British Traditional Wicca",
+        "Expression of Religious Freedom: Gardnerian Wicca",
+        "Expression of Religious Freedom: Alexandrian Wicca",
+        "Expression of Religious Freedom: Central Valley Wicca",
+        "Expression of Religious Freedom: Algard Wicca",
+        "Expression of Religious Freedom: Chthonioi Alexandrian Wicca",
+        "Expression of Religious Freedom: Blue Star Wicca",
+        "Expression of Religious Freedom: Eclectic Wicca",
+        "Expression of Religious Freedom: Celtic Wicca",
+        "Expression of Religious Freedom: Saxon Wicca",
+        "Expression of Religious Freedom: Dianic Wicca",
+        "Expression of Religious Freedom: McFarland Dianic Wicca",
+        "Expression of Religious Freedom: Faery Wicca",
+        "Expression of Religious Freedom: Correllian Nativist",
+        "Expression of Religious Freedom: Georgian Wicca",
+        "Expression of Religious Freedom: Odyssean Wicca",
+        "Expression of Religious Freedom: Covenant of the Goddess",
+        "Expression of Religious Freedom: Baltic Neopaganism",
+        "Expression of Religious Freedom: Celtic Neopaganism",
+        "Expression of Religious Freedom: Finnish Neopaganism",
+        "Expression of Religious Freedom: Germanic Neopaganism",
+        "Expression of Religious Freedom: Hellenismos",
+        "Expression of Religious Freedom: Kemetism",
+        "Expression of Religious Freedom: Roman Neopaganism",
+        "Expression of Religious Freedom: Semitic Neopaganism",
+        "Expression of Religious Freedom: Slavic Neopaganism",
+        "Expression of Religious Freedom: Taaraism",
+        "Expression of Religious Freedom: Zalmoxianism",
+        "Expression of Religious Freedom: Creativity",
+        "Expression of Religious Freedom: Huna",
+        "Expression of Religious Freedom: Raëlism",
+        "Expression of Religious Freedom: Scientology",
+        "Expression of Religious Freedom: Unitarian Universalist",
+        "Expression of Religious Freedom: Christian Science",
+        "Expression of Religious Freedom: Church Universal and Triumphant",
+        "Expression of Religious Freedom: Divine Science",
+        "Expression of Religious Freedom: Religious Science",
+        "Expression of Religious Freedom: Unity Church",
+        "Expression of Religious Freedom: Jewish Science",
+        "Expression of Religious Freedom: Seicho-no-Ie",
+        "Expression of Religious Freedom: Church of World Messianity",
+        "Expression of Religious Freedom: Happy Science",
+        "Expression of Religious Freedom: Konkokyo",
+        "Expression of Religious Freedom: Oomoto",
+        "Expression of Religious Freedom: PL Kyodan",
+        "Expression of Religious Freedom: Seicho-No-Ie",
+        "Expression of Religious Freedom: Tenrikyo",
+        "Expression of Religious Freedom: Satanism",
+        "Expression of Religious Freedom: LaVeyan Satanism",
+        "Expression of Religious Freedom: Theistic Satanism",
+        "Expression of Religious Freedom: Our Lady of Endor Coven",
+        "Expression of Religious Freedom: Demonolatry",
+        "Expression of Religious Freedom: Luciferianism",
+        "Expression of Religious Freedom: Setianism",
+        "Expression of Religious Freedom: Discordianism",
+        "Expression of Religious Freedom: Ethical Culture",
+        "Expression of Religious Freedom: Freethought",
+        "Expression of Religious Freedom: Jesusism",
+        "Expression of Religious Freedom: Naturalistic Pantheism",
+        "Expression of Religious Freedom: Secular Humanism",
+        "Expression of Religious Freedom: Yoism",
+        "Expression of Religious Freedom: Church of Euthanasia",
+        "Expression of Religious Freedom: Pastafarianism",
+        "Expression of Religious Freedom: Church of the SubGenius",
+        "Expression of Religious Freedom: Dudeism",
+        "Expression of Religious Freedom: Iglesia Maradoniana",
+        "Expression of Religious Freedom: Invisible Pink Unicorn",
+        "Expression of Religious Freedom: Jediism",
+        "Expression of Religious Freedom: Kibology",
+        "Expression of Religious Freedom: Landover Baptist",
+        "Expression of Religious Freedom: Last Thursdayism",
+        "Expression of Religious Freedom: Cult of the Supreme Being",
+        "Expression of Religious Freedom: Deism",
+        "Expression of Religious Freedom: Eckankar",
+        "Expression of Religious Freedom: Fourth Way",
+        "Expression of Religious Freedom: Goddess Movement",
+        "Expression of Religious Freedom: Humanism",
+        "Expression of Religious Freedom: The New Message from God",
+        "Expression of Religious Freedom: Nuwaubian Nation",
+        "Expression of Religious Freedom: Open-source",
+        "Expression of Religious Freedom: Plurationalism",
+        "Expression of Religious Freedom: Spiritism",
+        "Expression of Religious Freedom: Subud",
+        "Expression of Religious Freedom: Universal Life",
+        "Expression of Political Freedom: Libertarianism",
+        "Expression of Political Freedom: Far-left",
+        "Expression of Political Freedom: Left-wing",
+        "Expression of Political Freedom: Center-left",
+        "Expression of Political Freedom: Center",
+        "Expression of Political Freedom: Center-right",
+        "Expression of Political Freedom: Right-wing",
+        "Expression of Political Freedom: Far-right",
+        "Expression of Political Freedom: Radical left",
+        "Expression of Political Freedom: Radical center",
+        "Expression of Political Freedom: Radical right",
+        "Expression of Political Freedom: Radicalism",
+        "Expression of Political Freedom: Liberalism",
+        "Expression of Political Freedom: Moderate",
+        "Expression of Political Freedom: Conservatism",
+        "Expression of Political Freedom: Reactionism",
+        "Expression of Political Freedom: Libertarianism",
+        "Expression of Political Freedom: Syncretic",
+        "Expression of Political Freedom: Extremism",
+        "Expression of Political Freedom: Partisan",
+        "Expression of Political Freedom: Fundamentalism",
+        "Expression of Political Freedom: Fanaticism",
+        "Expression of Political Freedom: Dominant-party",
+        "Expression of Political Freedom: Non-partisan",
+        "Expression of Political Freedom: Single-party",
+        "Expression of Political Freedom: Two-party",
+        "Expression of Political Freedom: Multi-party",
+        "Expression of Political Freedom: Minority Government",
+        "Expression of Political Freedom: Confidence & Supply",
+        "Expression of Political Freedom: Rainbow Coalition",
+        "Expression of Political Freedom: Full Coalition",
+        "Expression of Political Freedom: Majority Government",
+        "Expression of Political Freedom: Grand Coalition",
+        "Expression of Political Freedom: National Unity Government",
+        "Expression of Political Freedom: Confederation",
+        "Expression of Political Freedom: Federation",
+        "Expression of Political Freedom: Hegemony",
+        "Expression of Political Freedom: Empire",
+        "Expression of Political Freedom: Unitary state",
+        "Expression of Political Freedom: Autocracy",
+        "Expression of Political Freedom: Despotism",
+        "Expression of Political Freedom: Dictatorship",
+        "Expression of Political Freedom: Totalitarianism",
+        "Expression of Political Freedom: Direct Democracy",
+        "Expression of Political Freedom: Representative Democracy",
+        "Expression of Political Freedom: Absolute Monarchy",
+        "Expression of Political Freedom: Constitutional Monarchy",
+        "Expression of Political Freedom: Aristocracy",
+        "Expression of Political Freedom: Military junta",
+        "Expression of Political Freedom: Plutocracy",
+        "Expression of Political Freedom: Stratocracy",
+        "Expression of Political Freedom: Timocracy",
+        "Expression of Political Freedom: Anarchy",
+        "Expression of Political Freedom: Anocracy",
+        "Expression of Political Freedom: Kritarchy",
+        "Expression of Political Freedom: Particracy",
+        "Expression of Political Freedom: Republic",
+        "Expression of Political Freedom: Theocracy",
+        "Expression of Political Freedom: Anarchism",
+        "Expression of Political Freedom: Anarchism without adjectives",
+        "Expression of Political Freedom: Individualist anarchism",
+        "Expression of Political Freedom: Religious anarchism",
+        "Expression of Political Freedom: Social anarchism",
+        "Expression of Political Freedom: Anarchist communism",
+        "Expression of Political Freedom: Communism",
+        "Expression of Political Freedom: Marxism",
+        "Expression of Political Freedom: Revisionism",
+        "Expression of Political Freedom: Leninism",
+        "Expression of Political Freedom: Anti-revisionism",
+        "Expression of Political Freedom: Conservatism",
+        "Expression of Political Freedom: Environmentalism",
+        "Expression of Political Freedom: Gender equality",
+        "Expression of Political Freedom: Feminism",
+        "Expression of Political Freedom: Religious feminism",
+        "Expression of Political Freedom: LGBT",
+        "Expression of Political Freedom: Masculism",
+        "Expression of Political Freedom: Libertarianism",
+        "Expression of Political Freedom: Libertarian socialism",
+        "Expression of Political Freedom: Right libertarianism",
+        "Expression of Political Freedom: Fascism",
+        "Expression of Political Freedom: Zionism",
+        "Expression of Political Freedom: Unification movements",
+        "Expression of Political Freedom: Buddhism",
+        "Expression of Political Freedom: Christianity",
+        "Expression of Political Freedom: Hinduism",
+        "Expression of Political Freedom: Islam",
+        "Expression of Political Freedom: Judaism",
+        "Expression of Political Freedom: Mormonism",
+        "Expression of Political Freedom: Sikhism",
+        "Expression of Political Freedom: Socialism",
+        "Expression of Political Freedom: Libertarian Marxism",
+        "Expression of Political Freedom: Reformist socialism",
+        "Expression of Political Freedom: Democratic socialism",
+        "Expression of Political Freedom: Social democracy",
+        "Expression of Political Freedom: Religious socialism",
+        "Expression of Political Freedom: Revolutionary socialism",
+        "Expression of Political Freedom: Synthesis anarchism",
+        "Expression of Political Freedom: Anarchist naturism",
+        "Expression of Political Freedom: Egoist anarchism",
+        "Expression of Political Freedom: Freiwirtschaft",
+        "Expression of Political Freedom: Geoanarchism",
+        "Expression of Political Freedom: Inclusive Democracy",
+        "Expression of Political Freedom: Individualist anarchism",
+        "Expression of Political Freedom: Insurrectionary anarchism",
+        "Expression of Political Freedom: Illegalism",
+        "Expression of Political Freedom: Mutualism",
+        "Expression of Political Freedom: Buddhist anarchism",
+        "Expression of Political Freedom: Christian anarchism",
+        "Expression of Political Freedom: Islamic anarchism",
+        "Expression of Political Freedom: Jewish anarchism",
+        "Expression of Political Freedom: Anarcha-feminism",
+        "Expression of Political Freedom: Anarcho-syndicalism",
+        "Expression of Political Freedom: Collectivist anarchism",
+        "Expression of Political Freedom: Participatory economics",
+        "Expression of Political Freedom: Social anarchism",
+        "Expression of Political Freedom: Social ecology",
+        "Expression of Political Freedom: Magonism",
+        "Expression of Political Freedom: Platformism",
+        "Expression of Political Freedom: Autarchism",
+        "Expression of Political Freedom: Autonomism",
+        "Expression of Political Freedom: Crypto-anarchism",
+        "Expression of Political Freedom: Indigenism",
+        "Expression of Political Freedom: Infoanarchism",
+        "Expression of Political Freedom: Makhnovism",
+        "Expression of Political Freedom: National-Anarchism",
+        "Expression of Political Freedom: Panarchism",
+        "Expression of Political Freedom: Platformism",
+        "Expression of Political Freedom: Post-anarchism",
+        "Expression of Political Freedom: Post-left anarchy",
+        "Expression of Political Freedom: Queer anarchism",
+        "Expression of Political Freedom: Workerism",
+        "Expression of Political Freedom: Pluralism",
+        "Expression of Political Freedom: Stateless communism",
+        "Expression of Political Freedom: Revolutionary socialism",
+        "Expression of Political Freedom: Neo-Marxism",
+        "Expression of Political Freedom: Classical Marxism",
+        "Expression of Political Freedom: Autonomism",
+        "Expression of Political Freedom: Luxemburgism",
+        "Expression of Political Freedom: Left communism",
+        "Expression of Political Freedom: Communization",
+        "Expression of Political Freedom: Council communism",
+        "Expression of Political Freedom: Titoism",
+        "Expression of Political Freedom: Castroism",
+        "Expression of Political Freedom: Religious communism",
+        "Expression of Political Freedom: Christian communism",
+        "Expression of Political Freedom: Anarchist communism",
+        "Expression of Political Freedom: Platformism",
+        "Expression of Political Freedom: Eurocommunism",
+        "Expression of Political Freedom: Orthodox Marxism",
+        "Expression of Political Freedom: Leninism",
+        "Expression of Political Freedom: Marxism–Leninism",
+        "Expression of Political Freedom: Guevarism",
+        "Expression of Political Freedom: World communism",
+        "Expression of Political Freedom: Primitive communism",
+        "Expression of Political Freedom: Scientific communism",
+        "Expression of Political Freedom: Stalinism",
+        "Expression of Political Freedom: Maoism",
+        "Expression of Political Freedom: Ho Chi Minh Thought",
+        "Expression of Political Freedom: Hoxhaism",
+        "Expression of Political Freedom: Conservative liberalism",
+        "Expression of Political Freedom: Cultural conservatism",
+        "Expression of Political Freedom: Liberal conservatism",
+        "Expression of Political Freedom: Libertarian conservatism",
+        "Expression of Political Freedom: National conservatism",
+        "Expression of Political Freedom: Neoconservatism",
+        "Expression of Political Freedom: Paleoconservatism",
+        "Expression of Political Freedom: Social conservatism",
+        "Expression of Political Freedom: Agrarianism",
+        "Expression of Political Freedom: Bioconservatism",
+        "Expression of Political Freedom: Black conservatism",
+        "Expression of Political Freedom: Carlism",
+        "Expression of Political Freedom: Civic Conservatism",
+        "Expression of Political Freedom: Christian democracy",
+        "Expression of Political Freedom: Communitarianism",
+        "Expression of Political Freedom: Fiscal conservatism",
+        "Expression of Political Freedom: Green conservatism",
+        "Expression of Political Freedom: Latin Conservatism",
+        "Expression of Political Freedom: Monarchism",
+        "Expression of Political Freedom: Right-libertarianism",
+        "Expression of Political Freedom: Roman Catholic conservatism",
+        "Expression of Political Freedom: Theoconservatism",
+        "Expression of Political Freedom: Toryism",
+        "Expression of Political Freedom: Traditionalist conservatism",
+        "Expression of Political Freedom: Reactionary",
+        "Expression of Political Freedom: Anarchist naturism",
+        "Expression of Political Freedom: Anarcho-primitivism",
+        "Expression of Political Freedom: Bioregionalism",
+        "Expression of Political Freedom: Bright green environmentalism",
+        "Expression of Political Freedom: Deep ecology",
+        "Expression of Political Freedom: Eco-capitalism",
+        "Expression of Political Freedom: Ecofascism",
+        "Expression of Political Freedom: Ecofeminism",
+        "Expression of Political Freedom: Eco-socialism",
+        "Expression of Political Freedom: Environmentalism",
+        "Expression of Political Freedom: Free-market environmentalism",
+        "Expression of Political Freedom: Green anarchism",
+        "Expression of Political Freedom: Green conservatism",
+        "Expression of Political Freedom: Green liberalism",
+        "Expression of Political Freedom: Green libertarianism",
+        "Expression of Political Freedom: Green politics",
+        "Expression of Political Freedom: Green municipalism",
+        "Expression of Political Freedom: Green syndicalism",
+        "Expression of Political Freedom: Social ecology",
+        "Expression of Political Freedom: Cultural feminism",
+        "Expression of Political Freedom: Ecofeminism",
+        "Expression of Political Freedom: Feminism",
+        "Expression of Political Freedom: Individualist feminism",
+        "Expression of Political Freedom: Lesbian feminism",
+        "Expression of Political Freedom: Liberal feminism",
+        "Expression of Political Freedom: Marxist feminism",
+        "Expression of Political Freedom: Masculism",
+        "Expression of Political Freedom: Postmodern feminism",
+        "Expression of Political Freedom: Psychoanalytic feminism",
+        "Expression of Political Freedom: Radical feminism",
+        "Expression of Political Freedom: Separatist feminism",
+        "Expression of Political Freedom: Socialist feminism",
+        "Expression of Political Freedom: Womanism",
+        "Expression of Political Freedom: Religious feminism",
+        "Expression of Political Freedom: Christian feminism",
+        "Expression of Political Freedom: Islamic feminism",
+        "Expression of Political Freedom: Jewish feminism",
+        "Expression of Political Freedom: LGBT social movements",
+        "Expression of Political Freedom: Classical liberalism",
+        "Expression of Political Freedom: Conservative liberalism",
+        "Expression of Political Freedom: Economic liberalism",
+        "Expression of Political Freedom: Individualism",
+        "Expression of Political Freedom: Liberal feminism",
+        "Expression of Political Freedom: Liberal socialism",
+        "Expression of Political Freedom: Liberalism",
+        "Expression of Political Freedom: Market liberalism",
+        "Expression of Political Freedom: National liberalism",
+        "Expression of Political Freedom: Neoliberalism",
+        "Expression of Political Freedom: Ordoliberalism",
+        "Expression of Political Freedom: Paleoliberalism",
+        "Expression of Political Freedom: Social liberalism",
+        "Expression of Political Freedom: Colonial liberalism",
+        "Expression of Political Freedom: Fourierism",
+        "Expression of Political Freedom: Collectivist anarchism",
+        "Expression of Political Freedom: Anarcho-communism",
+        "Expression of Political Freedom: Anarcho-syndicalism",
+        "Expression of Political Freedom: Guild socialism",
+        "Expression of Political Freedom: Revolutionary syndicalism",
+        "Expression of Political Freedom: Libertarian Marxism",
+        "Expression of Political Freedom: Libertarian socialism",
+        "Expression of Political Freedom: Left communism",
+        "Expression of Political Freedom: Council communism",
+        "Expression of Political Freedom: Platformism",
+        "Expression of Political Freedom: Gandhian economics",
+        "Expression of Political Freedom: Situationist International",
+        "Expression of Political Freedom: Autonomism",
+        "Expression of Political Freedom: Social ecology",
+        "Expression of Political Freedom: Participism",
+        "Expression of Political Freedom: Inclusive Democracy",
+        "Expression of Political Freedom: Zapatismo",
+        "Expression of Political Freedom: Insurrectionary anarchism",
+        "Expression of Political Freedom: Communalism",
+        "Expression of Political Freedom: Communization",
+        "Expression of Political Freedom: Anarcho-capitalism",
+        "Expression of Political Freedom: Classical liberalism",
+        "Expression of Political Freedom: Libertarian conservatism",
+        "Expression of Political Freedom: Minarchism",
+        "Expression of Political Freedom: Objectivism",
+        "Expression of Political Freedom: Paleolibertarianism",
+        "Expression of Political Freedom: Right libertarianism",
+        "Expression of Political Freedom: Voluntaryism",
+        "Expression of Political Freedom: Agorism",
+        "Expression of Political Freedom: Cultural liberalism",
+        "Expression of Political Freedom: Geolibertarianism",
+        "Expression of Political Freedom: Green liberalism",
+        "Expression of Political Freedom: Individualist feminism",
+        "Expression of Political Freedom: Progressivism",
+        "Expression of Political Freedom: Radicalism",
+        "Expression of Political Freedom: Internationalism",
+        "Expression of Political Freedom: Liberal nationalism",
+        "Expression of Political Freedom: Nationalism",
+        "Expression of Political Freedom: Romantic nationalism",
+        "Expression of Political Freedom: Austrofascism",
+        "Expression of Political Freedom: Chilean Fascism",
+        "Expression of Political Freedom: Clerical fascism",
+        "Expression of Political Freedom: Ecofascism",
+        "Expression of Political Freedom: Falangism",
+        "Expression of Political Freedom: Greek fascism",
+        "Expression of Political Freedom: Italian fascism",
+        "Expression of Political Freedom: Iron Guard",
+        "Expression of Political Freedom: Japanese fascism",
+        "Expression of Political Freedom: Nazism",
+        "Expression of Political Freedom: Neo-Fascism",
+        "Expression of Political Freedom: Rexism",
+        "Expression of Political Freedom: Strasserism",
+        "Expression of Political Freedom: Ustaše",
+        "Expression of Political Freedom: Zbor",
+        "Expression of Political Freedom: Kemalism",
+        "Expression of Political Freedom: Brazilian Integralism",
+        "Expression of Political Freedom: Gaullism",
+        "Expression of Political Freedom: Irish Nationalism",
+        "Expression of Political Freedom: Irish Republicanism",
+        "Expression of Political Freedom: Peronism",
+        "Expression of Political Freedom: Portuguese Integralism",
+        "Expression of Political Freedom: Baathism",
+        "Expression of Political Freedom: Nasserism",
+        "Expression of Political Freedom: Zionism",
+        "Expression of Political Freedom: Labor Zionism",
+        "Expression of Political Freedom: Religious Zionism",
+        "Expression of Political Freedom: Revisionist Zionism",
+        "Expression of Political Freedom: Neo-Zionism",
+        "Expression of Political Freedom: African socialism",
+        "Expression of Political Freedom: Arab socialism",
+        "Expression of Political Freedom: Pan-Africanism",
+        "Expression of Political Freedom: Pan-Arabism",
+        "Expression of Political Freedom: Pan-Iranism",
+        "Expression of Political Freedom: Pan-European nationalism",
+        "Expression of Political Freedom: Arab nationalism",
+        "Expression of Political Freedom: Black nationalism",
+        "Expression of Political Freedom: Chinese nationalism",
+        "Expression of Political Freedom: Corporatism",
+        "Expression of Political Freedom: Left-wing nationalism",
+        "Expression of Political Freedom: National-Anarchism",
+        "Expression of Political Freedom: National Bolshevism",
+        "Expression of Political Freedom: National syndicalism",
+        "Expression of Political Freedom: Patriotism",
+        "Expression of Political Freedom: Producerism",
+        "Expression of Political Freedom: Queer nationalism",
+        "Expression of Political Freedom: White nationalism",
+        "Expression of Political Freedom: Theocracy",
+        "Expression of Political Freedom: Buddhist socialism",
+        "Expression of Political Freedom: Christian anarchism",
+        "Expression of Political Freedom: Christian communism",
+        "Expression of Political Freedom: Christian democracy",
+        "Expression of Political Freedom: Christian feminism",
+        "Expression of Political Freedom: Christian socialism",
+        "Expression of Political Freedom: Christian Left",
+        "Expression of Political Freedom: Clerical fascism",
+        "Expression of Political Freedom: Liberation Theology",
+        "Expression of Political Freedom: Political Catholicism",
+        "Expression of Political Freedom: Popolarismo",
+        "Expression of Political Freedom: Christian Right",
+        "Expression of Political Freedom: Christian Zionism",
+        "Expression of Political Freedom: Christofascism",
+        "Expression of Political Freedom: Dominionism",
+        "Expression of Political Freedom: Caesaropapism",
+        "Expression of Political Freedom: Ultramontanism",
+        "Expression of Political Freedom: Hindu nationalism",
+        "Expression of Political Freedom: Islamic democracy",
+        "Expression of Political Freedom: Islamic socialism",
+        "Expression of Political Freedom: Islamism",
+        "Expression of Political Freedom: Khilafat",
+        "Expression of Political Freedom: Panislamism",
+        "Expression of Political Freedom: Jewish anarchism",
+        "Expression of Political Freedom: Jewish feminism",
+        "Expression of Political Freedom: Religious Zionism",
+        "Expression of Political Freedom: Theodemocracy",
+        "Expression of Political Freedom: United Order",
+        "Expression of Political Freedom: Khalistan movement",
+        "Expression of Political Freedom: Fourierism",
+        "Expression of Political Freedom: Guild socialism",
+        "Expression of Political Freedom: Revolutionary syndicalism",
+        "Expression of Political Freedom: Gandhian economics",
+        "Expression of Political Freedom: Zapatismo",
+        "Expression of Political Freedom: Autonomism",
+        "Expression of Political Freedom: Situationist International",
+        "Expression of Political Freedom: Libertarian Marxism",
+        "Expression of Political Freedom: Luxemburgism",
+        "Expression of Political Freedom: Left communism",
+        "Expression of Political Freedom: Council communism",
+        "Expression of Political Freedom: Communization",
+        "Expression of Political Freedom: Collectivist anarchism",
+        "Expression of Political Freedom: Anarcho-communism",
+        "Expression of Political Freedom: Anarcho-syndicalism",
+        "Expression of Political Freedom: Social anarchism",
+        "Expression of Political Freedom: Platformism",
+        "Expression of Political Freedom: Social ecology",
+        "Expression of Political Freedom: Participism",
+        "Expression of Political Freedom: Inclusive Democracy",
+        "Expression of Political Freedom: Communalism",
+        "Expression of Political Freedom: Bernsteinism",
+        "Expression of Political Freedom: Austromarxism",
+        "Expression of Political Freedom: Bernsteinism",
+        "Expression of Political Freedom: Democratic socialism",
+        "Expression of Political Freedom: Fabianism",
+        "Expression of Political Freedom: Reformism",
+        "Expression of Political Freedom: Market socialism",
+        "Expression of Political Freedom: Neosocialism",
+        "Expression of Political Freedom: Social democracy",
+        "Expression of Political Freedom: State socialism",
+        "Expression of Political Freedom: African socialism",
+        "Expression of Political Freedom: Arab socialism",
+        "Expression of Political Freedom: Bolivarianism",
+        "Expression of Political Freedom: Labor Zionism",
+        "Expression of Political Freedom: Melanesian socialism",
+        "Expression of Political Freedom: Revolutionary democracy",
+        "Expression of Political Freedom: Religious socialism",
+        "Expression of Political Freedom: Liberation Theology",
+        "Expression of Political Freedom: Social capitalism",
+        "Expression of Political Freedom: Socialist feminism",
+        "Expression of Political Freedom: Quotaism",
+        "Expression of Political Freedom: Autonomist Marxism",
+        "Expression of Political Freedom: Castroism",
+        "Expression of Political Freedom: Council communism",
+        "Expression of Political Freedom: De Leonism",
+        "Expression of Political Freedom: Eurocommunism",
+        "Expression of Political Freedom: Guevarism",
+        "Expression of Political Freedom: Hoxhaism",
+        "Expression of Political Freedom: Kautskyism",
+        "Expression of Political Freedom: Left communism",
+        "Expression of Political Freedom: Leninism",
+        "Expression of Political Freedom: Luxemburgism",
+        "Expression of Political Freedom: Maoism",
+        "Expression of Political Freedom: Marxism",
+        "Expression of Political Freedom: Marxism–Leninism",
+        "Expression of Political Freedom: Marxist feminism",
+        "Expression of Political Freedom: Marxist humanism",
+        "Expression of Political Freedom: Neo-marxism",
+        "Expression of Political Freedom: Orthodox Marxism",
+        "Expression of Political Freedom: Situationism",
+        "Expression of Political Freedom: Anti-Revisionism",
+        "Expression of Political Freedom: Titoism",
+        "Expression of Political Freedom: Trotskyism",
+        "Expression of Political Freedom: Western Marxism",
+        "Expression of Political Freedom: Anarcho-syndicalism",
+        "Expression of Political Freedom: Collectivist anarchism",
+        "Expression of Political Freedom: Anarchist communism",
+        "Expression of Political Freedom: Eco-socialism",
+        "Expression of Political Freedom: Social anarchism",
+        "Expression of Political Freedom: Social ecology",
+        "Expression of Political Freedom: Individualist anarchism",
+        "Expression of Political Freedom: Mutualist anarchism",
+        "Expression of Political Freedom: Guild socialism",
+        "Expression of Political Freedom: Libertarian socialism",
+        "Expression of Political Freedom: Sankarism",
+        "Expression of Political Freedom: Syndicalism",
+        "Expression of Political Freedom: Utopian socialism",
+        "Expression of Political Freedom: National Bolshevism",
+        "Expression of Political Freedom: Realism",
+        "Expression of Political Freedom: Authoritarianism",
+        "Expression of Political Freedom: Anarchism",
+        "Expression of Political Freedom: Centrism",
+        "Expression of Political Freedom: Christian democracy",
+        "Expression of Political Freedom: Communism",
+        "Expression of Political Freedom: Communitarianism",
+        "Expression of Political Freedom: Conservatism",
+        "Expression of Political Freedom: Fascism",
+        "Expression of Political Freedom: Feminism",
+        "Expression of Political Freedom: Green politics",
+        "Expression of Political Freedom: Hegemonic masculinity",
+        "Expression of Political Freedom: Individualism",
+        "Expression of Political Freedom: Islamism",
+        "Expression of Political Freedom: Left-wing politics",
+        "Expression of Political Freedom: Liberalism",
+        "Expression of Political Freedom: Libertarianism",
+        "Expression of Political Freedom: Monarchism",
+        "Expression of Political Freedom: Nationalism",
+        "Expression of Political Freedom: Republicanism",
+        "Expression of Political Freedom: Right-wing politics",
+        "Expression of Political Freedom: Social democracy",
+        "Expression of Political Freedom: Socialism",
+        "Expression of Political Freedom: Utilitarianism"
+    };
+
+    unsigned int size = sizeof(texts) / sizeof(texts[0]);
+
+    for (unsigned int i = 0; i < size; i++)
+        clamSpeechList.push_back(texts[i]);
 }
