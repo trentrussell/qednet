@@ -88,6 +88,8 @@ public:
         // BIP32 version bytes:
         //    public: 0xa8c26d64 ("cpubk...")
         //   private: 0xa8c17826 ("cprvk...")
+        //
+        // http://doc.satoshilabs.com/slips/slip-0044.html gives the CLAM coin type version as 23 (0x80000017)
 
         base58Prefixes[PUBKEY_ADDRESS] = list_of(137);
         base58Prefixes[SCRIPT_ADDRESS] = list_of(13);
