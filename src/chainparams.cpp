@@ -85,6 +85,10 @@ public:
         PUSH_SEED("clam.just-dice.com")
         PUSH_SEED("seed.clams.xyz")
 
+        // BIP32 version bytes:
+        //    public: 0xa8c26d64 ("cpubk...")
+        //   private: 0xa8c17826 ("cprvk...")
+
         base58Prefixes[PUBKEY_ADDRESS] = list_of(137);
         base58Prefixes[SCRIPT_ADDRESS] = list_of(13);
         //CLAM Secret key, from old base58.h (release 1.4.2.1)  == 5 + 128
