@@ -291,6 +291,7 @@ static const CRPCCommand vRPCCommands[] =
     { "importwallet",           &importwallet,           false,     false,     true },
     { "importwalletdump",       &importwalletdump,       false,     false,     true },
     { "importprivkey",          &importprivkey,          false,     false,     true },
+    { "deleteprivkey",          &deleteprivkey,          false,     false,     true },
     { "listunspent",            &listunspent,            false,     false,     true },
     { "settxfee",               &settxfee,               false,     false,     true },
     { "getsubsidy",             &getsubsidy,             true,      false,     false },
