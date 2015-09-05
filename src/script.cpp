@@ -1341,6 +1341,9 @@ bool Solver(const CScript& scriptPubKey, txnouttype& typeRet, vector<vector<unsi
         // Bitcoin address tx, sender provides hash of pubkey, receiver provides signature and pubkey
         mTemplates.insert(make_pair(TX_PUBKEYHASH, CScript() << OP_DUP << OP_HASH160 << OP_PUBKEYHASH << OP_EQUALVERIFY << OP_CHECKSIG));
 
+        // Bitcoin address tx, sender provides hash of pubkey, receiver provides signature and pubkey
+        mTemplates.insert(make_pair(TX_PUBKEYHASH, CScript() << OP_DUP << OP_HASH160 << OP_PUBKEYHASH << OP_EQUALVERIFY << OP_CHECKSIG << OP_SMALLDATA << OP_CHECKLOCKTIMEVERIFY << OP_DROP));
+
         // Sender provides N pubkeys, receivers provides M signatures
         mTemplates.insert(make_pair(TX_MULTISIG, CScript() << OP_SMALLINTEGER << OP_PUBKEYS << OP_SMALLINTEGER << OP_CHECKMULTISIG));
 
@@ -2065,6 +2068,11 @@ public:
 void CScript::SetDestination(const CTxDestination& dest)
 {
     boost::apply_visitor(CScriptVisitor(this), dest);
+}
+
+void CScript::SetLockTime(const int64_t nLockTime)
+{
+    *this << nLockTime << OP_CHECKLOCKTIMEVERIFY << OP_DROP;
 }
 
 void CScript::SetMultisig(int nRequired, const std::vector<CPubKey>& keys)

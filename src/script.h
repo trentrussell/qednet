@@ -576,6 +576,7 @@ public:
     bool HasCanonicalPushes() const;
 
     void SetDestination(const CTxDestination& address);
+    void SetLockTime(const int64_t nLockTime);
     void SetMultisig(int nRequired, const std::vector<CPubKey>& keys);
 
     std::string ToString(bool fShort=false) const
