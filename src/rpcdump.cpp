@@ -164,7 +164,7 @@ Value deleteprivkey(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 1)
         throw runtime_error(
-            "deleteprivkey <address>\n"
+            "deleteprivkey <clamaddress>\n"
             "Irreversibly deletes the private key corresponding to the given address from your wallet.\n"
 	    "Accepts CLAM addresses\n");
 
