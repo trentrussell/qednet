@@ -245,7 +245,9 @@ Value createrawtransaction(const Array& params, bool fHelp)
             "Create a transaction spending given inputs\n"
             "(array of objects containing transaction id and output number),\n"
             "sending to given address(es).\n"
-            "Each <amount> is either an amount to send or {\"count\":c,\"amount\":a} which adds <c> outputs each sending <a> CLAMs.\n"
+            "Each <amount> is either an amount to send or {\"count\":c,\"amount\":a,\"locktime\":t}\n"
+            "which adds <c> outputs each sending <a> CLAMs with a locktime of <t>.\n"
+            "The count <c> and locktime <t> are both optional.\n"
             "Returns hex-encoded raw transaction.\n"
             "Note that the transaction's inputs are not signed, and\n"
             "it is not stored in the wallet or transmitted to the network.");
@@ -301,18 +303,37 @@ Value createrawtransaction(const Array& params, bool fHelp)
         scriptPubKey.SetDestination(address.Get());
 
         // we usually want the 2nd parameter to be {"addr1":ammount1,"addr2":ammount2,...}
-        // in addition to numerical amounts we now also accept values like '{"count":2,"amount":1.3}' meaning 'make 2 outputs worth 1.3 CLAM each'
+        // in addition to numerical amounts we now also accept values like:
+        //   '{"count":2,"amount":1.3,"locktime":333333}' meaning 'make 2 outputs worth 1.3 CLAM each, locked until block 333333'
         // "count" is a non-negative integer; 0 works and simply makes no new outputs
+        // "locktime" is a non-negative integer; values less than LOCKTIME_THRESHOLD (500,000,000) are block heights; others are epoch timestamps
         if (s.value_.type() == obj_type) {
             const Object& o = s.value_.get_obj();
             const Value& count_v = find_value(o, "count");
+            const Value& locktime_v = find_value(o, "locktime");
+            int64_t count, locktime;
 
-            if (count_v.type() != int_type)
+            if (count_v.type() == null_type)
+                count = 1;
+            else if (count_v.type() == int_type)
+                count = count_v.get_int64();
+            else
                 throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, count must be integer");
 
-            int64_t count = count_v.get_int64();
             if (count < 0)
                 throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, count must not be negative");
+
+            if (locktime_v.type() != null_type) {
+                if (locktime_v.type() == int_type)
+                    locktime = locktime_v.get_int64();
+                else
+                    throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, locktime must be integer");
+
+                if (locktime < 0)
+                    throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, locktime must not be negative");
+
+                scriptPubKey.SetLockTime(locktime);
+            }
 
             CTxOut out(AmountFromValue(find_value(o, "amount")), scriptPubKey);
 
