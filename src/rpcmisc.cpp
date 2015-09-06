@@ -119,8 +119,8 @@ Value validateaddress(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 1)
         throw runtime_error(
-            "validateaddress <Clamaddress>\n"
-            "Return information about <Clamaddress>.");
+            "validateaddress <clamaddress>\n"
+            "Return information about <clamaddress>.");
 
     CBitcoinAddress address(params[0].get_str());
     bool isValid = address.IsValid();
@@ -312,8 +312,8 @@ Value validatepubkey(const Array& params, bool fHelp)
 {
     if (fHelp || !params.size() || params.size() > 2)
         throw runtime_error(
-            "validatepubkey <Clampubkey>\n"
-            "Return information about <Clampubkey>.");
+            "validatepubkey <clampubkey>\n"
+            "Return information about <clampubkey>.");
 
     std::vector<unsigned char> vchPubKey = ParseHex(params[0].get_str());
     CPubKey pubKey(vchPubKey);
@@ -351,7 +351,7 @@ Value verifymessage(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 3)
         throw runtime_error(
-            "verifymessage <Clamaddress> <signature> <message>\n"
+            "verifymessage <clamaddress> <signature> <message>\n"
             "Verify a signed message");
 
     string strAddress  = params[0].get_str();
