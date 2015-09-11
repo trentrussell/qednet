@@ -86,14 +86,6 @@
      </column>
      <column>
       <property name="text">
-       <string>Weight</string>
-      </property>
-      <property name="toolTip">
-       <string>Weight</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
        <string>Priority</string>
       </property>
      </column>
@@ -579,7 +571,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Note: Age, Weight, and Priority are not taken into account during staking.</string>
+      <string>Note: Age and Priority are not taken into account during staking.</string>
      </property>
     </widget>
    </item>

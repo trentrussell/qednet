@@ -58,7 +58,6 @@ private:
         COLUMN_DATE,
         COLUMN_CONFIRMATIONS,
         COLUMN_AGE,
-        COLUMN_WEIGHT,
         COLUMN_PRIORITY,
         COLUMN_TXHASH,
         COLUMN_VOUT_INDEX,
