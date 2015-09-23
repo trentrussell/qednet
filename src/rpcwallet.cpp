@@ -1297,7 +1297,7 @@ Value listaccounts(const Array& params, bool fHelp)
 
         // count staking reward in the appropriate account
         if (wtx.IsCoinStake()) {
-            if (fCreditStakesToAccounts) {
+            if (fCreditStakesToAccounts && listSent.size()) {
                 CTxDestination td(listSent.front().first);
                 if (pwalletMain->mapAddressBook.count(td))
                     mapAccountBalances[pwalletMain->mapAddressBook[td]] -= nFee;
