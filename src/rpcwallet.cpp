@@ -1285,6 +1285,7 @@ Value listaccounts(const Array& params, bool fHelp)
         string strSentAccount;
         list<pair<CTxDestination, int64_t> > listReceived;
         list<pair<CTxDestination, int64_t> > listSent;
+        CTxDestination td;
 
         // don't count proof-of-work rewards in account balances
         if (wtx.IsCoinBase())
@@ -1297,13 +1298,13 @@ Value listaccounts(const Array& params, bool fHelp)
 
         // count staking reward in the appropriate account
         if (wtx.IsCoinStake()) {
-            if (fCreditStakesToAccounts && listSent.size()) {
-                CTxDestination td(listSent.front().first);
-                if (pwalletMain->mapAddressBook.count(td))
-                    mapAccountBalances[pwalletMain->mapAddressBook[td]] -= nFee;
-                else
-                    mapAccountBalances[""] -= nFee;
-            } else
+            if (fCreditStakesToAccounts							 && // if we're crediting stakes to the account that owns the staking address,
+                wtx.vout.size() > 1								 && // and we have a staking address
+                IsMine(*pwalletMain, wtx.vout[1].scriptPubKey)	 && // and we own it
+                ExtractDestination(wtx.vout[1].scriptPubKey, td) && // and we can figure out the address
+                pwalletMain->mapAddressBook.count(td)			  ) // and it's in our address book
+                mapAccountBalances[pwalletMain->mapAddressBook[td]] -= nFee; // then credit the reward to its account
+            else
                 mapAccountBalances[""] -= nFee;
             continue;
         }
