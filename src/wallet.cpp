@@ -2479,16 +2479,14 @@ DBErrors CWallet::LoadWallet(bool& fFirstRunRet)
     return DB_LOAD_OK;
 }
 
-DBErrors CWallet::LoadWalletImport(bool& fFirstRunRet)
+DBErrors CWallet::LoadWalletImport()
 {
     if (!fFileBacked)
         return DB_LOAD_OK;
-    fFirstRunRet = false;
     DBErrors nLoadWalletRet = CWalletDB(strWalletFile,"r+").LoadWalletImport(this);
     if (nLoadWalletRet != DB_LOAD_OK) {
         return nLoadWalletRet;
     }
-    fFirstRunRet = !vchDefaultKey.IsValid();
     
     return DB_LOAD_OK;
 }

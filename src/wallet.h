@@ -299,7 +299,7 @@ public:
     void SetBestChain(const CBlockLocator& loc);
 
     DBErrors LoadWallet(bool& fFirstRunRet);
-    DBErrors LoadWalletImport(bool& fFirstRunRet);
+    DBErrors LoadWalletImport();
 
     bool SetAddressBookName(const CTxDestination& address, const std::string& strName);
 

@@ -1022,10 +1022,9 @@ void BitcoinGUI::importWallet()
     filename = GUIUtil::toDOSPathFormat(filename);
 #endif
     CWallet* openWallet;
-    bool fFirstRun = false;
     /** Attempt to begin the import, and detect fails */
     openWallet = new CWallet(filename.toStdString());
-    DBErrors importRet = openWallet->LoadWalletImport(fFirstRun);
+    DBErrors importRet = openWallet->LoadWalletImport();
 
 
 

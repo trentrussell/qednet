@@ -381,10 +381,9 @@ UniValue importwallet(const UniValue& params, bool fHelp)
         fRescan = params[2].get_bool();
 
     EnsureWalletIsUnlocked();
-    bool fFirstRun = false;
 
     pwalletImport = new CWallet(params[0].get_str().c_str());
-    DBErrors nLoadWalletRet = pwalletImport->LoadWalletImport(fFirstRun);
+    DBErrors nLoadWalletRet = pwalletImport->LoadWalletImport();
 
     std::ostringstream strErrors;
     if (nLoadWalletRet != DB_LOAD_OK)
