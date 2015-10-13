@@ -1022,15 +1022,29 @@ void BitcoinGUI::importWallet()
 #if defined(WIN32)
     filename = GUIUtil::toDOSPathFormat(filename);
 #endif
-
+    CWallet* openWallet;
+    bool fFirstRun = false;
     /** Attempt to begin the import, and detect fails */
-    CWallet *openWallet = new CWallet(filename.toStdString());
-    DBErrors importRet = openWallet->LoadWalletImport(isValidWallet);
+    openWallet = new CWallet(filename.toStdString());
+    DBErrors importRet = openWallet->LoadWalletImport(fFirstRun);
 
-    if (!isValidWallet || importRet != DB_LOAD_OK)
-    {
-        QMessageBox::warning(this, tr("Import Failed"), tr("Wallet import failed."));
-        return;
+
+    std::ostringstream strErrors;
+    if (importRet != DB_LOAD_OK)
+        {
+            if (importRet == DB_CORRUPT) 
+            {
+                QMessageBox::warning(this, tr("Error loading wallet.dat: "), tr("Wallet corrupted."));
+                return;
+            }
+            else if (importRet == DB_LOAD_FAIL)
+            {
+                QMessageBox::warning(this, tr("Error loading wallet.dat: "), tr("Wallet corrupted."));
+                return;
+            }
+            else
+                QMessageBox::warning(this, tr("Non fatal error: "), tr("Continue to load wallet.dat."));
+            
     }
 
     /** Prompt for password, if necessary */
