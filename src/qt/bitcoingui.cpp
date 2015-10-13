@@ -1013,7 +1013,6 @@ void BitcoinGUI::importWallet()
     QString filename = fd.selectedFiles().value(0); // incase empty or cancel, use value() instead of at() for safe pointer
     QString passwd;
     QString rpcCmd;
-    bool isValidWallet = false;
 
     /** Cancel pressed */
     if(filename.trimmed().isEmpty())
@@ -1029,22 +1028,17 @@ void BitcoinGUI::importWallet()
     DBErrors importRet = openWallet->LoadWalletImport(fFirstRun);
 
 
+
     std::ostringstream strErrors;
     if (importRet != DB_LOAD_OK)
         {
-            if (importRet == DB_CORRUPT) 
-            {
-                QMessageBox::warning(this, tr("Error loading wallet.dat: "), tr("Wallet corrupted."));
-                return;
-            }
-            else if (importRet == DB_LOAD_FAIL)
-            {
-                QMessageBox::warning(this, tr("Error loading wallet.dat: "), tr("Wallet corrupted."));
-                return;
-            }
-            else
+            if (importRet == DB_NONCRITICAL_ERROR) 
                 QMessageBox::warning(this, tr("Non fatal error: "), tr("Continue to load wallet.dat."));
-            
+            else
+            {
+                QMessageBox::warning(this, tr("Error loading wallet.dat: "), tr("Unable to open."));
+                return;
+            }  
     }
 
     /** Prompt for password, if necessary */

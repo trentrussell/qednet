@@ -380,9 +380,7 @@ UniValue importwallet(const UniValue& params, bool fHelp)
     if (params.size() > 2)
         fRescan = params[2].get_bool();
 
-    CBlockIndex *pindexRescan = pindexGenesisBlock;
     EnsureWalletIsUnlocked();
-
     bool fFirstRun = false;
 
     pwalletImport = new CWallet(params[0].get_str().c_str());
@@ -474,18 +472,21 @@ UniValue importwallet(const UniValue& params, bool fHelp)
     delete pwalletImport;
 
     LogPrintf("walletimport imported %d and skipped %d key(s)\n", nImported, nSkipped);
-    pwalletMain->MarkDirty();
+    //pwalletMain->MarkDirty();
 
-    if (nImported)
+    if (nImported > 0) 
+    {
         if (fRescan)
         {
-            LogPrintf("Searching last %i blocks (from block %i) for dug Clams...\n", pindexBest->nHeight - pindexRescan->nHeight, pindexRescan->nHeight);
-            pwalletMain->ScanForWalletTransactions(pindexRescan, true);
+            LogPrintf("Searching last %i blocks (from block %i) for dug Clams...\n", pindexBest->nHeight - pindexGenesisBlock->nHeight, pindexGenesisBlock->nHeight);
+            pwalletMain->ScanForWalletTransactions(pindexGenesisBlock, true, true);
             pwalletMain->ReacceptWalletTransactions();
+            pwalletMain->MarkDirty();
             LogPrintf("Rescan complete\n");
         }
         else
             LogPrintf("Not rescanning because user requested that it should be skipped\n");
+    } 
     else
         LogPrintf("Not rescanning because no new keys were imported\n");
 
