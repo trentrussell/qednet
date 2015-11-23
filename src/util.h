@@ -120,6 +120,7 @@ extern bool fNoListen;
 extern bool fLogTimestamps;
 extern volatile bool fReopenDebugLog;
 extern std::string strDefaultSpeech;
+extern std::string strDefaultStakeSpeech;
 
 /* Return true if log accepts specified category */
 bool LogAcceptCategory(const char* category);

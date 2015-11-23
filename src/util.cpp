@@ -85,6 +85,7 @@ bool fNoListen = false;
 bool fLogTimestamps = false;
 volatile bool fReopenDebugLog = false;
 string strDefaultSpeech;
+string strDefaultStakeSpeech;
 
 // Init OpenSSL library multithreading support
 static CCriticalSection** ppmutexOpenSSL;

@@ -396,3 +396,17 @@ UniValue setspeech(const UniValue& params, bool fHelp)
 
     return NullUniValue;
 }
+
+UniValue setstakespeech(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() != 1)
+        throw runtime_error(
+            "setspeech <text>\n"
+            "Sets the text to be used as the transaction comment when staking or making other transactions.");
+
+    strDefaultStakeSpeech = params[0].get_str();
+
+    LogPrint("speech", "set default speech to \"%s\"\n", strDefaultSpeech);
+
+    return NullUniValue;
+}
