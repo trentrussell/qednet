@@ -12,6 +12,9 @@
 #include "util.h"
 #include "wallet.h"
 #include "walletdb.h"
+#include "openssl/sha.h"
+
+
 
 #include "univalue.h"
 
@@ -1408,6 +1411,108 @@ UniValue listsinceblock(const UniValue& params, bool fHelp)
 
     return ret;
 }
+
+UniValue getnotarytransaction(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() < 1 || params.size() > 2)
+        throw runtime_error(
+            "getnotarytransaction <notaryid> [multipleResults]\n"
+            "Get detailed information about <notaryid>\n"
+            "\nSearching can take a while\n");
+
+
+    uint256 hash;
+    string strHash;
+    if (params.size() > 0) 
+    	strHash = params[0].get_str();
+    hash.SetHex(strHash);
+
+    bool multipleresults = false;
+    if (params.size() > 1) {
+           multipleresults =  params[1].get_bool();
+   }
+
+    UniValue notaryinfo(UniValue::VARR);
+    bool notaryFound = false;
+    int blockstogoback = pindexBest->nHeight - 362500;
+    
+    const CBlockIndex* pindexFirst = pindexBest;
+    for (int i = 0; pindexFirst && i < blockstogoback; i++)
+    {
+
+	CBlock block;
+    	block.ReadFromDisk(pindexFirst, true);
+
+    	BOOST_FOREACH (const CTransaction& tx, block.vtx)
+    	{	
+		if (tx.strCLAMSpeech == hash.GetHex()) {
+    			UniValue entry(UniValue::VOBJ);
+			notaryFound = true;
+			
+			entry.push_back(Pair("notaryid", hash.GetHex()));
+			entry.push_back(Pair("txid", tx.GetHash().GetHex()));
+			
+			notaryinfo.push_back(entry);
+
+		}
+    	}
+			
+	if (!multipleresults && notaryFound)	
+		break;
+
+	pindexFirst = pindexFirst->pprev;
+    }
+
+    if (!notaryFound) 
+            		throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Notary transaction not found");
+    
+    return notaryinfo; 
+}
+
+UniValue sendnotarytransaction(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() < 1)
+        throw runtime_error(
+            "sendnotarytransaction <file>\n"
+            "<file> is either a file or a string you want to notarize\n"
+            + HelpRequiringPassphrase());
+
+    // Wallet comments
+    CWalletTx wtx;
+    uint256 hash;
+
+    unsigned char hashSha[SHA256_DIGEST_LENGTH];
+    FILE* file=fopen(params[0].get_str().c_str(),"rb");
+    if(file==NULL) {
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "Cannot open file");
+    }
+    
+    SHA256_CTX sha256;
+    SHA256_Init(&sha256);
+    char buffer[4096];
+    int bytesRead=0;
+    while((bytesRead=fread(buffer,1,4096,file))!=0) {
+        SHA256_Update(&sha256,buffer,bytesRead);
+    }
+    SHA256_Final(hashSha,&sha256);
+    std::string nHash = HashToString(hashSha, SHA256_DIGEST_LENGTH);
+    hash.SetHex(nHash);
+    LogPrintf("Hash from uint: %s\n", hash.GetHex());
+    
+    fclose(file);
+
+    if (pwalletMain->IsLocked())
+        throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Error: Please enter the wallet passphrase with walletpassphrase first.");
+
+    string strError = pwalletMain->SendNotary(wtx, hash);
+    if (strError != "")
+        throw JSONRPCError(RPC_WALLET_ERROR, strError);
+
+    return wtx.GetHash().GetHex();
+
+
+}
+
 
 UniValue gettransaction(const UniValue& params, bool fHelp)
 {
