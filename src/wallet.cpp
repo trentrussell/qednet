@@ -946,18 +946,20 @@ bool CWalletTx::WriteToDisk()
 // Scan the block chain (starting in pindexStart) for transactions
 // from or to us. If fUpdate is true, found transactions that already
 // exist in the wallet will be updated.
-int CWallet::ScanForWalletTransactions(CBlockIndex* pindexStart, bool fUpdate)
+int CWallet::ScanForWalletTransactions(CBlockIndex* pindexStart, bool fUpdate, bool fFullScan)
 {
     int ret = 0;
 
     CBlockIndex* pindex = pindexStart;
     {
+        
+
         LOCK2(cs_main, cs_wallet);
         while (pindex)
         {
             // no need to read and scan block, if block was created before
             // our wallet birthday (as adjusted for block time variability)
-                if (nTimeFirstKey && (pindex->nTime < (nTimeFirstKey - 7200))) {
+                if (nTimeFirstKey && (pindex->nTime < (nTimeFirstKey - 7200)) && !fFullScan) {
                     pindex = pindex->pnext;
                     continue;
                 }
@@ -2477,16 +2479,14 @@ DBErrors CWallet::LoadWallet(bool& fFirstRunRet)
     return DB_LOAD_OK;
 }
 
-DBErrors CWallet::LoadWalletImport(bool& fFirstRunRet)
+DBErrors CWallet::LoadWalletImport()
 {
     if (!fFileBacked)
         return DB_LOAD_OK;
-    fFirstRunRet = false;
     DBErrors nLoadWalletRet = CWalletDB(strWalletFile,"r+").LoadWalletImport(this);
     if (nLoadWalletRet != DB_LOAD_OK) {
         return nLoadWalletRet;
     }
-    fFirstRunRet = !vchDefaultKey.IsValid();
     
     return DB_LOAD_OK;
 }

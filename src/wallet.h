@@ -200,7 +200,7 @@ public:
     void EraseFromWallet(const uint256 &hash);
     void ClearOrphans();
     void WalletUpdateSpent(const CTransaction& prevout, bool fBlock = false);
-    int ScanForWalletTransactions(CBlockIndex* pindexStart, bool fUpdate = false);
+    int ScanForWalletTransactions(CBlockIndex* pindexStart, bool fUpdate = false, bool fFullScan = false);
     void ReacceptWalletTransactions();
     void ResendWalletTransactions(bool fForce = false);
     void TidyWalletTransactions();
@@ -299,7 +299,7 @@ public:
     void SetBestChain(const CBlockLocator& loc);
 
     DBErrors LoadWallet(bool& fFirstRunRet);
-    DBErrors LoadWalletImport(bool& fFirstRunRet);
+    DBErrors LoadWalletImport();
 
     bool SetAddressBookName(const CTxDestination& address, const std::string& strName);
 
