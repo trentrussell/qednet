@@ -2285,7 +2285,7 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
         } else {
             txNew.vout.push_back(CTxOut(0, scriptStakeTo)); //split stake
             txNew.vout[nFirstRealOutput].nValue = (nCredit / 2 / CENT) * CENT;
-            txNew.vout[nFirstRealOutput+1].nValue = nCredit - txNew.vout[1].nValue;
+            txNew.vout[nFirstRealOutput+1].nValue = nCredit - txNew.vout[nFirstRealOutput].nValue;
         }
     } else {
         // we're not splitting the output, so attempt to add more inputs
