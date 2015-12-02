@@ -2241,12 +2241,12 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
 
     // set clamSpeech when staking a block
     if (!(mapArgs["-clamstake"] == "off")) {
-        if (weightedStakeSpeech.size())
+        if (weightedStakeSpeech.size()) {
             txNew.strCLAMSpeech = weightedStakeSpeech.select(hashProofOfStake.Get64());
-        else if (strDefaultStakeSpeech == "") {
+        } else if(GetDefaultClamourClamSpeech() == "") {
             txNew.strCLAMSpeech = GetDefaultClamSpeech();
         } else {
-            txNew.strCLAMSpeech = strDefaultStakeSpeech;
+            txNew.strCLAMSpeech = GetDefaultClamourClamSpeech();
         }
         if (txNew.strCLAMSpeech.length() > MAX_TX_COMMENT_LEN)
             txNew.strCLAMSpeech.resize(MAX_TX_COMMENT_LEN);
