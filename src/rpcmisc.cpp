@@ -4,6 +4,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "base58.h"
+#include "clamspeech.h"
 #include "init.h"
 #include "main.h"
 #include "net.h"
@@ -18,6 +19,7 @@
 #endif
 
 #include <stdint.h>
+#include <fstream>
 
 #include <boost/assign/list_of.hpp>
 #include <univalue.h>
@@ -410,6 +412,65 @@ UniValue setstakespeech(const UniValue& params, bool fHelp)
     strDefaultStakeSpeech = params[0].get_str();
 
     LogPrint("stakespeech", "set default stakespeech to \"%s\"\n", strDefaultStakeSpeech);
+
+    return NullUniValue;
+}
+
+UniValue setweightedstakespeech(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() > 1)
+        throw runtime_error(
+            "setweightedstakespeech [path]\n"
+            "Loads a file containing a list of texts to be as the transaction comment when staking.\n"
+            "Each line in the file should contain a positive integer specifying the probabalistic weight for that line, then a space, then the speech.\n"
+            "If no path is provided or any errors occur opening or parsing the file then weighted staking isn't used at all.");
+
+    weightedStakeSpeech.clear();
+
+    if (params.size() == 0)
+        return NullUniValue;
+
+    string strPath = params[0].get_str();
+
+    if (!filesystem::exists(strPath))
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter: file doesn't exist");
+
+    std::ifstream speechfile(strPath.c_str());
+
+    if(!speechfile) //Always test the file open.
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter: can't open file");
+
+    string line;
+    size_t pos;
+    const char *start;
+    char *end;
+    int count = 0;
+    while (getline(speechfile, line, '\n')) {
+        count++;
+        start = line.c_str();
+        unsigned long weight = strtoul(start, &end, 10);
+        if (weight == ULONG_MAX && errno == ERANGE) {
+            weightedStakeSpeech.clear();
+            throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("Weight out of range, line %d", count));
+        }
+
+        pos = end - start;
+        if (pos == 0) {
+            weightedStakeSpeech.clear();
+            throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("Invalid weight, line %d", count));
+        }
+
+        if (*end == '\0')
+            line = string();
+        else if (*end == ' ')
+            line = line.substr(pos+1);
+        else {
+            weightedStakeSpeech.clear();
+            throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("No space after weight, line %d", count));
+        }
+
+        weightedStakeSpeech.insert(weight, line);
+    }
 
     return NullUniValue;
 }
