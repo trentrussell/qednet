@@ -195,4 +195,7 @@ extern UniValue setrewardto(const UniValue& params, bool fHelp);
 extern UniValue sendnotarytransaction(const UniValue& params, bool fHelp);
 extern UniValue getnotarytransaction(const UniValue& params, bool fHelp);
 
+extern UniValue getclamour(const UniValue& params, bool fHelp);
+extern UniValue listclamours(const UniValue& params, bool fHelp);
+
 #endif

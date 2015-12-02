@@ -40,6 +40,7 @@ CTxMemPool mempool;
 unsigned int nTransactionsUpdated = 0;
  
 map<uint256, CBlockIndex*> mapBlockIndex;
+map<string, CClamour*> mapClamour;
 set<pair<COutPoint, unsigned int> > setStakeSeen;
 
 CBigNum bnProofOfStakeLimit(~uint256(0) >> 20);
@@ -282,6 +283,48 @@ bool CTransaction::ReadFromDisk(COutPoint prevout)
     CTxDB txdb("r");
     CTxIndex txindex;
     return ReadFromDisk(txdb, prevout, txindex);
+}
+
+bool CTransaction::IsCreateClamour(string& strHash, string& strURL) const
+{
+    size_t len = strCLAMSpeech.length();
+
+    if (strCLAMSpeech.substr(0, 15) == "create clamour ")
+        LogPrintf("checking speech length %d : %s\n", len, strCLAMSpeech);
+
+    // "create clamour ..." speech must begin with those 15 characters, and have a 64 character hash after it
+    if (len < 15+64 || strCLAMSpeech.substr(0, 15) != "create clamour ")
+        return false;
+
+    strURL = "";
+    strHash = "";
+
+    size_t pos = strCLAMSpeech.find_first_not_of("0123456789abcdef", 15);
+
+    // if the hex goes all the way to the end, there's no URL comment, and the length must be exactly 15+64 or the hex is too long
+    if (pos == string::npos) {
+        if (len == 15+64) {
+            strHash = strCLAMSpeech.substr(15, 64);
+            return true;
+        }
+
+        return false;
+    }
+
+    if (pos != 15+64)
+        return false;
+
+    strHash = strCLAMSpeech.substr(15, 64);
+
+    // optional URL is separated from the hash by a single space
+    if (strCLAMSpeech[pos] != ' ')
+        return true;
+
+    // and ended by whitespace
+    size_t pos2 = strCLAMSpeech.find_first_of(" \t\n\r", ++pos);
+
+    strURL = strCLAMSpeech.substr(pos, pos2 == string::npos ? string::npos : pos2 - pos);
+    return true;
 }
 
 bool IsStandardTx(const CTransaction& tx, string& reason)
@@ -1629,6 +1672,13 @@ bool CBlock::DisconnectBlock(CTxDB& txdb, CBlockIndex* pindex)
         if (!vtx[i].DisconnectInputs(txdb))
             return false;
 
+    BOOST_FOREACH(CClamour& clamour, pindex->vClamour)
+    {
+        string pid = clamour.strHash.substr(0, 8);
+        mapClamour.erase(pid);
+        LogPrintf("erased clamour pid %s from map\n", pid);
+    }
+
     // Update block index on disk without changing it in memory.
     // The memory index structure will be changed after the db commits.
     if (pindex->pprev)
@@ -1814,6 +1864,20 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
         SyncWithWallets(tx, this);
 
     StakeToWallets(vtx[1].vout[1].scriptPubKey, nStakeReward);
+
+    // scan for CLAMspeech registering CLAMour petitions
+    string strHash, strURL;
+    
+    BOOST_FOREACH(CTransaction& tx, vtx)
+        if (tx.IsCreateClamour(strHash, strURL)) {
+            LogPrintf("found 'create clamour' with '%s' and '%s'\n", strHash, strURL);
+            string pid = strHash.substr(0, 8);
+            map<string, CClamour*>::iterator mi = mapClamour.find(pid);
+            if (mi == mapClamour.end())
+                pindex->vClamour.push_back(*(mapClamour[pid] = new CClamour(pindex->nHeight, tx.GetHash(), strHash, strURL)));
+            else
+                LogPrintf("duplicate clamour with pid %s: %s\n", pid, tx.strCLAMSpeech.substr(0, MAX_TX_COMMENT_LEN));
+        }
 
     return true;
 }

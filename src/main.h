@@ -309,6 +309,8 @@ public:
         return (vin.size() > 0 && (!vin[0].prevout.IsNull()) && vout.size() >= 2 && vout[0].IsEmpty());
     }
 
+    bool IsCreateClamour(std::string& strHash, std::string& strURL) const;
+
     /** Amount of bitcoins spent by this transaction.
         @return sum of all outputs (note: does not include fees)
      */
@@ -885,6 +887,35 @@ private:
  * to it, but pnext will only point forward to the longest branch, or will
  * be null if the block is not part of the longest chain.
  */
+class CClamour
+{
+public:
+    int nHeight;
+    uint256 txid;
+    std::string strHash;
+    std::string strURL;
+
+    CClamour()
+    {
+    }
+
+    CClamour(int nHeightIn, uint256 txidIn, std::string& strHashIn, std::string& strURLIn)
+    {
+        nHeight = nHeightIn;
+        txid = txidIn;
+        strHash = strHashIn;
+        strURL = strURLIn;
+    }
+
+    IMPLEMENT_SERIALIZE
+    (
+        READWRITE(nHeight);
+        READWRITE(txid);
+        READWRITE(strHash);
+        READWRITE(strURL);
+    )
+};
+
 class CBlockIndex
 {
 public:
@@ -900,6 +931,8 @@ public:
     int64_t nMoneySupply;
     int64_t nDigsupply;
     int64_t nStakeSupply;
+
+    std::vector<CClamour> vClamour;
 
     unsigned int nFlags;  // ppcoin: block index flags
     enum  
@@ -1144,6 +1177,7 @@ public:
         READWRITE(nMoneySupply);
         READWRITE(nDigsupply);
         READWRITE(nStakeSupply);
+        READWRITE(vClamour);
         READWRITE(nFlags);
         READWRITE(nStakeModifier);
         if (IsProofOfStake())
