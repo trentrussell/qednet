@@ -1813,7 +1813,8 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
     BOOST_FOREACH(CTransaction& tx, vtx)
         SyncWithWallets(tx, this);
 
-    StakeToWallets(vtx[1].vout[1].scriptPubKey, nStakeReward);
+    if (nStakeReward)
+        StakeToWallets(vtx[1].vout[1].scriptPubKey, nStakeReward);
 
     return true;
 }
