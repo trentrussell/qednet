@@ -472,7 +472,7 @@ UniValue setweightedstakespeech(const UniValue& params, bool fHelp)
         weightedStakeSpeech.insert(weight, line);
     }
 
-    return NullUniValue;
+    return strprintf("loaded %d weighted stake speech text(s)", weightedStakeSpeech.size());
 }
 
 UniValue getclamour(const UniValue& params, bool fHelp)
