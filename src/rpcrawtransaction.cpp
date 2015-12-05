@@ -293,16 +293,21 @@ UniValue createrawtransaction(const UniValue& params, bool fHelp)
         rawTx.vin.push_back(in);
     }
 
-    set<CBitcoinAddress> setAddress;
+    // set<CBitcoinAddress> setAddress;
     vector<string> addrList = sendTo.getKeys();
+    vector<UniValue> valueList= sendTo.getValues();
+    vector<UniValue>::iterator valueList_iterator = valueList.begin();
     BOOST_FOREACH(const string& name_, addrList)
     {
+        const UniValue& value_ = *valueList_iterator++;
 
         CBitcoinAddress address(name_);
         if (!address.IsValid())
             throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, string("Invalid Clam address: ")+name_);
 
-        setAddress.insert(address);
+        // if (setAddress.count(address))
+        //     throw JSONRPCError(RPC_INVALID_PARAMETER, string("Invalid parameter, duplicated address: ")+name_);
+        // setAddress.insert(address);
 
         CScript scriptPubKey;
         scriptPubKey.SetDestination(address.Get());
@@ -312,8 +317,8 @@ UniValue createrawtransaction(const UniValue& params, bool fHelp)
         //   '{"count":2,"amount":1.3,"locktime":333333}' meaning 'make 2 outputs worth 1.3 CLAM each, locked until block 333333'
         // "count" is a non-negative integer; 0 works and simply makes no new outputs
         // "locktime" is a non-negative integer; values less than LOCKTIME_THRESHOLD (500,000,000) are block heights; others are epoch timestamps
-        if (sendTo[name_].isObject()) {
-            const UniValue& o = sendTo[name_].get_obj();
+        if (value_.isObject()) {
+            const UniValue& o = value_.get_obj();
             const UniValue& count_v = find_value(o, "count");
             const UniValue& locktime_v = find_value(o, "locktime");
             int64_t count, locktime;
@@ -345,7 +350,7 @@ UniValue createrawtransaction(const UniValue& params, bool fHelp)
             while (count--)
                 rawTx.vout.push_back(out);
         } else {
-            CTxOut out(AmountFromValue(sendTo[name_]), scriptPubKey);
+            CTxOut out(AmountFromValue(value_), scriptPubKey);
             rawTx.vout.push_back(out);
         }
     }
