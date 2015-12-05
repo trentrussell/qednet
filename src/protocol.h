@@ -16,13 +16,6 @@
 #include <string>
 #include "uint256.h"
 
-extern bool fTestNet;
-static inline unsigned short GetDefaultPort(const bool testnet = fTestNet)
-{
-	return testnet ? 31173 : 31174;
-}
-
-
 extern unsigned char pchMessageStart[4];
 
 /** Message header.
