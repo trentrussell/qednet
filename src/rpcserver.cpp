@@ -309,10 +309,13 @@ static const CRPCCommand vRPCCommands[] =
     { "makekeypair",            &makekeypair,            false,     true,      false },
     { "setspeech",              &setspeech,              false,     false,     true },
     { "setstakespeech",         &setstakespeech,         false,     false,     true },
+    { "setweightedstakespeech", &setweightedstakespeech, false,     false,     true },
     { "getstaketo",             &getstaketo,             true,      true,      true },
     { "setstaketo",             &setstaketo,             true,      true,      true },
     { "getrewardto",            &getrewardto,            true,      true,      true },
     { "setrewardto",            &setrewardto,            true,      true,      true },
+    { "getclamour",             &getclamour,             true,      true,      false },
+    { "listclamours",           &listclamours,           true,      true,      false },
 #endif
 };
 

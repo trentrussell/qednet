@@ -5,6 +5,7 @@ using namespace std;
 vector<string> clamSpeechList;
 vector<string> clamSpeech;
 vector<string> quoteList;
+CWeightedSpeech weightedStakeSpeech;
 
 void CSLoad() {
     const char *texts[] = {

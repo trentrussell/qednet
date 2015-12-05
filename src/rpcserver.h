@@ -135,6 +135,7 @@ extern UniValue signmessage(const UniValue& params, bool fHelp);
 extern UniValue verifymessage(const UniValue& params, bool fHelp);
 extern UniValue setspeech(const UniValue& params, bool fHelp);
 extern UniValue setstakespeech(const UniValue& params, bool fHelp);
+extern UniValue setweightedstakespeech(const UniValue& params, bool fHelp);
 extern UniValue getstakedbyaddress(const UniValue& params, bool fHelp);
 extern UniValue getreceivedbyaddress(const UniValue& params, bool fHelp);
 extern UniValue getreceivedbyaccount(const UniValue& params, bool fHelp);
@@ -194,5 +195,8 @@ extern UniValue setrewardto(const UniValue& params, bool fHelp);
 
 extern UniValue sendnotarytransaction(const UniValue& params, bool fHelp);
 extern UniValue getnotarytransaction(const UniValue& params, bool fHelp);
+
+extern UniValue getclamour(const UniValue& params, bool fHelp);
+extern UniValue listclamours(const UniValue& params, bool fHelp);
 
 #endif

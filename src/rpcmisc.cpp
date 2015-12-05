@@ -4,6 +4,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "base58.h"
+#include "clamspeech.h"
 #include "init.h"
 #include "main.h"
 #include "net.h"
@@ -18,6 +19,7 @@
 #endif
 
 #include <stdint.h>
+#include <fstream>
 
 #include <boost/assign/list_of.hpp>
 #include <univalue.h>
@@ -25,6 +27,9 @@
 using namespace std;
 using namespace boost;
 using namespace boost::assign;
+
+typedef map<string, CClamour*> mapClamour_t;
+extern  mapClamour_t mapClamour;
 
 UniValue getinfo(const UniValue& params, bool fHelp)
 {
@@ -409,4 +414,131 @@ UniValue setstakespeech(const UniValue& params, bool fHelp)
     LogPrint("stakespeech", "set default stakespeech to \"%s\"\n", strDefaultStakeSpeech);
 
     return NullUniValue;
+}
+
+UniValue setweightedstakespeech(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() > 1)
+        throw runtime_error(
+            "setweightedstakespeech [path]\n"
+            "Loads a file containing a list of texts to be as the transaction comment when staking.\n"
+            "Each line in the file should contain a positive integer specifying the probabalistic weight for that line, then a space, then the speech.\n"
+            "If no path is provided or any errors occur opening or parsing the file then weighted staking isn't used at all.");
+
+    weightedStakeSpeech.clear();
+
+    if (params.size() == 0)
+        return NullUniValue;
+
+    string strPath = params[0].get_str();
+
+    if (!filesystem::exists(strPath))
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter: file doesn't exist");
+
+    std::ifstream speechfile(strPath.c_str());
+
+    if(!speechfile) //Always test the file open.
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter: can't open file");
+
+    string line;
+    size_t pos;
+    const char *start;
+    char *end;
+    int count = 0;
+    while (getline(speechfile, line, '\n')) {
+        count++;
+        start = line.c_str();
+        unsigned long weight = strtoul(start, &end, 10);
+        if (weight == ULONG_MAX && errno == ERANGE) {
+            weightedStakeSpeech.clear();
+            throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("Weight out of range, line %d", count));
+        }
+
+        pos = end - start;
+        if (pos == 0) {
+            weightedStakeSpeech.clear();
+            throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("Invalid weight, line %d", count));
+        }
+
+        if (*end == '\0')
+            line = string();
+        else if (*end == ' ')
+            line = line.substr(pos+1);
+        else {
+            weightedStakeSpeech.clear();
+            throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("No space after weight, line %d", count));
+        }
+
+        weightedStakeSpeech.insert(weight, line);
+    }
+
+    return strprintf("loaded %d weighted stake speech text(s)", weightedStakeSpeech.size());
+}
+
+UniValue getclamour(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() != 1)
+        throw runtime_error(
+            "getclamour <pid>\n"
+            "Returns an object containing info about the specified petition ID");
+
+    string pid = params[0].get_str();
+
+    map<string, CClamour*>::iterator mi = mapClamour.find(pid);
+    if (mi == mapClamour.end())
+        return NullUniValue;
+
+    UniValue ret(UniValue::VOBJ);
+    CClamour *clamour = mi->second;
+
+    ret.push_back(Pair("pid", pid));
+    ret.push_back(Pair("hash", clamour->strHash));
+    if (clamour->strURL.length())
+        ret.push_back(Pair("url", clamour->strURL));
+    ret.push_back(Pair("txid", clamour->txid.GetHex()));
+    ret.push_back(Pair("confirmations", pindexBest->nHeight - clamour->nHeight + 1));
+    return ret;
+}
+
+UniValue listclamours(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() > 2)
+        throw runtime_error(
+            "listclamours [minconf=1] [maxconf=9999999]\n"
+            "Returns an array of objects containing info about all registered petitions\n"
+            "with between minconf and maxconf (inclusive) confirmations.");
+
+    RPCTypeCheck(params, list_of(UniValue::VNUM)(UniValue::VNUM));
+
+    int nMinDepth = 1;
+    if (params.size() > 0)
+        nMinDepth = params[0].get_int();
+
+    int nMaxDepth = 9999999;
+    if (params.size() > 1)
+        nMaxDepth = params[1].get_int();
+
+    UniValue ret(UniValue::VARR);
+
+    BOOST_FOREACH(const mapClamour_t::value_type pair, mapClamour)
+    {
+        CClamour *clamour = pair.second;
+        int nDepth = pindexBest->nHeight - clamour->nHeight + 1;
+
+        if (nDepth < nMinDepth || nDepth > nMaxDepth)
+            continue;
+
+        UniValue entry(UniValue::VOBJ);
+
+        entry.push_back(Pair("pid", clamour->strHash.substr(0, 8)));
+        entry.push_back(Pair("hash", clamour->strHash));
+        if (clamour->strURL.length())
+            entry.push_back(Pair("url", clamour->strURL));
+        entry.push_back(Pair("txid", clamour->txid.GetHex()));
+        entry.push_back(Pair("confirmations", nDepth));
+
+        ret.push_back(entry);
+    }
+
+    return ret;
 }

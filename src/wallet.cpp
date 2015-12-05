@@ -6,6 +6,7 @@
 #include "wallet.h"
 
 #include "base58.h"
+#include "clamspeech.h"
 #include "coincontrol.h"
 #include "kernel.h"
 #include "net.h"
@@ -2100,6 +2101,7 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
     int64_t nBlockTime;
     CTxDB txdb("r");
     CKeyID stakingkeyID;
+    uint256 hashProofOfStake = 0;
     BOOST_FOREACH(PAIRTYPE(const CWalletTx*, unsigned int) pcoin, setCoins)
     {
         if (!pcoin.first->hash)
@@ -2141,7 +2143,7 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
             boost::this_thread::interruption_point();
             // Search backward in time from the given txNew timestamp 
             // Search nSearchInterval seconds back up to nMaxStakeSearchInterval
-            uint256 hashProofOfStake = 0, targetProofOfStake = 0;
+            uint256 targetProofOfStake = 0;
             COutPoint prevoutStake = COutPoint(pcoin.first->hash, pcoin.second);
             LogPrint("stake", "[STAKE] check %s:%-3d (%s CLAM)\n",
                       pcoin.first->hash.ToString(), pcoin.second, FormatMoney(pcoin.first->vout[pcoin.second].nValue));
@@ -2239,7 +2241,9 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
 
     // set clamSpeech when staking a block
     if (!(mapArgs["-clamstake"] == "off")) {
-        if(strDefaultStakeSpeech == "") {
+        if (weightedStakeSpeech.size())
+            txNew.strCLAMSpeech = weightedStakeSpeech.select(hashProofOfStake.Get64());
+        else if (strDefaultStakeSpeech == "") {
             txNew.strCLAMSpeech = GetDefaultClamSpeech();
         } else {
             txNew.strCLAMSpeech = strDefaultStakeSpeech;
