@@ -448,6 +448,11 @@ UniValue setweightedstakespeech(const UniValue& params, bool fHelp)
     while (getline(speechfile, line, '\n')) {
         count++;
         start = line.c_str();
+
+        // blank line and lines starting with '#' are comments
+        if (*start == '\0' || *start == '#')
+            continue;
+
         unsigned long weight = strtoul(start, &end, 10);
         if (weight == ULONG_MAX && errno == ERANGE) {
             weightedStakeSpeech.clear();
