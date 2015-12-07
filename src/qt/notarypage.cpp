@@ -19,7 +19,7 @@ NotaryPage::NotaryPage(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->tableWidget->setColumnCount(2);
-    ui->tableWidget->setRowCount(1);
+    ui->tableWidget->setRowCount(0);
 
     // Column headers
     QString txHeader = tr("Transaction");
@@ -34,11 +34,6 @@ NotaryPage::NotaryPage(QWidget *parent) :
     ui->tableWidget->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
 #endif
     ui->tableWidget->horizontalHeader()->setStretchLastSection(false);
-
-    // Search Validaton
-    QRegExp re("[a-fA-F0-9]{64}");
-    QRegExpValidator *validator = new QRegExpValidator(re);
-    ui->searchNotaryEntry->setValidator(validator);
 
     // Context menu
     QAction *copyTxAction = new QAction(tr("Copy To Clipboard"), this);
@@ -57,6 +52,7 @@ NotaryPage::~NotaryPage()
 
 void NotaryPage::setSearchResults(std::vector<std::pair<std::string, int> > txResults)
 {
+    ui->searchNotaryButton->setEnabled(true);
     ui->tableWidget->setRowCount(txResults.size());
 
     int rowNumber = 0;
@@ -74,7 +70,6 @@ void NotaryPage::setSearchResults(std::vector<std::pair<std::string, int> > txRe
 
         rowNumber++;
     }
-    ui->searchNotaryButton->setEnabled(true);
 }
 
 void NotaryPage::showNotaryTxResult(std::string txID, std::string txError)
@@ -98,22 +93,12 @@ void NotaryPage::setNotaryFileName(QString fileName)
 
 void NotaryPage::on_searchNotaryButton_clicked()
 {
-    bool isValidHash = true;
-    if (ui->searchNotaryEntry->text().length() != 64)
-    {
-        isValidHash = false;
-    }
-    if (!ui->searchNotaryEntry->hasAcceptableInput())
-    {
-        isValidHash = false;
-    }
-    if (!isValidHash)
-    {
-        ui->searchNotaryEntry->setValid(false);
+    std::string notaryID = ui->notaryIDEdit->text().toStdString();
+    if (!(IsHex(notaryID) && notaryID.length() == 64)) {
+        ui->notaryIDEdit->setValid(false);
         return;
     }
 
-    std::string notaryID = ui->searchNotaryEntry->text().toStdString();
     uint256 hash(notaryID);
     ui->searchNotaryButton->setEnabled(false);
     model->searchNotaryTx(hash);
@@ -137,22 +122,17 @@ void NotaryPage::on_selectFileButton_clicked()
     {
         fileName = dlg.selectedFiles()[0];
         setNotaryFileName(fileName);
+        calculateNotaryID();
     }
 }
 
 void NotaryPage::on_sendNotaryButton_clicked()
 {
-    std::string fileName = ui->sendNotaryEntry->text().toStdString();
-    std::string fileHash = hashFile(fileName);
-    // Warn if file is NULL
-    if (fileHash == "") {
-        QMessageBox::warning(this, tr("Send Notary Tx"),
-            tr("Unable to open file for hashing."),
-            QMessageBox::Ok, QMessageBox::Ok);
+    std::string fileHash = ui->notaryIDEdit->text().toStdString();
+    if (!(IsHex(fileHash) && fileHash.length() == 64)) {
+        ui->notaryIDEdit->setValid(false);
         return;
     }
-    uint256 hash;
-    hash.SetHex(fileHash);
 
     // Make sure wallet is unlocked
     WalletModel::UnlockContext ctx(model->requestUnlock());
@@ -160,7 +140,7 @@ void NotaryPage::on_sendNotaryButton_clicked()
         return;
     }
 
-    model->sendNotaryTx(hash);
+    model->sendNotaryTx(fileHash);
 }
 
 std::string NotaryPage::hashFile(std::string fileName)
@@ -204,16 +184,21 @@ void NotaryPage::onCopyTxID()
     }
 }
 
-void NotaryPage::on_searchSelectFileButton_clicked()
+void NotaryPage::calculateNotaryID()
 {
-    QString fileName;
-    QFileDialog dlg(this);
-    dlg.setFileMode(QFileDialog::ExistingFile);
-
-    if (dlg.exec())
-    {
-        fileName = dlg.selectedFiles()[0];
-        QString fileHash = QString::fromStdString(hashFile(fileName.toStdString()));
-        ui->searchNotaryEntry->setText(fileHash);
+    std::string fileName = ui->sendNotaryEntry->text().toStdString();
+    std::string fileHash = hashFile(fileName);
+    // Warn if file is NULL
+    if (fileHash == "") {
+        QMessageBox::warning(this, tr("Notarize File"),
+            tr("Unable to open file for hashing."),
+            QMessageBox::Ok, QMessageBox::Ok);
+        return;
     }
+    ui->notaryIDEdit->setText(QString::fromStdString(fileHash));
+}
+
+void NotaryPage::on_calcNotaryIDbutton_clicked()
+{
+    calculateNotaryID();
 }

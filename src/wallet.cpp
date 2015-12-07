@@ -45,6 +45,8 @@ extern bool fStakeTo, fRewardTo;
 extern set<CBitcoinAddress> setSpendLastAddresses;
 extern set<CBitcoinAddress> setStakeAddresses;
 
+extern map<string, CClamour*> mapClamour;
+
 int64_t gcd(int64_t n,int64_t m) { return m == 0 ? n : gcd(m, n % m); }
 static inline uint64_t CoinWeightCost(const COutput &out)
 {
@@ -2241,12 +2243,12 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
 
     // set clamSpeech when staking a block
     if (!(mapArgs["-clamstake"] == "off")) {
-        if (weightedStakeSpeech.size())
+        if (weightedStakeSpeech.size()) {
             txNew.strCLAMSpeech = weightedStakeSpeech.select(hashProofOfStake.Get64());
-        else if (strDefaultStakeSpeech == "") {
+        } else if(GetDefaultClamourClamSpeech() == "") {
             txNew.strCLAMSpeech = GetDefaultClamSpeech();
         } else {
-            txNew.strCLAMSpeech = strDefaultStakeSpeech;
+            txNew.strCLAMSpeech = GetDefaultClamourClamSpeech();
         }
         if (txNew.strCLAMSpeech.length() > MAX_TX_COMMENT_LEN)
             txNew.strCLAMSpeech.resize(MAX_TX_COMMENT_LEN);
@@ -2435,8 +2437,24 @@ string CWallet::SendMoney(CScript scriptPubKey, int64_t nValue, int64_t nCount, 
     return "";
 }
 
-string CWallet::SendNotary(CWalletTx& wtxNew, uint256 hash, bool fAskFee)
+string CWallet::SendCLAMSpeech(CWalletTx& wtxNew, string clamSpeech, string prefix, bool fAskFee)
 { 
+    if (prefix == "notary") 
+    {
+        uint256 hash;
+        hash.SetHex(clamSpeech);
+        clamSpeech = "notary " + hash.GetHex();
+
+    } 
+    else if (prefix == "clamour") 
+    {
+        clamSpeech = "create clamour " + clamSpeech;
+    } 
+    else if (prefix.length() > 0)
+    {
+        clamSpeech = prefix + clamSpeech;
+    } 
+
     CReserveKey reservekey(this);
     int64_t nFeeRequired;
 
@@ -2458,7 +2476,7 @@ string CWallet::SendNotary(CWalletTx& wtxNew, uint256 hash, bool fAskFee)
         LogPrintf("SendNotary() : %s", strError);
         return strError;
     }
-    if (!CreateNotaryTransaction(wtxNew, reservekey, nFeeRequired, hash))
+    if (!CreateCLAMSpeechTransaction(wtxNew, reservekey, nFeeRequired, clamSpeech))
     {
         string strError;
         if (nFeeRequired > GetBalance())
@@ -2481,14 +2499,14 @@ string CWallet::SendNotary(CWalletTx& wtxNew, uint256 hash, bool fAskFee)
 
 }
 
-bool CWallet::CreateNotaryTransaction(CWalletTx& wtxNew, CReserveKey& reservekey, int64_t& nFeeRet, uint256 nHash, const CCoinControl* coinControl) 
+bool CWallet::CreateCLAMSpeechTransaction(CWalletTx& wtxNew, CReserveKey& reservekey, int64_t& nFeeRet, std::string clamSpeech, const CCoinControl* coinControl) 
 {
 	//vector< pair<CScript, int64_t> > vecSend;
 	//vecSend.push_back(make_pair(scriptPubKey, nValue));
 
 	wtxNew.BindWallet(this);
 
-    wtxNew.strCLAMSpeech = "notary " + nHash.GetHex();
+    wtxNew.strCLAMSpeech = clamSpeech;   
 
 	{
 		LOCK2(cs_main, cs_wallet);
@@ -3220,6 +3238,16 @@ void CWallet::SearchNotaryTransactions(uint256 hash, std::vector<std::pair<std::
         pindexFirst = pindexFirst->pprev;
     }
     return;
+}
+
+CClamour* CWallet::GetClamour(std::string pid)
+{
+    std::map<std::string, CClamour*>::iterator mi = mapClamour.find(pid);
+    CClamour *pResult(NULL);
+    if (mi == mapClamour.end())
+        return pResult;
+    pResult = mi->second;
+    return pResult;
 }
 
 void CWallet::ClearOrphans()

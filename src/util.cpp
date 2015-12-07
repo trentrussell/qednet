@@ -12,6 +12,7 @@
 #include "ui_interface.h"
 #include "uint256.h"
 #include "version.h"
+#include "openssl/sha.h"
 
 #include <algorithm>
 //For clamspeech until beter solution derivied.
@@ -593,6 +594,21 @@ string EncodeBase64(const unsigned char* pch, size_t len)
     return strRet;
 }
 
+string StrToSHA256(const string& str)
+{
+    unsigned char hash[SHA256_DIGEST_LENGTH];
+    SHA256_CTX sha256;
+    SHA256_Init(&sha256);
+    SHA256_Update(&sha256, str.c_str(), str.size());
+    SHA256_Final(hash, &sha256);
+    stringstream ss;
+    for(int i = 0; i < SHA256_DIGEST_LENGTH; i++)
+    {
+        ss << hex << setw(2) << setfill('0') << (int)hash[i];
+    }
+    return ss.str();
+}
+
 string EncodeBase64(const string& str)
 {
     return EncodeBase64((const unsigned char*)str.c_str(), str.size());
@@ -1082,6 +1098,13 @@ boost::filesystem::path GetQuoteFile()
     return pathQuoteFile;
 }
 
+boost::filesystem::path GetClamourClamSpeechFile()
+{
+    boost::filesystem::path pathClamourSpeechFile(GetArg("-clamourclamspeech", "clamourclamspeech.txt"));
+    if (!pathClamourSpeechFile.is_complete()) pathClamourSpeechFile = GetDataDir() / pathClamourSpeechFile;
+    return pathClamourSpeechFile;
+}
+
 string HashToString(unsigned char* hash,int n) {
     char outputBuffer[2*n+1];
     for(int i=0;i<n;i++) {
@@ -1121,6 +1144,8 @@ bool LoadClamSpeech()
     {
         clamSpeech.push_back (line);
     }
+
+    LoadClamourClamSpeech();
     
     return true;   
 }
@@ -1141,6 +1166,19 @@ string GetDefaultClamSpeech() {
     return strDefaultSpeech;
 }
 
+string GetRandomClamourClamSpeech() {
+    if (clamourClamSpeech.empty())
+        return "";
+    int index = rand() % clamourClamSpeech.size();
+    return clamourClamSpeech[index];
+}
+
+string GetDefaultClamourClamSpeech() {
+    if (strDefaultStakeSpeech == "")
+        return GetRandomClamourClamSpeech();
+    return strDefaultStakeSpeech;
+}
+
 bool SaveClamSpeech() 
 {
     if (boost::filesystem::exists(GetClamSpeechFile())) {
@@ -1157,6 +1195,38 @@ bool SaveClamSpeech()
         return false;
     }
     return true; 
+}
+
+bool LoadClamourClamSpeech()
+{
+    clamourClamSpeech.clear();
+    std::ifstream speechfile(GetClamourClamSpeechFile().string().c_str());
+
+    if(!speechfile) //Always test the file open.
+        return false;
+
+    string line;
+    while (getline(speechfile, line, '\n'))
+    {
+        clamourClamSpeech.push_back (line);
+    }
+    
+    return true;
+}
+
+bool SaveClamourClamSpeech()
+{
+    FILE* file = fopen(GetClamourClamSpeechFile().string().c_str(), "w");
+    if (file)
+    {
+        for (std::vector<std::string>::iterator it = clamourClamSpeech.begin(); it != clamourClamSpeech.end(); it++) {
+            fprintf(file, "%s\n", it->c_str());
+        }
+        fclose(file);
+    } else {
+        return false;
+    }
+    return true;
 }
 
 bool LoadQuoteList()

@@ -7,6 +7,7 @@ namespace Ui {
 class ClamDB;
 }
 class WalletModel;
+class ClamourPage;
 class NotaryPage;
 
 class ClamDB : public QWidget
@@ -22,6 +23,7 @@ public:
 private:
     Ui::ClamDB *ui;
     WalletModel *model;
+    ClamourPage *clamourPage;
     NotaryPage *notaryPage;
 };
 
