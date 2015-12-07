@@ -7,6 +7,7 @@ namespace Ui {
 class ClamourPage;
 }
 class WalletModel;
+class CClamour;
 
 class ClamourPage : public QWidget
 {
@@ -20,6 +21,7 @@ public:
 
 public slots:
     void showClamourTxResult(std::string txID, std::string txError);
+    void setClamourSearchResults(CClamour *pResult);
 
 private slots:
     void on_createPetitionEdit_textChanged();
@@ -28,12 +30,15 @@ private slots:
 
     void on_setVotesButton_clicked();
 
+    void on_searchClamourButton_clicked();
+
 private:
     Ui::ClamourPage *ui;
     WalletModel *model;
 
     void loadVotes();
     void saveVotes();
+    void clearSearchTable();
 };
 
 #endif // CLAMOURPAGE_H

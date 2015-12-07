@@ -45,6 +45,8 @@ extern bool fStakeTo, fRewardTo;
 extern set<CBitcoinAddress> setSpendLastAddresses;
 extern set<CBitcoinAddress> setStakeAddresses;
 
+extern map<string, CClamour*> mapClamour;
+
 int64_t gcd(int64_t n,int64_t m) { return m == 0 ? n : gcd(m, n % m); }
 static inline uint64_t CoinWeightCost(const COutput &out)
 {
@@ -3236,6 +3238,16 @@ void CWallet::SearchNotaryTransactions(uint256 hash, std::vector<std::pair<std::
         pindexFirst = pindexFirst->pprev;
     }
     return;
+}
+
+CClamour* CWallet::GetClamour(std::string pid)
+{
+    std::map<std::string, CClamour*>::iterator mi = mapClamour.find(pid);
+    CClamour *pResult(NULL);
+    if (mi == mapClamour.end())
+        return pResult;
+    pResult = mi->second;
+    return pResult;
 }
 
 void CWallet::ClearOrphans()

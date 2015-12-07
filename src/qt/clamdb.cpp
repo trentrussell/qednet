@@ -14,10 +14,14 @@ ClamDB::ClamDB(QWidget *parent) :
     ui->setupUi(this);
 
     notaryPage = new NotaryPage();
-    ui->tabWidget->addTab(this->notaryPage, tr("Notary"));
+    ui->stackedWidget->addWidget(this->notaryPage);
+    ui->pageList->addItem("Notary");
 
     clamourPage = new ClamourPage();
-    ui->tabWidget->addTab(this->clamourPage, tr("CLAMour"));
+    ui->stackedWidget->addWidget(this->clamourPage);
+    ui->pageList->addItem("CLAMour");
+
+    connect(ui->pageList, SIGNAL(currentRowChanged(int)), ui->stackedWidget, SLOT(setCurrentIndex(int)));
 }
 
 ClamDB::~ClamDB()
@@ -30,5 +34,6 @@ void ClamDB::setModel(WalletModel *model)
     this->model = model;
     this->clamourPage->setModel(model);
     this->notaryPage->setModel(model);
+    ui->pageList->setCurrentRow(0);
 }
 

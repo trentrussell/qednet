@@ -440,6 +440,12 @@ void WalletModel::sendNotaryTx(std::string hash)
     emit notaryTxSent(wtx.GetHash().GetHex(), txError);
 }
 
+void WalletModel::searchClamours(std::string pid)
+{
+    CClamour *pResult(wallet->GetClamour(pid));
+    emit clamourSearchComplete(pResult);
+}
+
 void WalletModel::sendClamourTx(std::string hash)
 {
     CWalletTx wtx;

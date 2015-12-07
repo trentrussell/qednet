@@ -31,6 +31,7 @@ public slots:
     void showNotaryTxResult(std::string txID, std::string txError);
 
 private slots:
+    void calculateNotaryID();
     void on_searchNotaryButton_clicked();
 
     void on_selectFileButton_clicked();
@@ -41,8 +42,6 @@ private slots:
     void onCopyTxID();
 
     void on_calcNotaryIDbutton_clicked();
-
-    void on_notaryIDEdit_textChanged(const QString &arg1);
 
 private:
     Ui::NotaryPage *ui;

@@ -53,7 +53,7 @@
           </sizepolicy>
          </property>
          <property name="placeholderText">
-          <string>Enter a file name</string>
+          <string>Enter a file name.</string>
          </property>
         </widget>
        </item>
@@ -83,7 +83,7 @@
      <item row="1" column="1">
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
-        <widget class="QLineEdit" name="notaryIDEdit">
+        <widget class="QValidatedLineEdit" name="notaryIDEdit">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
            <horstretch>1</horstretch>
@@ -92,6 +92,9 @@
          </property>
          <property name="readOnly">
           <bool>true</bool>
+         </property>
+         <property name="placeholderText">
+          <string>The ID of the above file will be shown here.</string>
          </property>
         </widget>
        </item>
@@ -147,14 +150,14 @@
     </layout>
    </item>
   </layout>
-  <zorder>label</zorder>
-  <zorder>sendNotaryButton</zorder>
-  <zorder>sendNotaryButton</zorder>
-  <zorder>searchNotaryButton</zorder>
-  <zorder>label_2</zorder>
-  <zorder>label_2</zorder>
-  <zorder>formLayoutWidget</zorder>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QValidatedLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>qvalidatedlineedit.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
