@@ -317,6 +317,7 @@ static const CRPCCommand vRPCCommands[] =
     { "setrewardto",            &setrewardto,            true,      true,      true },
     { "getclamour",             &getclamour,             true,      true,      false },
     { "listclamours",           &listclamours,           true,      true,      false },
+    { "getsupport",             &getsupport,             true,      true,      false },
 #endif
 };
 
