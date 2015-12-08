@@ -587,8 +587,13 @@ UniValue getsupport(const UniValue& params, bool fHelp)
     }
 
     UniValue ret(UniValue::VOBJ);
+    UniValue counts(UniValue::VOBJ);
+    ret.push_back(Pair("window", nWindow));
+    ret.push_back(Pair("startblock", nBlock + 1 - nWindow));
+    ret.push_back(Pair("endblock", nBlock));
     BOOST_FOREACH(const mapSupport_pair &p, mapSupport)
-        ret.push_back(Pair(p.first, p.second));
+        counts.push_back(Pair(p.first, p.second));
+    ret.push_back(Pair("support", counts));
 
     return ret;
 }
