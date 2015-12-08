@@ -550,29 +550,42 @@ UniValue listclamours(const UniValue& params, bool fHelp)
 
 UniValue getsupport(const UniValue& params, bool fHelp)
 {
-    if (fHelp || params.size() > 2)
+    if (fHelp || params.size() > 3)
         throw runtime_error(
-            "getsupport [window=10000] [block=<bestblock>]\n"
-            "Returns an object detailing the number of blocks supporting each CLAMour petition\n"
+            "getsupport [threshold=0] [window=10000] [block=<bestblock>]\n"
+            "Returns an object detailing the number of blocks supporting CLAMour petitions\n"
+            "<threshold> sets a percentage threshold of support below which petitions are ignored.\n"
             "<window> sets the number of blocks to count and defaults to 10000.\n"
             "<block> sets which block ends the window, and defaults to the last block in the chain.");
 
-    RPCTypeCheck(params, list_of(UniValue::VNUM)(UniValue::VNUM));
+    RPCTypeCheck(params, list_of(UniValue::VNUM)(UniValue::VNUM)(UniValue::VNUM));
 
-    int nWindow = 10000;
-    int nBlock;
+    double dThreshold;
+    int nWindow, nBlock;
     map<string,int> mapSupport;
     typedef pair<string,int> mapSupport_pair;
 
-    if (params.size() > 0)
-        nWindow = params[0].get_int();
+    if (params.size() > 0) {
+        dThreshold = params[0].get_real();
+        if (dThreshold < 0 || dThreshold > 100)
+            throw runtime_error("Threshold percentage out of range.");
+    } else
+        dThreshold = 0;
 
-    if (params.size() > 1) {
-        nBlock = params[1].get_int();
+    if (params.size() > 1)
+        nWindow = params[1].get_int();
+    else
+        nWindow = 10000;
+
+    if (params.size() > 2) {
+        nBlock = params[2].get_int();
         if (nBlock < 0 || nBlock > nBestHeight)
             throw runtime_error("Block number out of range.");
     } else
         nBlock = nBestHeight;
+
+    if (nWindow < 1)
+        throw runtime_error("Window size must be at least 1.");
 
     if (nWindow > nBlock + 1)
         throw runtime_error("Window starts before block 0.");
@@ -588,11 +601,13 @@ UniValue getsupport(const UniValue& params, bool fHelp)
 
     UniValue ret(UniValue::VOBJ);
     UniValue counts(UniValue::VOBJ);
+    ret.push_back(Pair("threshold", dThreshold));
     ret.push_back(Pair("window", nWindow));
-    ret.push_back(Pair("startblock", nBlock + 1 - nWindow));
     ret.push_back(Pair("endblock", nBlock));
+    ret.push_back(Pair("startblock", nBlock + 1 - nWindow));
     BOOST_FOREACH(const mapSupport_pair &p, mapSupport)
-        counts.push_back(Pair(p.first, p.second));
+        if (p.second * 100 >= dThreshold * nWindow)
+            counts.push_back(Pair(p.first, p.second));
     ret.push_back(Pair("support", counts));
 
     return ret;
