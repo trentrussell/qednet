@@ -553,7 +553,7 @@ UniValue getsupport(const UniValue& params, bool fHelp)
     if (fHelp || params.size() > 2)
         throw runtime_error(
             "getsupport [window=10000] [block=<bestblock>]\n"
-            "Returns an array of the number of blocks supporting each CLAMour petition\n"
+            "Returns an object detailing the number of blocks supporting each CLAMour petition\n"
             "<window> sets the number of blocks to count and defaults to 10000.\n"
             "<block> sets which block ends the window, and defaults to the last block in the chain.");
 
