@@ -957,6 +957,9 @@ public:
     unsigned int nBits;
     unsigned int nNonce;
 
+    mutable bool fSupportChecked; // did we check the speech of the staking transaction for 'clamour' support yet?
+    mutable std::set<std::string> setSupport; // CLAMour pid strings supported by this block
+
     CBlockIndex()
     {
         phashBlock = NULL;
@@ -1124,6 +1127,8 @@ public:
         if (fGeneratedStakeModifier)
             nFlags |= BLOCK_STAKE_MODIFIER;
     }
+
+    std::set<std::string> GetSupport() const;
 
     std::string ToString() const
     {

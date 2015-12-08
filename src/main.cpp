@@ -2486,6 +2486,62 @@ uint256 CBlockIndex::GetBlockTrust() const
     return ((CBigNum(1)<<256) / (bnTarget+1)).getuint256();
 }
 
+std::set<std::string> CBlockIndex::GetSupport() const
+{
+    if (fSupportChecked)
+        return setSupport;
+
+    CBlock block;
+    block.ReadFromDisk(this, true);
+
+    fSupportChecked = true;
+
+    if (block.IsProofOfStake()) {
+        do {
+            if (block.vtx.size() < 2) {
+                LogPrintf("block only has %d transactions?\n", block.vtx.size());
+                break;
+            }
+
+            string& strSpeech = block.vtx[1].strCLAMSpeech;
+            // LogPrintf("stake speech is '%s'\n", strSpeech);
+
+            if (strSpeech.substr(0, 7) != "clamour")
+                break;
+
+            int n = 7;
+            int i;
+            char c = strSpeech[n++];
+            while (true) {
+                // support starts with a space
+                if (c != ' ')
+                    break;
+
+                // then 8 lowercase hex digits
+                for (i = 0; i < 8; i++) {
+                    c = strSpeech[n++];
+                    if ((c < '0' || c > '9') && (c < 'a' || c > 'f'))
+                        break;
+                }
+
+                // break if we exited the loop early
+                if (i != 8)
+                    break;
+
+                // must be followed by space or end of string
+                c = strSpeech[n++];
+                if (c != ' ' && c != '\0')
+                    break;
+
+                // if all that is OK, record the support, and loop to check for other petition IDs
+                setSupport.insert(strSpeech.substr(n-9, 8));
+            }
+        } while (false);
+    }
+
+    return setSupport;
+}
+
 bool CBlockIndex::IsSuperMajority(int minVersion, const CBlockIndex* pstart, unsigned int nRequired, unsigned int nToCheck)
 {
     unsigned int nFound = 0;

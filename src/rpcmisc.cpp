@@ -547,3 +547,48 @@ UniValue listclamours(const UniValue& params, bool fHelp)
 
     return ret;
 }
+
+UniValue getsupport(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() > 2)
+        throw runtime_error(
+            "getsupport [window=10000] [block=<bestblock>]\n"
+            "Returns an array of the number of blocks supporting each CLAMour petition\n"
+            "<window> sets the number of blocks to count and defaults to 10000.\n"
+            "<block> sets which block ends the window, and defaults to the last block in the chain.");
+
+    RPCTypeCheck(params, list_of(UniValue::VNUM)(UniValue::VNUM));
+
+    int nWindow = 10000;
+    int nBlock;
+    map<string,int> mapSupport;
+    typedef pair<string,int> mapSupport_pair;
+
+    if (params.size() > 0)
+        nWindow = params[0].get_int();
+
+    if (params.size() > 1) {
+        nBlock = params[1].get_int();
+        if (nBlock < 0 || nBlock > nBestHeight)
+            throw runtime_error("Block number out of range.");
+    } else
+        nBlock = nBestHeight;
+
+    if (nWindow > nBlock + 1)
+        throw runtime_error("Window starts before block 0.");
+
+    for (int i = nBlock + 1 - nWindow; i <= nBlock; i++) {
+        CBlockIndex* pblockindex = FindBlockByHeight(i);
+        set<string> sup = pblockindex->GetSupport();
+        BOOST_FOREACH(const string &s, sup) {
+            // LogPrintf("%d supports %s\n", i, s);
+            mapSupport[s]++;
+        }
+    }
+
+    UniValue ret(UniValue::VOBJ);
+    BOOST_FOREACH(const mapSupport_pair &p, mapSupport)
+        ret.push_back(Pair(p.first, p.second));
+
+    return ret;
+}
