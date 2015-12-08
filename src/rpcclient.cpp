@@ -159,6 +159,7 @@ static const CRPCConvertParam vRPCConvertParams[] =
     { "listclamours", 1 },
     { "getsupport", 0 },
     { "getsupport", 1 },
+    { "getsupport", 2 },
 };
 
 class CRPCConvertTable
