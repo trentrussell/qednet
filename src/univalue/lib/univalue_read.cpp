@@ -115,8 +115,6 @@ enum jtokentype getJsonToken(string& tokenVal, unsigned int& consumed,
         const char *firstDigit = first;
         if (!isdigit(*firstDigit))
             firstDigit++;
-        if ((*firstDigit == '0') && isdigit(firstDigit[1]))
-            return JTOK_ERR;
 
         numStr += *raw;                       // copy first char
         raw++;
