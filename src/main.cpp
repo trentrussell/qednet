@@ -1450,37 +1450,6 @@ bool CTransaction::FetchInputs(CTxDB& txdb, const map<uint256, CTxIndex>& mapTes
             // Get prev tx from disk
             if (!txPrev.ReadFromDisk(txindex.pos))
                 return error("FetchInputs() : %s ReadFromDisk prev tx %s failed", GetHash().ToString(),  prevout.hash.ToString());
-
-            // if nDigs is a non-NULL pointer, check how many initial-distribution CLAMs this transaction moves
-            if (nDigs) {
-                CBlock block;
-                if (block.ReadFromDisk(txindex.pos.nFile, txindex.pos.nBlockPos, false)) {
-                    uint256 hashBlock = block.GetHash();
-                    map<uint256, CBlockIndex*>::iterator mi = mapBlockIndex.find(hashBlock);
-                    if (mi != mapBlockIndex.end() && (*mi).second) {
-                        CBlockIndex* pindex = (*mi).second;
-                        if (pindex->nHeight < DISTRIBUTION_END) {
-                            if (pindex->IsInMainChain()) {
-                                unsigned int n = vin[i].prevout.n;
-
-                                if (txPrev.vout[n].nValue == 460545574) {
-                                    *nDigs += txPrev.vout[n].nValue;
-                                    
-                                    CTxDestination address;
-                                    LogPrintf("DIG: %s:%d %s from block %d\n",
-                                              txPrev.GetHash().ToString(), n,
-                                              ExtractDestination(txPrev.vout[n].scriptPubKey, address) ?
-                                              CBitcoinAddress(address).ToString() : "[unknown]",
-                                              pindex->nHeight);
-                                }
-                            } else
-                                LogPrintf("ERROR: block isn't in main chain\n");
-                        }
-                    } else
-                        LogPrintf("ERROR: can't find block hash in index\n");
-                } else
-                    LogPrintf("ERROR: can't read block from disk\n");
-            }
         }
     }
  
@@ -1497,6 +1466,37 @@ bool CTransaction::FetchInputs(CTxDB& txdb, const map<uint256, CTxIndex>& mapTes
             // adding inputs:
             fInvalid = true;
             return DoS(100, error("FetchInputs() : %s prevout.n out of range %d %"PRIszu" %"PRIszu" prev tx %s\n%s", GetHash().ToString(), prevout.n, txPrev.vout.size(), txindex.vSpent.size(), prevout.hash.ToString(), txPrev.ToString()));
+        }
+
+        // if nDigs is a non-NULL pointer, check how many initial-distribution CLAMs this transaction moves
+        if (nDigs) {
+            CBlock block;
+            if (block.ReadFromDisk(txindex.pos.nFile, txindex.pos.nBlockPos, false)) {
+                uint256 hashBlock = block.GetHash();
+                map<uint256, CBlockIndex*>::iterator mi = mapBlockIndex.find(hashBlock);
+                if (mi != mapBlockIndex.end() && (*mi).second) {
+                    CBlockIndex* pindex = (*mi).second;
+                    if (pindex->nHeight < DISTRIBUTION_END) {
+                        if (pindex->IsInMainChain()) {
+                            unsigned int n = vin[i].prevout.n;
+
+                            if (txPrev.vout[n].nValue == 460545574) {
+                                *nDigs += txPrev.vout[n].nValue;
+                                    
+                                CTxDestination address;
+                                LogPrintf("DIG: %s:%d %s from block %d\n",
+                                          txPrev.GetHash().ToString(), n,
+                                          ExtractDestination(txPrev.vout[n].scriptPubKey, address) ?
+                                          CBitcoinAddress(address).ToString() : "[unknown]",
+                                          pindex->nHeight);
+                            }
+                        } else
+                            LogPrintf("ERROR: block isn't in main chain\n");
+                    }
+                } else
+                    LogPrintf("ERROR: can't find block hash in index\n");
+            } else
+                LogPrintf("ERROR: can't read block from disk\n");
         }
     }
  
