@@ -1321,10 +1321,12 @@ UniValue listaccounts(const UniValue& params, bool fHelp)
                 mapAccountBalances[pwalletMain->mapAddressBook[td]] -= nFee; // then credit the reward to its account
             else
                 mapAccountBalances[""] -= nFee;
-            continue;
-        }
 
-        mapAccountBalances[strSentAccount] -= nFee;
+            // staking can change the wallet balance via -staketo or -rewardto; assign such changes to the "" account
+            strSentAccount = "";
+        } else
+            mapAccountBalances[strSentAccount] -= nFee;
+
         BOOST_FOREACH(const PAIRTYPE(CTxDestination, int64_t)& s, listSent)
             mapAccountBalances[strSentAccount] -= s.second;
         if (nDepth >= nMinDepth && wtx.GetBlocksToMaturity() == 0)
