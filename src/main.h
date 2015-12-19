@@ -984,6 +984,8 @@ public:
         nTime          = 0;
         nBits          = 0;
         nNonce         = 0;
+
+        fSupportChecked = false;
     }
 
     CBlockIndex(unsigned int nFileIn, unsigned int nBlockPosIn, CBlock& block)
@@ -1019,6 +1021,8 @@ public:
         nTime          = block.nTime;
         nBits          = block.nBits;
         nNonce         = block.nNonce;
+
+        fSupportChecked = false;
     }
 
     CBlock GetBlockHeader() const
