@@ -1247,8 +1247,10 @@ void CWallet::AvailableCoinsForStaking(vector<COutput>& vCoins, unsigned int nSp
             for (unsigned int i = 0; i < pcoin->vout.size(); i++)
                 if (!(pcoin->IsSpent(i)) && IsMine(pcoin->vout[i]) && pcoin->vout[i].nValue >= nMinimumInputValue &&
                     (!nMaxStakeValue || pcoin->vout[i].nValue <= nMaxStakeValue) &&
-                    (!setStakeAddresses.size() || (ExtractDestination(pcoin->vout[i].scriptPubKey, address) && setStakeAddresses.count(address))))
+                    (!setStakeAddresses.size() || (ExtractDestination(pcoin->vout[i].scriptPubKey, address) && setStakeAddresses.count(address)))) {
+                    pcoin->hash = it->first;
                     vCoins.push_back(COutput(pcoin, i, nDepth));
+                }
         }
     }
 }
@@ -2106,9 +2108,6 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
     uint256 hashProofOfStake = 0;
     BOOST_FOREACH(PAIRTYPE(const CWalletTx*, unsigned int) pcoin, setCoins)
     {
-        if (!pcoin.first->hash)
-            pcoin.first->hash = pcoin.first->GetHash();
-
         CTxIndex txindex;
         {
             LOCK2(cs_main, cs_wallet);
@@ -2313,7 +2312,7 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
                         nCredit + pcoin.first->vout[pcoin.second].nValue > nBalance - nReserveBalance)  // or we have reached the reserve limit
                         break;
 
-                    txNew.vin.push_back(CTxIn(pcoin.first->GetHash(), pcoin.second)); // we may not have cached this input's GetHash() yet
+                    txNew.vin.push_back(CTxIn(pcoin.first->hash, pcoin.second));
                     nCredit += pcoin.first->vout[pcoin.second].nValue;
                     vwtxPrev.push_back(pcoin.first);
                 }
