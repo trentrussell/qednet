@@ -223,6 +223,13 @@ UniValue stop(const UniValue& params, bool fHelp)
 static const CRPCCommand vRPCCommands[] =
 { //  name                      actor (function)         okSafeMode threadSafe reqWallet
   //  ------------------------  -----------------------  ---------- ---------- ---------
+    { "savedata",               &savedata,               false,     false,     false },
+    { "adddata",                &adddata,                false,     false,     false },
+    { "removedata",             &removedata,             false,     false,     false },
+    { "loaddata",               &loaddata,               false,     false,     false },
+    { "getdata",                &getdata,                false,     false,     false },
+    { "whitelistdata",          &whitelistdata,          false,     false,     false },
+    { "blacklistdata",          &blacklistdata,          false,     false,     false },
     { "help",                   &help,                   true,      true,      false },
     { "stop",                   &stop,                   true,      true,      false },
     { "getbestblockhash",       &getbestblockhash,       true,      false,     false },

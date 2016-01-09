@@ -933,7 +933,7 @@ static std::string FormatException(std::exception* pex, const char* pszThread)
     char pszModule[MAX_PATH] = "";
     GetModuleFileNameA(NULL, pszModule, sizeof(pszModule));
 #else
-    const char* pszModule = "clam";
+    const char* pszModule = "qednet";
 #endif
     if (pex)
         return strprintf(
@@ -963,13 +963,13 @@ void PrintExceptionContinue(std::exception* pex, const char* pszThread)
 boost::filesystem::path GetDefaultDataDir()
 {
     namespace fs = boost::filesystem;
-    // Windows < Vista: C:\Documents and Settings\Username\Application Data\Clam
-    // Windows >= Vista: C:\Users\Username\AppData\Roaming\Clam
-    // Mac: ~/Library/Application Support/Clam
-    // Unix: ~/.clam
+    // Windows < Vista: C:\Documents and Settings\Username\Application Data\Qednet
+    // Windows >= Vista: C:\Users\Username\AppData\Roaming\Qednet
+    // Mac: ~/Library/Application Support/Qednet
+    // Unix: ~/.qednet
 #ifdef WIN32
     // Windows
-    return GetSpecialFolderPath(CSIDL_APPDATA) / "Clam";
+    return GetSpecialFolderPath(CSIDL_APPDATA) / "Qednet";
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
@@ -981,10 +981,10 @@ boost::filesystem::path GetDefaultDataDir()
     // Mac
     pathRet /= "Library/Application Support";
     fs::create_directory(pathRet);
-    return pathRet / "Clam";
+    return pathRet / "Qednet";
 #else
     // Unix
-    return pathRet / ".clam";
+    return pathRet / ".qednet";
 #endif
 #endif
 }
@@ -1033,7 +1033,7 @@ void ClearDatadirCache()
 
 boost::filesystem::path GetConfigFile()
 {
-    boost::filesystem::path pathConfigFile(GetArg("-conf", "clam.conf"));
+    boost::filesystem::path pathConfigFile(GetArg("-conf", "qednet.conf"));
     if (!pathConfigFile.is_complete()) pathConfigFile = GetDataDir(false) / pathConfigFile;
     return pathConfigFile;
 }

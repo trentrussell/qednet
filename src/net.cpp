@@ -1751,6 +1751,32 @@ void RelayTransaction(const CTransaction& tx, const uint256& hash, const CDataSt
     RelayInventory(inv);
 }
 
+void RelayMessage(const std::string& strType,const vector<unsigned char>& msgData, const uint256& hash, const CDataStream& ss)
+{
+    CInv inv(strType, hash);
+    {
+        LOCK(cs_mapRelay);
+        // Expire old relay messages
+        while (!vRelayExpiration.empty() && vRelayExpiration.front().first < GetTime())
+        {
+            mapRelay.erase(vRelayExpiration.front().second);
+            vRelayExpiration.pop_front();
+        }
+
+        // Save original serialized message so newer versions are preserved
+        mapRelay.insert(std::make_pair(inv, ss));
+        vRelayExpiration.push_back(std::make_pair(GetTime() + 15 * 60, inv));
+    }
+
+    RelayInventory(inv);
+}
+
+void RelayGetData(const std::string& strType, const uint256& hash)
+{
+    CInv inv(strType, hash);
+    RelayAskFor(inv);
+}
+
 void CNode::RecordBytesRecv(uint64_t bytes)
 {
     LOCK(cs_totalBytesRecv);

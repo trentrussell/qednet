@@ -84,7 +84,7 @@ map<uint256, set<uint256> > mapOrphanTransactionsByPrev;
 // Constant stuff for coinbase transactions we create:
 CScript COINBASE_FLAGS;
  
-const string strMessageMagic = "Clam Signed Message:\n";
+const string strMessageMagic = "Qednet Signed Message:\n";
  
 
 extern enum Checkpoints::CPMode CheckpointsMode;
@@ -602,7 +602,8 @@ bool CTransaction::CheckTransaction() const
 {
     // Basic checks that don't depend on any context
     if (vin.empty())
-        return DoS(10, error("CTransaction::CheckTransaction() : vin empty"));
+      return true; // for testing hereq
+      //        return DoS(10, error("CTransaction::CheckTransaction() : vin empty"));
     if (vout.empty())
         return DoS(10, error("CTransaction::CheckTransaction() : vout empty"));
     // Size limits
@@ -761,41 +762,41 @@ bool AcceptToMemoryPool(CTxMemPool& pool, CTransaction &tx, bool fLimitFree,
         unsigned int nSize = ::GetSerializeSize(tx, SER_NETWORK, PROTOCOL_VERSION);
  
         // Don't accept it if it can't get into a block
-        int64_t txMinFee = GetMinFee(tx, 1000, GMF_RELAY, nSize);
-        if ((fLimitFree && nFees < txMinFee) || (!fLimitFree && nFees < MIN_TX_FEE))
-            return error("AcceptToMemoryPool : not enough fees %s, %d < %d",
-                         hash.ToString(),
-                         nFees, txMinFee);
+	//        int64_t txMinFee = GetMinFee(tx, 1000, GMF_RELAY, nSize);
+	//        if ((fLimitFree && nFees < txMinFee) || (!fLimitFree && nFees < MIN_TX_FEE))
+	//            return error("AcceptToMemoryPool : not enough fees %s, %d < %d",
+	//                         hash.ToString(),
+	//                         nFees, txMinFee);
  
         // Continuously rate-limit free transactions
         // This mitigates 'penny-flooding' -- sending thousands of free transactions just to
         // be annoying or make others' transactions take longer to confirm.
-        if (fLimitFree && nFees < MIN_RELAY_TX_FEE)
-        {
-            static CCriticalSection csFreeLimiter;
-            static double dFreeCount;
-            static int64_t nLastTime;
-            int64_t nNow = GetTime();
-
-            LOCK(csFreeLimiter);
-
-            // Use an exponentially decaying ~10-minute window:
-            dFreeCount *= pow(1.0 - 1.0/600.0, (double)(nNow - nLastTime));
-            nLastTime = nNow;
-            // -limitfreerelay unit is thousand-bytes-per-minute
-            // At default rate it would take over a month to fill 1GB
-            if (dFreeCount > GetArg("-limitfreerelay", 15)*10*1000)
-                return error("AcceptToMemoryPool : free transaction rejected by rate limiter");
-            LogPrint("mempool", "Rate limit dFreeCount: %g => %g\n", dFreeCount, dFreeCount+nSize);
-            dFreeCount += nSize;
-        }
+	//        if (fLimitFree && nFees < MIN_RELAY_TX_FEE)
+	//        {
+	//            static CCriticalSection csFreeLimiter;
+	//            static double dFreeCount;
+	//            static int64_t nLastTime;
+	//            int64_t nNow = GetTime();
+	//
+	//            LOCK(csFreeLimiter);
+	//
+	//            // Use an exponentially decaying ~10-minute window:
+	//            dFreeCount *= pow(1.0 - 1.0/600.0, (double)(nNow - nLastTime));
+	//            nLastTime = nNow;
+	//            // -limitfreerelay unit is thousand-bytes-per-minute
+	//            // At default rate it would take over a month to fill 1GB
+	//            if (dFreeCount > GetArg("-limitfreerelay", 15)*10*1000)
+	//                return error("AcceptToMemoryPool : free transaction rejected by rate limiter");
+	//            LogPrint("mempool", "Rate limit dFreeCount: %g => %g\n", dFreeCount, dFreeCount+nSize);
+	//            dFreeCount += nSize;
+	//        }
  
         // Check against previous transactions
         // This is done last to help prevent CPU exhaustion denial-of-service attacks.
-        if (!tx.ConnectInputs(txdb, mapInputs, mapUnused, CDiskTxPos(1,1,1), pindexBest, false, false, STANDARD_SCRIPT_VERIFY_FLAGS | SCRIPT_VERIFY_LOCKTIME))
-        {
-            return error("AcceptToMemoryPool : ConnectInputs failed %s", hash.ToString());
-        }
+	//        if (!tx.ConnectInputs(txdb, mapInputs, mapUnused, CDiskTxPos(1,1,1), pindexBest, false, false, STANDARD_SCRIPT_VERIFY_FLAGS | SCRIPT_VERIFY_LOCKTIME))
+	//        {
+	//            return error("AcceptToMemoryPool : ConnectInputs failed %s", hash.ToString());
+	//        }
     }
  
     // Store transaction in memory
@@ -3086,7 +3087,7 @@ struct CImportingNow
 
 void ThreadImport(std::vector<boost::filesystem::path> vImportFiles)
 {
-    RenameThread("Clam-loadblk");
+    RenameThread("Qednet-loadblk");
 
     CImportingNow imp;
 
@@ -3189,24 +3190,48 @@ string GetWarnings(string strFor)
 //
 
 
-bool static AlreadyHave(CTxDB& txdb, const CInv& inv)
+bool static ShouldRequest(CTxDB& txdb, const CInv& inv)
 {
     switch (inv.type)
     {
-    case MSG_TX:
-        {
-        bool txInMap = false;
-        txInMap = mempool.exists(inv.hash);
-        return txInMap ||
-               mapOrphanTransactions.count(inv.hash) ||
-               txdb.ContainsTx(inv.hash);
-        }
+      //    case MSG_TX: // old
+      //        {
+      //        bool txInMap = false;
+      //        txInMap = mempool.exists(inv.hash);
+      //        return txInMap ||
+      //               mapOrphanTransactions.count(inv.hash) ||
+      //               txdb.ContainsTx(inv.hash);
+      //        }
 
-    case MSG_BLOCK:
-        return mapBlockIndex.count(inv.hash) ||
-               mapOrphanBlocks.count(inv.hash);
+      //    case MSG_BLOCK:
+      //        return mapBlockIndex.count(inv.hash) ||
+      //               mapOrphanBlocks.count(inv.hash);
+
+    case MSG_QTX: // if a tx is new and not blocklisted, should request it
+      return (!txdb.ContainsData(inv.hash,"qtx") && !txdb.ContainsDataBlacklist(inv.hash,"qtx"));
+
+    case MSG_QBLOCKHEADER: // if a blockheader is new and not blacklisted, should request it
+      return (!txdb.ContainsData(inv.hash,"qblockheader") && !txdb.ContainsDataBlacklist(inv.hash,"qblockheader"));
+
+    case MSG_QBLOCKDELTA: // never request block deltas (at least for now), instead get the skeleton and txs separately
+      return false;
+
+    case MSG_QBLOCKDELTAH: // request a delta skeleton only if it is whitelisted (presumably because the header was valid)
+      return (!txdb.ContainsData(inv.hash,"qblockdeltah") && txdb.ContainsDataWhitelist(inv.hash,"qblockdeltah"));
+
+    case MSG_QCTREEABBREV: // only request a ctree abbrev if it is whitelisted
+      return (!txdb.ContainsData(inv.hash,"qctreeabbrev") && txdb.ContainsDataWhitelist(inv.hash,"qctreeabbrev"));
+
+    case MSG_QFRAME: // only request a frame if it is whitelisted
+      return (!txdb.ContainsData(inv.hash,"qframe") && txdb.ContainsDataWhitelist(inv.hash,"qframe"));
+
+    case MSG_QCTREEROOTFRAMEABBREV: // only request a root, frame, abbrev triple if it is whitelisted
+      return (!txdb.ContainsData(inv.hash,"qctreerootframeabbrev") && txdb.ContainsDataWhitelist(inv.hash,"qctreerootframeabbrev"));
+
+
     }
-    // Don't know what it is, just say we already got one
+
+    // Don't know what it is, don't request
     return true;
 }
 
@@ -3221,6 +3246,7 @@ void static ProcessGetData(CNode* pfrom)
 
     LOCK(cs_main);
 
+    LogPrintf("ProcessGetData 1\n");
     while (it != pfrom->vRecvGetData.end()) {
         // Don't bother if send buffer is too full to respond anyway
         if (pfrom->nSendSize >= SendBufferSize())
@@ -3231,6 +3257,7 @@ void static ProcessGetData(CNode* pfrom)
             boost::this_thread::interruption_point();
             it++;
 
+    LogPrintf("ProcessGetData 2\n");
             if (inv.type == MSG_BLOCK)
             {
                 // Send block from disk
@@ -3262,18 +3289,50 @@ void static ProcessGetData(CNode* pfrom)
             }
             else if (inv.IsKnownType())
             {
+    LogPrintf("ProcessGetData 3\n");
                 // Send stream from relay memory
                 bool pushed = false;
                 {
                     LOCK(cs_mapRelay);
                     map<CInv, CDataStream>::iterator mi = mapRelay.find(inv);
+    LogPrintf("ProcessGetData 3a\n");
                     if (mi != mapRelay.end()) {
-                        pfrom->PushMessage(inv.GetCommand(), (*mi).second);
-                        pushed = true;
-                    }
+		      vector<unsigned char> datatxData(ParseHex("0200000000000000000000000000")); // dummy tx with no inputs and no outputs, storing data in clamspeech
+		      CDataStream mis = (*mi).second;
+		      unsigned int l = mis.size();
+		      if (l < 253) {
+			datatxData.push_back((unsigned char) l);
+		      } else if (l < 65536) {
+			datatxData.push_back((unsigned char) 253);
+			datatxData.push_back((unsigned char) (l%256));
+			datatxData.push_back((unsigned char) (l>>8));
+		      } else if (l < 1073741824) {
+			datatxData.push_back((unsigned char) 254);
+			datatxData.push_back((unsigned char) (l%256));
+			datatxData.push_back((unsigned char) ((l>>8)%256));
+			datatxData.push_back((unsigned char) ((l>>16)%256));
+			datatxData.push_back((unsigned char) (l>>24));
+		      } else { // too big
+			throw runtime_error("something was too big");
+		      }
+		      LogPrintf("ProcessGetData 3ba %d %d\n",datatxData.size(),(*mi).second.size());
+		      for (unsigned int i = 0; i < l; ++i) {
+			datatxData.push_back(mis[i]);
+		      }
+		      LogPrintf("ProcessGetData 3bb %d\n",datatxData.size());
+		      CDataStream dtxData(datatxData, SER_NETWORK, PROTOCOL_VERSION);
+		      CTransaction datatx;
+		      LogPrintf("ProcessGetData 3bc\n");
+		      dtxData >> datatx;
+		      LogPrintf("ProcessGetData 3c %s\n",inv.GetCommand());
+		      pfrom->PushMessage(inv.GetCommand(), inv.hash, datatx);
+		      pushed = true;
+		    }
                 }
+    LogPrintf("ProcessGetData 4\n");
                 if (!pushed && inv.type == MSG_TX) {
                     CTransaction tx;
+    LogPrintf("ProcessGetData 5\n");
                     if (mempool.lookup(inv.hash, tx)) {
                         CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
                         ss.reserve(1000);
@@ -3282,12 +3341,15 @@ void static ProcessGetData(CNode* pfrom)
                         pushed = true;
                     }
                 }
+    LogPrintf("ProcessGetData 11\n");
                 if (!pushed) {
+    LogPrintf("ProcessGetData 12\n");
                     vNotFound.push_back(inv);
                 }
             }
 
             // Track requests for our stuff.
+    LogPrintf("ProcessGetData 13\n");
             g_signals.Inventory(inv.hash);
 
             if (inv.type == MSG_BLOCK /* || inv.type == MSG_FILTERED_BLOCK */)
@@ -3295,6 +3357,7 @@ void static ProcessGetData(CNode* pfrom)
         }
     }
 
+    LogPrintf("ProcessGetData 14\n");
     pfrom->vRecvGetData.erase(pfrom->vRecvGetData.begin(), it);
 
     if (!vNotFound.empty()) {
@@ -3305,6 +3368,7 @@ void static ProcessGetData(CNode* pfrom)
         // do that because they want to know about (and store and rebroadcast and
         // risk analyze) the dependencies of transactions relevant to them, without
         // having to download the entire memory pool.
+    LogPrintf("ProcessGetData 15\n");
         pfrom->PushMessage("notfound", vNotFound);
     }
 }
@@ -3312,7 +3376,8 @@ void static ProcessGetData(CNode* pfrom)
 bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, int64_t nTimeReceived)
 {
     RandAddSeedPerfmon();
-    LogPrint("net", "received: %s (%"PRIszu" bytes)\n", strCommand, vRecv.size());
+    LogPrintf("ProcessMessage\n");
+    LogPrintf("received: %s (%d bytes)\n", strCommand, vRecv.size());
     if (mapArgs.count("-dropmessagestest") && GetRand(atoi(mapArgs["-dropmessagestest"])) == 0)
     {
         LogPrintf("dropmessagestest DROPPING RECV MESSAGE\n");
@@ -3552,6 +3617,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
     {
         vector<CInv> vInv;
         vRecv >> vInv;
+        LogPrint("inv", "received inv size : %d\n", vInv.size());
         if (vInv.size() > MAX_INV_SZ)
         {
             pfrom->Misbehaving(20);
@@ -3574,13 +3640,14 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         {
             const CInv &inv = vInv[nInv];
 
+	    LogPrintf("inv %s\n", inv.ToString());
             boost::this_thread::interruption_point();
             pfrom->AddInventoryKnown(inv);
 
-            bool fAlreadyHave = AlreadyHave(txdb, inv);
-            LogPrint("net", "  got inventory: %s  %s\n", inv.ToString(), fAlreadyHave ? "have" : "new");
+            bool fShouldRequest = ShouldRequest(txdb, inv);
+            LogPrint("net", "  got inventory: %s  %s\n", inv.ToString(), fShouldRequest ? "should request" : "should not request");
 
-            if (!fAlreadyHave) {
+            if (fShouldRequest) {
                 if (!fImporting)
                     pfrom->AskFor(inv);
             } else if (inv.type == MSG_BLOCK && mapOrphanBlocks.count(inv.hash)) {
@@ -3615,6 +3682,8 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
 
         if ((fDebug && vInv.size() > 0) || (vInv.size() == 1))
             LogPrint("net", "received getdata for: %s\n", vInv[0].ToString());
+
+	LogPrintf("received getdata for: %s\n", vInv[0].ToString());
 
         pfrom->vRecvGetData.insert(pfrom->vRecvGetData.end(), vInv.begin(), vInv.end());
         ProcessGetData(pfrom);
@@ -3736,6 +3805,22 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         pfrom->PushMessage("headers", vHeaders);
     }
 
+    else if (strCommand == "qtx" || strCommand == "qblockheader" || strCommand == "qblockdelta" || strCommand == "qblockdeltah" || strCommand == "qctreeabbrev" || strCommand == "qframe" || strCommand == "qctreerootframeabbrev")
+    {
+      uint256 hash;
+      vRecv >> hash;
+      CTransaction tx;
+      vRecv >> tx;
+      CInv inv(MSG_QTX, hash);
+      pfrom->AddInventoryKnown(inv);
+
+      LOCK(cs_main);
+      CTxDB().WriteData(hash,strCommand,tx);
+      if (strCommand == "qtx")
+	printf("\nQTX:%s\n",hash.GetHex().c_str());
+      if (strCommand == "qblockheader")
+	printf("\nQHEADER:%s\n",hash.GetHex().c_str());
+    }
 
     else if (strCommand == "tx")
     {
@@ -4258,8 +4343,9 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
         while (!pto->mapAskFor.empty() && (*pto->mapAskFor.begin()).first <= nNow)
         {
             const CInv& inv = (*pto->mapAskFor.begin()).second;
-            if (!AlreadyHave(txdb, inv))
+            if (ShouldRequest(txdb, inv))
             {
+                LogPrint("net", "sending getdata: %s\n", inv.ToString());
                 if (fDebug)
                     LogPrint("net", "sending getdata: %s\n", inv.ToString());
                 vGetData.push_back(inv);

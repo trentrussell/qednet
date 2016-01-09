@@ -178,6 +178,13 @@ extern UniValue decoderawtransaction(const UniValue& params, bool fHelp);
 extern UniValue decodescript(const UniValue& params, bool fHelp);
 extern UniValue signrawtransaction(const UniValue& params, bool fHelp);
 extern UniValue sendrawtransaction(const UniValue& params, bool fHelp);
+extern UniValue adddata(const UniValue& params, bool fHelp);
+extern UniValue savedata(const UniValue& params, bool fHelp);
+extern UniValue removedata(const UniValue& params, bool fHelp);
+extern UniValue loaddata(const UniValue& params, bool fHelp);
+extern UniValue getdata(const UniValue& params, bool fHelp);
+extern UniValue whitelistdata(const UniValue& params, bool fHelp);
+extern UniValue blacklistdata(const UniValue& params, bool fHelp);
 
 extern UniValue getbestblockhash(const UniValue& params, bool fHelp); // in rpcblockchain.cpp
 extern UniValue getblockcount(const UniValue& params, bool fHelp); // in rpcblockchain.cpp

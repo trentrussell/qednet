@@ -14,8 +14,15 @@
 static const char* ppszTypeName[] =
 {
     "ERROR",
-    "tx",
-    "block",
+    "tx", // unused
+    "block", // unused
+    "qtx", // tx
+    "qblockheader", // blockheader
+    "qblockdelta", // block delta
+    "qblockdeltah", // block delta skeleton (with only hashes of txs)
+    "qctreeabbrev", // a ctree uniquely identified by an abbrev hash
+    "qframe", // a frame uniquely identified by its hash
+    "qctreerootframeabbrev", // association of a root and frame with an abbrev (hash is hashpair of root and frame)
 };
 
 CMessageHeader::CMessageHeader()

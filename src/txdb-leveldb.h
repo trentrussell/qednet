@@ -183,6 +183,15 @@ public:
         return Write(std::string("version"), nVersion);
     }
 
+    bool ReadData(uint256 hash, const std::string tp, CTransaction& datatx);
+    bool WriteData(uint256 hash, const std::string tp, CTransaction& datatx);
+    bool EraseData(uint256 hash, const std::string tp);
+    bool ContainsData(uint256 hash, const std::string tp);
+    bool ContainsDataBlacklist(uint256 hash, const std::string tp);
+    bool ContainsDataWhitelist(uint256 hash, const std::string tp);
+    bool AddDataBlacklist(uint256 hash, const std::string tp);
+    bool AddDataWhitelist(uint256 hash, const std::string tp);
+
     bool ReadTxIndex(uint256 hash, CTxIndex& txindex);
     bool UpdateTxIndex(uint256 hash, const CTxIndex& txindex);
     bool AddTxIndex(const CTransaction& tx, const CDiskTxPos& pos, int nHeight);

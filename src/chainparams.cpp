@@ -50,40 +50,46 @@ public:
         // The message start string is designed to be unlikely to occur in normal data.
         // The characters are rarely used upper ASCII, not valid as UTF-8, and produce
         // a large 4-byte int at any alignment.
-        pchMessageStart[0] = 0x03;
+        pchMessageStart[0] = 0x02;
         pchMessageStart[1] = 0x22;
         pchMessageStart[2] = 0x35;
         pchMessageStart[3] = 0x15;
-        vAlertPubKey = ParseHex("0486bce1bac0d543f104cbff2bd23680056a3b9ea05e1137d2ff90eeb5e08472eb500322593a2cb06fbf8297d7beb6cd30cb90f98153b5b7cce1493749e41e0284");
-        nDefaultPort = 31174;
-        nRPCPort = 30174;
+        vAlertPubKey = ParseHex("044a872af7f5530746e958ab0aae3ef949ed3ca536b5feeb3d84ce22814ae34e10bfdd1cd85937dd01c3097d45fe8be1ef97ab787b5363474c9f39dd76c6bd2263");
+        nDefaultPort = 31184;
+        nRPCPort = 30184;
         bnProofOfWorkLimit = CBigNum(~uint256(0) >> 20);
 
+	// No real 'genesis block' is needed here; include a fake one for now.
         // Build the genesis block. Note that the output of the genesis coinbase cannot
         // be spent as it did not originally exist in the database.
         //
-        const char* pszTimestamp = "14/Apr/2014 No chowder for you, cause clams have feelings too";
-        CTransaction txNew;
-        txNew.nTime = 1397512438;
-        txNew.vin.resize(1);
-        txNew.vout.resize(1);
-        txNew.vin[0].scriptSig = CScript() << 0 << CBigNum(42) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
-        txNew.vout[0].SetEmpty();
-        genesis.vtx.push_back(txNew);
-        genesis.hashPrevBlock = 0;
-        genesis.hashMerkleRoot = genesis.BuildMerkleTree();
-        genesis.nVersion = 1;
-        genesis.nTime    = 1397512438;
-        genesis.nBits    = bnProofOfWorkLimit.GetCompact();
-        genesis.nNonce   = 2054231;
+	//        const char* pszTimestamp = "3/Jan/2016 by coincidence";
+	//        CTransaction txNew;
+	//        txNew.nTime = 1397512438;
+	//        txNew.vin.resize(1);
+	//        txNew.vout.resize(1);
+	//        txNew.vin[0].scriptSig = CScript() << 0 << CBigNum(42) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
+	//        txNew.vout[0].SetEmpty();
+	//        genesis.vtx.push_back(txNew);
+	//        genesis.hashPrevBlock = 0;
+	//        genesis.hashMerkleRoot = genesis.BuildMerkleTree();
+	//        genesis.nVersion = 1;
+	//        genesis.nTime    = 1397512438;
+	//        genesis.nBits    = bnProofOfWorkLimit.GetCompact();
+	//        genesis.nNonce   = 2054231;
 
+	//        hashGenesisBlock = genesis.GetHash();
+	//        assert(hashGenesisBlock == uint256("0x00000c3ce6b3d823a35224a39798eca9ad889966aeb5a9da7b960ffb9869db35"));
+	//        assert(genesis.hashMerkleRoot == uint256("0xef10b32afd53e4a6ebb8bdb0486c6acbe9b43afe3dfa538e913b89bb1319ff96"));
+        genesis.nTime = 1397512438;
+        genesis.nBits  = bnProofOfWorkLimit.GetCompact();
+        genesis.nNonce = 2054231;
         hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x00000c3ce6b3d823a35224a39798eca9ad889966aeb5a9da7b960ffb9869db35"));
-        assert(genesis.hashMerkleRoot == uint256("0xef10b32afd53e4a6ebb8bdb0486c6acbe9b43afe3dfa538e913b89bb1319ff96"));
 
         // push peer seeders running this network crawler: https://github.com/dooglus/bitcoin-seeder/tree/clam
-        PUSH_SEED("clam.just-dice.com")
-        PUSH_SEED("seed.clams.xyz")
+	// PUSH_SEED("clam.just-dice.com")
+        // PUSH_SEED("seed.clams.xyz")
+	PUSH_SEED("seed.willmathforcrypto.com") // this doesn't do anything at the moment
 
         // BIP32 version bytes:
         //    public: 0xa8c26d64 ("cpubk...")
@@ -128,32 +134,32 @@ public:
         // The message start string is designed to be unlikely to occur in normal data.
         // The characters are rarely used upper ASCII, not valid as UTF-8, and produce
         // a large 4-byte int at any alignment.
-        pchMessageStart[0] = 0xc4;
+        pchMessageStart[0] = 0xc3;
         pchMessageStart[1] = 0xf1;
         pchMessageStart[2] = 0xc0;
         pchMessageStart[3] = 0xdf;
         bnProofOfWorkLimit = CBigNum(~uint256(0) >> 16);
-        vAlertPubKey = ParseHex("0471dc165db490094d35cde15b1f5d755fa6ad6f2b5ed0f340e3f17f57389c3c2af113a8cbcc885bde73305a553b5640c83021128008ddf882e856336269080496");
-        nDefaultPort = 35714;
-        nRPCPort = 35715;
+        vAlertPubKey = ParseHex("044a872af7f5530746e958ab0aae3ef949ed3ca536b5feeb3d84ce22814ae34e10bfdd1cd85937dd01c3097d45fe8be1ef97ab787b5363474c9f39dd76c6bd2263");
+        nDefaultPort = 35724;
+        nRPCPort = 35725;
         strDataDir = "testnet";
 
         // Modify the testnet genesis block so the timestamp is valid for a later start.
-        genesis.nBits  = bnProofOfWorkLimit.GetCompact();
+	genesis.nBits  = bnProofOfWorkLimit.GetCompact();
 	genesis.nTime = 1397512438;
-        genesis.nNonce = 15165;
-	
-        hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x00001924120e93f445dd4adb9d90e0020350b8c6c2b08e1a4950372a37f8bcc8"));
+	genesis.nNonce = 15165;
 
-        vFixedSeeds.clear();
-        vSeeds.clear();
+	hashGenesisBlock = genesis.GetHash();
+	//	assert(hashGenesisBlock == uint256("0x00001924120e93f445dd4adb9d90e0020350b8c6c2b08e1a4950372a37f8bcc8"));
 
-        base58Prefixes[PUBKEY_ADDRESS] = list_of(111);
-        base58Prefixes[SCRIPT_ADDRESS] = list_of(196);
-        base58Prefixes[SECRET_KEY]     = list_of(239);
-        base58Prefixes[EXT_PUBLIC_KEY] = list_of(0x04)(0x35)(0x87)(0xCF);
-        base58Prefixes[EXT_SECRET_KEY] = list_of(0x04)(0x35)(0x83)(0x94);
+	vFixedSeeds.clear();
+	vSeeds.clear();
+
+	base58Prefixes[PUBKEY_ADDRESS] = list_of(111);
+	base58Prefixes[SCRIPT_ADDRESS] = list_of(196);
+	base58Prefixes[SECRET_KEY]     = list_of(239);
+	base58Prefixes[EXT_PUBLIC_KEY] = list_of(0x04)(0x35)(0x87)(0xCF);
+	base58Prefixes[EXT_SECRET_KEY] = list_of(0x04)(0x35)(0x83)(0x94);
 
         convertSeed6(vFixedSeeds, pnSeed6_test, ARRAYLEN(pnSeed6_test));
 
@@ -169,7 +175,7 @@ static CTestNetParams testNetParams;
 class CRegTestParams : public CTestNetParams {
 public:
     CRegTestParams() {
-        pchMessageStart[0] = 0xfa;
+        pchMessageStart[0] = 0xf9;
         pchMessageStart[1] = 0xbf;
         pchMessageStart[2] = 0xb5;
         pchMessageStart[3] = 0xda;
@@ -178,7 +184,7 @@ public:
         genesis.nBits  = bnProofOfWorkLimit.GetCompact();
         genesis.nNonce = 2;
         hashGenesisBlock = genesis.GetHash();
-        nDefaultPort = 18444;
+        nDefaultPort = 18445;
         strDataDir = "regtest";
         //assert(hashGenesisBlock == uint256("0x523dda6d336047722cbaf1c5dce622298af791bac21b33bf6e2d5048b2a13e3d"));
 

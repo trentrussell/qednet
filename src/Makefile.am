@@ -47,7 +47,7 @@ bin_PROGRAMS =
 TESTS =
 
 if BUILD_BITCOIND
-  bin_PROGRAMS += clamd
+  bin_PROGRAMS += qednetd
 endif
 
 .PHONY: FORCE
@@ -176,8 +176,8 @@ libbitcoin_util_a_SOURCES = \
 nodist_libbitcoin_util_a_SOURCES = $(srcdir)/obj/build.h
 #
 
-# clamd binary #
-clamd_LDADD = \
+# qednetd binary #
+qednetd_LDADD = \
   $(LIBBITCOIN_SERVER) \
   $(LIBBITCOIN_COMMON) \
   $(LIBUNIVALUE) \
@@ -187,20 +187,20 @@ clamd_LDADD = \
   $(LIBMEMENV)
 
 if ENABLE_WALLET
-clamd_LDADD += libbitcoin_wallet.a
+qednetd_LDADD += libbitcoin_wallet.a
 endif
-clamd_SOURCES = \
+qednetd_SOURCES = \
   bitcoind.cpp \
   rpcclient.cpp
 #
 
 if TARGET_WINDOWS
-clamd_SOURCES += bitcoind-res.rc
+qednetd_SOURCES += bitcoind-res.rc
 endif
 
-clamd_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS)
-clamd_CPPFLAGS = $(BITCOIN_INCLUDES)
-clamd_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+qednetd_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS)
+qednetd_CPPFLAGS = $(BITCOIN_INCLUDES)
+qednetd_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 
 CLEANFILES = leveldb/libleveldb.a leveldb/libmemenv.a *.gcda *.gcno

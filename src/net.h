@@ -87,7 +87,14 @@ CAddress GetLocalAddress(const CNetAddr *paddrPeer = NULL);
 enum
 {
     MSG_TX = 1,
-    MSG_BLOCK,
+    MSG_BLOCK = 2,
+    MSG_QTX = 3,
+    MSG_QBLOCKHEADER = 4,
+    MSG_QBLOCKDELTA = 5,
+    MSG_QBLOCKDELTAH = 6,
+    MSG_QCTREEABBREV = 7,
+    MSG_QFRAME = 8,
+    MSG_QCTREEROOTFRAMEABBREV = 9,
 };
 
 extern bool fDiscover;
@@ -673,9 +680,21 @@ inline void RelayInventory(const CInv& inv)
     }
 }
 
+inline void RelayAskFor(const CInv& inv)
+{
+    // Put on lists to offer to the other nodes
+    {
+        LOCK(cs_vNodes);
+        BOOST_FOREACH(CNode* pnode, vNodes)
+            pnode->AskFor(inv);
+    }
+}
+
 class CTransaction;
 void RelayTransaction(const CTransaction& tx, const uint256& hash);
 void RelayTransaction(const CTransaction& tx, const uint256& hash, const CDataStream& ss);
+void RelayMessage(const std::string& strType,const vector<unsigned char>& msgData, const uint256& hash, const CDataStream& ss);
+void RelayGetData(const std::string& strType, const uint256& hash);
 
 /** Access to the (IP) address database (peers.dat) */
 class CAddrDB

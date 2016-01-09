@@ -275,6 +275,54 @@ bool CTxDB::ReadDiskTx(COutPoint outpoint, CTransaction& tx)
     return ReadDiskTx(outpoint.hash, tx, txindex);
 }
 
+bool CTxDB::ReadData(uint256 hash, const std::string tp, CTransaction& datatx)
+{
+  return Read(make_pair(string(tp), hash), datatx);
+}
+
+bool CTxDB::WriteData(uint256 hash, const std::string tp, CTransaction& datatx)
+{
+  return Write(make_pair(string(tp), hash), datatx);
+}
+
+bool CTxDB::EraseData(uint256 hash, const std::string tp)
+{
+  return Erase(make_pair(string(tp), hash));
+}
+
+bool CTxDB::ContainsData(uint256 hash, const std::string tp)
+{
+  return Exists(make_pair(string(tp), hash));
+}
+
+bool CTxDB::ContainsDataBlacklist(uint256 hash, const std::string tp)
+{
+  return Exists(make_pair(string("blacklist"),make_pair(string(tp), hash)));
+}
+
+bool CTxDB::ContainsDataWhitelist(uint256 hash, const std::string tp)
+{
+  return Exists(make_pair(string("whitelist"),make_pair(string(tp), hash)));
+}
+
+bool CTxDB::AddDataBlacklist(uint256 hash, const std::string tp)
+{
+  vector<unsigned char> datatxData(ParseHex("0100000000000000000000000000")); // empty tx
+  CDataStream dtxData(datatxData, SER_NETWORK, PROTOCOL_VERSION);
+  CTransaction datatx;
+  dtxData >> datatx;
+  return Write(make_pair(string("blacklist"),make_pair(string(tp), hash)),datatx);
+}
+
+bool CTxDB::AddDataWhitelist(uint256 hash, const std::string tp)
+{
+  vector<unsigned char> datatxData(ParseHex("0100000000000000000000000000")); // empty tx
+  CDataStream dtxData(datatxData, SER_NETWORK, PROTOCOL_VERSION);
+  CTransaction datatx;
+  dtxData >> datatx;
+  return Write(make_pair(string("whitelist"),make_pair(string(tp), hash)),datatx);
+}
+
 bool CTxDB::WriteBlockIndex(const CDiskBlockIndex& blockindex)
 {
     return Write(make_pair(string("blockindex"), blockindex.GetBlockHash()), blockindex);
@@ -454,9 +502,9 @@ bool CTxDB::LoadBlockIndex()
       DateTimeStrFormat("%x %H:%M:%S", pindexBest->GetBlockTime()));
 
     // NovaCoin: load hashSyncCheckpoint
-    if (!ReadSyncCheckpoint(Checkpoints::hashSyncCheckpoint))
-        return error("CTxDB::LoadBlockIndex() : hashSyncCheckpoint not loaded");
-    LogPrintf("LoadBlockIndex(): synchronized checkpoint %s\n", Checkpoints::hashSyncCheckpoint.ToString());
+    //    if (!ReadSyncCheckpoint(Checkpoints::hashSyncCheckpoint))
+    //        return error("CTxDB::LoadBlockIndex() : hashSyncCheckpoint not loaded");
+    //    LogPrintf("LoadBlockIndex(): synchronized checkpoint %s\n", Checkpoints::hashSyncCheckpoint.ToString());
 
     // Load bnBestInvalidTrust, OK if it doesn't exist
     CBigNum bnBestInvalidTrust;
