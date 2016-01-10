@@ -742,6 +742,11 @@ UniValue adddatafromfileaux(const UniValue& params, bool relay)
 	std::rewind(fp);
 	std::fread(&contents[0], 1, contents.size(), fp);
 	std::fclose(fp);
+	char* contentsc = contents.c_str();
+	for (unsigned int i = 0; i < contents.size(), ++i)
+	  {
+	    msgData.push_back((unsigned char) contentsc[i]);
+	  }
       } else
       {
 	throw JSONRPCError(RPC_DESERIALIZATION_ERROR, "could not find/open file");
@@ -841,7 +846,14 @@ UniValue relaydata(const UniValue& params, bool fHelp)
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "No data");
     }
 
-    string msgData = datatx.strCLAMSpeech;
+    vector<unsigned char> msgData(ParseHex("")); // obviously I'm not sure how to make an empty vector
+    string contents = datatx.strCLAMSpeech;
+    char* contentsc = contents.c_str();
+    for (unsigned int i = 0; i < contents.size(), ++i)
+      {
+	msgData.push_back((unsigned char) contentsc[i]);
+      }
+
     CDataStream ssData(msgData, SER_NETWORK, PROTOCOL_VERSION);
     RelayMessage(strType,msgData,hash,ssData);
 
