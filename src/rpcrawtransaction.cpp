@@ -742,8 +742,8 @@ UniValue adddatafromfileaux(const UniValue& params, bool relay)
 	std::rewind(fp);
 	std::fread(&contents[0], 1, contents.size(), fp);
 	std::fclose(fp);
-	char* contentsc = contents.c_str();
-	for (unsigned int i = 0; i < contents.size(), ++i)
+	const char* contentsc = contents.c_str();
+	for (unsigned int i = 0; i < contents.size(); ++i)
 	  {
 	    msgData.push_back((unsigned char) contentsc[i]);
 	  }
@@ -848,8 +848,8 @@ UniValue relaydata(const UniValue& params, bool fHelp)
 
     vector<unsigned char> msgData(ParseHex("")); // obviously I'm not sure how to make an empty vector
     string contents = datatx.strCLAMSpeech;
-    char* contentsc = contents.c_str();
-    for (unsigned int i = 0; i < contents.size(), ++i)
+    const char* contentsc = contents.c_str();
+    for (unsigned int i = 0; i < contents.size(); ++i)
       {
 	msgData.push_back((unsigned char) contentsc[i]);
       }

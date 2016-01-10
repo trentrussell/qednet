@@ -181,6 +181,7 @@ extern UniValue sendrawtransaction(const UniValue& params, bool fHelp);
 extern UniValue adddata(const UniValue& params, bool fHelp);
 extern UniValue adddatafromfile(const UniValue& params, bool fHelp);
 extern UniValue savedata(const UniValue& params, bool fHelp);
+extern UniValue savedatafromfile(const UniValue& params, bool fHelp);
 extern UniValue relaydata(const UniValue& params, bool fHelp);
 extern UniValue removedata(const UniValue& params, bool fHelp);
 extern UniValue loaddata(const UniValue& params, bool fHelp);
