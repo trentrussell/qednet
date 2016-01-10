@@ -3236,8 +3236,6 @@ bool static ShouldRequest(CTxDB& txdb, const CInv& inv)
 }
 
 
-
-
 void static ProcessGetData(CNode* pfrom)
 {
     std::deque<CInv>::iterator it = pfrom->vRecvGetData.begin();
@@ -3321,6 +3319,13 @@ void static ProcessGetData(CNode* pfrom)
 		      pushed = true;
 		    }
                 }
+		if (!pushed) {
+		  CTransaction datatx;
+		  if (CTxDB("r").ReadData(inv.hash,inv.GetCommand(),datatx)) {
+		    pfrom->PushMessage(inv.GetCommand(), inv.hash, datatx);
+		    pushed = true;
+		  }
+		}
                 if (!pushed && inv.type == MSG_TX) {
                     CTransaction tx;
                     if (mempool.lookup(inv.hash, tx)) {
