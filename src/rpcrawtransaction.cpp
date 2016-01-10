@@ -674,13 +674,8 @@ void checkknowndatatype(std::string strType)
     throw JSONRPCError(RPC_DESERIALIZATION_ERROR, "unknown data type");
 }
 
-UniValue adddata(const UniValue& params, bool fHelp)
+UniValue adddataaux(const UniValue& params, bool relay)
 {
-    if (fHelp || params.size() < 3 || params.size() > 3)
-        throw runtime_error(
-            "adddata <type> <hash160hex> <hex string>\n"
-            "Add data to local database and send it as inv to peers.");
-
     RPCTypeCheck(params, list_of(UniValue::VSTR));
 
     std::string strType = params[0].get_str();
@@ -715,17 +710,16 @@ UniValue adddata(const UniValue& params, bool fHelp)
           for (i = 0; i < l; ++i) {
             datatxData.push_back(msgData[i]);
           }
-	  printf("datatxData.size() = %d\n",datatxData.size());
-	  for (i = 0; i < datatxData.size(); ++i) {
-	    printf("datatxData[%d] = %d\n",i,datatxData.at(i));
-	  }
 	  CDataStream dtxData(datatxData, SER_NETWORK, PROTOCOL_VERSION);
           CTransaction datatx;
           dtxData >> datatx;
           CTxDB().WriteData(hash,strType,datatx);
         }
-	CDataStream ssData(msgData, SER_NETWORK, PROTOCOL_VERSION);
-        RelayMessage(params[0].get_str(),msgData,hash,ssData);
+	if (relay)
+	  {
+	    CDataStream ssData(msgData, SER_NETWORK, PROTOCOL_VERSION);
+	    RelayMessage(params[0].get_str(),msgData,hash,ssData);
+	  }
       }
     catch (std::exception &e) {
       throw JSONRPCError(RPC_DESERIALIZATION_ERROR, "data TX decode failed");
@@ -734,16 +728,12 @@ UniValue adddata(const UniValue& params, bool fHelp)
     return hash.GetHex();
 }
 
-UniValue adddatafile(const UniValue& params, bool fHelp)
+UniValue adddatafromfileaux(const UniValue& params, bool relay)
 {
-    if (fHelp || params.size() < 3 || params.size() > 3)
-        throw runtime_error(
-            "adddatafile <type> <hash160hex> <filename>\n"
-            "Add data to local database and send it as inv to peers.");
-
     RPCTypeCheck(params, list_of(UniValue::VSTR));
 
     std::string strType = params[0].get_str();
+    checkknowndatatype(strType);
     uint256 hash; // in practice 160 bit hashes are used, making it 256 using 94 leading 0s
     hash.SetHex(params[1].get_str());
 
@@ -791,14 +781,36 @@ UniValue adddatafile(const UniValue& params, bool fHelp)
           dtxData >> datatx;
           CTxDB().WriteData(hash,strType,datatx);
         }
-	CDataStream ssData(msgData, SER_NETWORK, PROTOCOL_VERSION);
-        RelayMessage(params[0].get_str(),msgData,hash,ssData);
+	if (relay) {
+	  CDataStream ssData(msgData, SER_NETWORK, PROTOCOL_VERSION);
+	  RelayMessage(params[0].get_str(),msgData,hash,ssData);
+	}
       }
     catch (std::exception &e) {
       throw JSONRPCError(RPC_DESERIALIZATION_ERROR, "data TX decode failed");
     }
 
     return hash.GetHex();
+}
+
+UniValue adddata(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() < 3 || params.size() > 3)
+        throw runtime_error(
+            "adddata <type> <hash160hex> <hex string>\n"
+            "Add data to local database and send it as inv to peers.");
+
+    return adddataaux(params,true);
+}
+
+UniValue adddatafromfile(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() < 3 || params.size() > 3)
+        throw runtime_error(
+            "adddatafile <type> <hash160hex> <filename>\n"
+            "Add data from a file to local database and send it as inv to peers.");
+
+    return adddatafromfileaux(params,true);
 }
 
 UniValue savedata(const UniValue& params, bool fHelp)
@@ -808,50 +820,17 @@ UniValue savedata(const UniValue& params, bool fHelp)
             "savedata <type> <hash> <hex string>\n"
             "Add data to the local database without sending inv to peers.");
 
-    RPCTypeCheck(params, list_of(UniValue::VSTR));
+    return adddataaux(params,false);
+}
 
-    std::string strType = params[0].get_str();
+UniValue savedatafromfile(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() < 3 || params.size() > 3)
+        throw runtime_error(
+            "savedatafromfile <type> <hash> <filename>\n"
+            "Add data from a file to the local database without sending inv to peers.");
 
-    uint256 hash; // in practice 160 bit hashes are used, making it 256 using 94 leading 0s
-    hash.SetHex(params[1].get_str());
-
-    // parse hex string from parameter
-    vector<unsigned char> msgData(ParseHex(params[2].get_str()));
-
-    try
-      {
-        if (!CTxDB("r").ContainsData(hash,strType)) {
-          vector<unsigned char> datatxData(ParseHex("0200000000000000000000000000")); // dummy tx with no inputs and no outputs, storing data in clamspeech
-	  unsigned int l = msgData.size();
-          if (l < 253) {
-            datatxData.push_back((unsigned char) l);
-          } else if (l < 65536) {
-            datatxData.push_back((unsigned char) 253);
-            datatxData.push_back((unsigned char) (l%256));
-	    datatxData.push_back((unsigned char) (l>>8));
-          } else if (l < 1073741824) {
-            datatxData.push_back((unsigned char) 254);
-            datatxData.push_back((unsigned char) (l%256));
-	    datatxData.push_back((unsigned char) ((l>>8)%256));
-	    datatxData.push_back((unsigned char) ((l>>16)%256));
-	    datatxData.push_back((unsigned char) (l>>24));
-          } else { // too big                                                                                                                                                 throw JSONRPCError(RPC_DESERIALIZATION_ERROR, "data TX decode failed");
-          }
-	  unsigned int i;
-          for (i = 0; i < l; ++i) {
-            datatxData.push_back(msgData[i]);
-          }
-	  CDataStream dtxData(datatxData, SER_NETWORK, PROTOCOL_VERSION);
-          CTransaction datatx;
-          dtxData >> datatx;
-          CTxDB().WriteData(hash,strType,datatx);
-        }
-      }
-    catch (std::exception &e) {
-      throw JSONRPCError(RPC_DESERIALIZATION_ERROR, "data TX decode failed");
-    }
-
-    return hash.GetHex();
+    return adddatafromfileaux(params,false);
 }
 
 UniValue removedata(const UniValue& params, bool fHelp)
@@ -864,7 +843,7 @@ UniValue removedata(const UniValue& params, bool fHelp)
     RPCTypeCheck(params, list_of(UniValue::VSTR));
 
     std::string strType = params[0].get_str();
-
+    checkknowndatatype(strType);
     uint256 hash; // in practice 160 bit hashes are used, making it 256 using 94 leading 0s
     hash.SetHex(params[1].get_str());
 
@@ -885,7 +864,7 @@ UniValue loaddata(const UniValue& params, bool fHelp)
     RPCTypeCheck(params, list_of(UniValue::VSTR));
 
     std::string strType = params[0].get_str();
-
+    checkknowndatatype(strType);
     uint256 hash;
     hash.SetHex(params[1].get_str());
 
@@ -910,7 +889,7 @@ UniValue getdata(const UniValue& params, bool fHelp)
     RPCTypeCheck(params, list_of(UniValue::VSTR));
 
     std::string strType = params[0].get_str();
-
+    checkknowndatatype(strType);
     uint256 hash;
     hash.SetHex(params[1].get_str());
 
@@ -937,7 +916,7 @@ UniValue whitelistdata(const UniValue& params, bool fHelp)
     RPCTypeCheck(params, list_of(UniValue::VSTR));
 
     std::string strType = params[0].get_str();
-
+    checkknowndatatype(strType);
     uint256 hash;
     hash.SetHex(params[1].get_str());
 
@@ -964,7 +943,7 @@ UniValue blacklistdata(const UniValue& params, bool fHelp)
     RPCTypeCheck(params, list_of(UniValue::VSTR));
 
     std::string strType = params[0].get_str();
-
+    checkknowndatatype(strType);
     uint256 hash;
     hash.SetHex(params[1].get_str());
 
