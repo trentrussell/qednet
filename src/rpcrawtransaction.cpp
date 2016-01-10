@@ -837,12 +837,14 @@ UniValue getdata(const UniValue& params, bool fHelp)
     uint256 hash;
     hash.SetHex(params[1].get_str());
 
-    CTransaction datatx;
+    CTxDB txdb = CTxDB();
 
-    if (CTxDB("r").ReadData(hash, strType, datatx)) { // already have it
+    if (txdb.ContainsData(hash, strType)) { // already have it
       string strHex = HexStr(datatx.strCLAMSpeech);
       return strHex;
     } else {
+      if (!txdb.ContainsDataWhitelist(hash, strType)) // if not already whitelisted, whitelist it so main will request it
+	txdb.AddDataWhitelist(hash,strType);
       RelayGetData(strType, hash);
       return "requested";
     }
@@ -865,8 +867,12 @@ UniValue whitelistdata(const UniValue& params, bool fHelp)
 
     CTxDB txdb = CTxDB();
     if (!txdb.ContainsData(hash, strType)) {
-      txdb.AddDataWhitelist(hash,strType);
-      return "whitelisted";
+      if (!txdb.ContainsDataWhitelist(hash, strType)) {
+	txdb.AddDataWhitelist(hash,strType);
+	return "whitelisted";
+      } else {
+	return "already whitelisted";
+      }
     } else {
       return "already have";
     }
