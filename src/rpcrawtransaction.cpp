@@ -840,8 +840,7 @@ UniValue getdata(const UniValue& params, bool fHelp)
     CTxDB txdb = CTxDB();
 
     if (txdb.ContainsData(hash, strType)) { // already have it
-      string strHex = HexStr(datatx.strCLAMSpeech);
-      return strHex;
+      return "already have";
     } else {
       if (!txdb.ContainsDataWhitelist(hash, strType)) // if not already whitelisted, whitelist it so main will request it
 	txdb.AddDataWhitelist(hash,strType);
