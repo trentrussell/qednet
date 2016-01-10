@@ -1774,7 +1774,7 @@ void RelayMessage(const std::string& strType,const vector<unsigned char>& msgDat
 void RelayGetData(const std::string& strType, const uint256& hash)
 {
     CInv inv(strType, hash);
-    LogPrintf("RelayGetData %s %s\n",strType,hash.GetHexStr()); // qlogcomment
+    LogPrintf("RelayGetData %s %s\n",strType,hash.GetHex()); // qlogcomment
     RelayAskFor(inv);
 }
 

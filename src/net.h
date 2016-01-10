@@ -686,10 +686,7 @@ inline void RelayAskFor(const CInv& inv)
     {
         LOCK(cs_vNodes);
         BOOST_FOREACH(CNode* pnode, vNodes)
-        {
-	  LogPrintf("RelayAskFor to %s\n",pnode->addr); // qlogcomment
             pnode->AskFor(inv);
-	}
     }
 }
 
