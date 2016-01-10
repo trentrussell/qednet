@@ -3213,8 +3213,8 @@ bool static ShouldRequest(CTxDB& txdb, const CInv& inv)
     case MSG_QBLOCKHEADER: // if a blockheader is new and not blacklisted, should request it
       return (!txdb.ContainsData(inv.hash,"qblockheader") && !txdb.ContainsDataBlacklist(inv.hash,"qblockheader"));
 
-    case MSG_QBLOCKDELTA: // never request block deltas (at least for now), instead get the skeleton and txs separately
-      return false;
+    case MSG_QBLOCKDELTA: // only request a block delta (with all txs explicit) if it is whitelisted
+      return (!txdb.ContainsData(inv.hash,"qblockdelta") && txdb.ContainsDataWhitelist(inv.hash,"qblockdelta"));
 
     case MSG_QBLOCKDELTAH: // request a delta skeleton (with hashes of txs in the block) if it is new and not blacklisted
       return (!txdb.ContainsData(inv.hash,"qblockdeltah") && !txdb.ContainsDataBlacklist(inv.hash,"qblockdeltah"));
