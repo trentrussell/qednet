@@ -712,10 +712,12 @@ UniValue adddataaux(const UniValue& params, bool relay)
       CTransaction datatx;
       dtxData >> datatx;
       CTxDB().WriteData(hash,strType,datatx);
-      if (strCommand == "qtx")
-	printf("\nQTX:%s\n",hash.GetHex().c_str());
-      if (strCommand == "qblockheader")
-	printf("\nQHEADER:%s\n",hash.GetHex().c_str());
+      if (strType == "qtx") {
+	fprintf(stderr,"\nQTX:%s\n",hash.GetHex().c_str());
+      }
+      if (strType == "qblockheader") {
+	fprintf(stderr,"\nQHEADER:%s\n",hash.GetHex().c_str());
+      }
     }
     if (relay)
       {
@@ -781,10 +783,12 @@ UniValue adddatafromfileaux(const UniValue& params, bool relay)
       CTransaction datatx;
       dtxData >> datatx;
       CTxDB().WriteData(hash,strType,datatx);
-      if (strCommand == "qtx")
-	printf("\nQTX:%s\n",hash.GetHex().c_str());
-      if (strCommand == "qblockheader")
-	printf("\nQHEADER:%s\n",hash.GetHex().c_str());
+      if (strType == "qtx") {
+	fprintf(stderr,"\nQTX:%s\n",hash.GetHex().c_str());
+      }
+      if (strType == "qblockheader") {
+	fprintf(stderr,"\nQHEADER:%s\n",hash.GetHex().c_str());
+      }
     }
     if (relay) {
       CDataStream ssData(msgData, SER_NETWORK, PROTOCOL_VERSION);
