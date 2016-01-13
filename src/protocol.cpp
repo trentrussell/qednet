@@ -22,7 +22,7 @@ static const char* ppszTypeName[] =
     "qblockdeltah", // block delta skeleton (with only hashes of txs)
     "qctreeabbrev", // a ctree uniquely identified by an abbrev hash
     "qframe", // a frame uniquely identified by its hash
-    "qctreerootframeabbrev", // association of a root and frame with an abbrev (hash is hashpair of root and frame)
+    "qrootfrmabbr", // association of a root and frame with an abbrev (hash is hashpair of root and frame)
 };
 
 CMessageHeader::CMessageHeader()

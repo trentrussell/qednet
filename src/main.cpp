@@ -3225,8 +3225,8 @@ bool static ShouldRequest(CTxDB& txdb, const CInv& inv)
     case MSG_QFRAME: // only request a frame if it is whitelisted
       return (!txdb.ContainsData(inv.hash,"qframe") && txdb.ContainsDataWhitelist(inv.hash,"qframe"));
 
-    case MSG_QCTREEROOTFRAMEABBREV: // only request a root, frame, abbrev triple if it is whitelisted
-      return (!txdb.ContainsData(inv.hash,"qctreerootframeabbrev") && txdb.ContainsDataWhitelist(inv.hash,"qctreerootframeabbrev"));
+    case MSG_QROOTFRMABBR: // only request a root, frame, abbrev triple if it is whitelisted
+      return (!txdb.ContainsData(inv.hash,"qrootfrmabbr") && txdb.ContainsDataWhitelist(inv.hash,"qrootfrmabbr"));
 
 
     }
@@ -3795,7 +3795,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         pfrom->PushMessage("headers", vHeaders);
     }
 
-    else if (strCommand == "qtx" || strCommand == "qblockheader" || strCommand == "qblockdelta" || strCommand == "qblockdeltah" || strCommand == "qctreeabbrev" || strCommand == "qframe" || strCommand == "qctreerootframeabbrev")
+    else if (strCommand == "qtx" || strCommand == "qblockheader" || strCommand == "qblockdelta" || strCommand == "qblockdeltah" || strCommand == "qctreeabbrev" || strCommand == "qframe" || strCommand == "qrootfrmabbr")
     {
       uint256 hash;
       vRecv >> hash;
