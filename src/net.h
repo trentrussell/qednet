@@ -94,7 +94,7 @@ enum
     MSG_QBLOCKDELTAH = 6,
     MSG_QCTREEABBREV = 7,
     MSG_QFRAME = 8,
-    MSG_QCTREEROOTFRAMEABBREV = 9,
+    MSG_QROOTFRMABBR = 9,
 };
 
 extern bool fDiscover;
