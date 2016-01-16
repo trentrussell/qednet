@@ -3791,7 +3791,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         pfrom->PushMessage("headers", vHeaders);
     }
 
-    else if (strCommand == "qtx" || strCommand == "qblockheader" || strCommand == "qblockdelta" || strCommand == "qblockdeltah" || strCommand == "qctree" || strCommand = "qhcons")
+    else if (strCommand == "qtx" || strCommand == "qblockheader" || strCommand == "qblockdelta" || strCommand == "qblockdeltah" || strCommand == "qctree" || strCommand == "qhcons")
     {
       uint256 hash;
       vRecv >> hash;
