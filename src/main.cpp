@@ -3222,6 +3222,9 @@ bool static ShouldRequest(CTxDB& txdb, const CInv& inv)
     case MSG_QCTREE: // only request a ctree element if it is whitelisted
       return (!txdb.ContainsData(inv.hash,"qctree") && txdb.ContainsDataWhitelist(inv.hash,"qctree"));
 
+    case MSG_QHCONS: // only request a cons of an hlist or nehlist if it is whitelisted
+      return (!txdb.ContainsData(inv.hash,"qhcons") && txdb.ContainsDataWhitelist(inv.hash,"qhcons"));
+
     }
 
     // Don't know what it is, don't request
@@ -3788,7 +3791,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         pfrom->PushMessage("headers", vHeaders);
     }
 
-    else if (strCommand == "qtx" || strCommand == "qblockheader" || strCommand == "qblockdelta" || strCommand == "qblockdeltah" || strCommand == "qctree")
+    else if (strCommand == "qtx" || strCommand == "qblockheader" || strCommand == "qblockdelta" || strCommand == "qblockdeltah" || strCommand == "qctree" || strCommand = "qhcons")
     {
       uint256 hash;
       vRecv >> hash;
