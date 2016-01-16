@@ -918,6 +918,27 @@ UniValue loaddata(const UniValue& params, bool fHelp)
     return strHex;
 }
 
+UniValue existsdata(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() < 2 || params.size() > 2)
+        throw runtime_error(
+            "exists <type> <hash>\n"
+            "Checks if data is in the local database.");
+
+    RPCTypeCheck(params, list_of(UniValue::VSTR));
+
+    std::string strType = params[0].get_str();
+    checkknowndatatype(strType);
+    uint256 hash;
+    hash.SetHex(params[1].get_str());
+
+    if (CTxDB("r").ContainsData(hash, strType)) {
+      return "exists";
+    } else {
+      return "does not exist";
+    }
+}
+
 UniValue getdata(const UniValue& params, bool fHelp)
 {
     if (fHelp || params.size() < 2 || params.size() > 2)

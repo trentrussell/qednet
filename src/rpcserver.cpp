@@ -229,6 +229,7 @@ static const CRPCCommand vRPCCommands[] =
     { "adddatafromfile",        &adddatafromfile,        false,     false,     false },
     { "relaydata",              &relaydata,              false,     false,     false },
     { "removedata",             &removedata,             false,     false,     false },
+    { "exists",                 &existsdata,             false,     false,     false },
     { "loaddata",               &loaddata,               false,     false,     false },
     { "getdata",                &getdata,                false,     false,     false },
     { "whitelistdata",          &whitelistdata,          false,     false,     false },

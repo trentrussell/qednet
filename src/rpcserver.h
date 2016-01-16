@@ -185,6 +185,7 @@ extern UniValue savedatafromfile(const UniValue& params, bool fHelp);
 extern UniValue relaydata(const UniValue& params, bool fHelp);
 extern UniValue removedata(const UniValue& params, bool fHelp);
 extern UniValue loaddata(const UniValue& params, bool fHelp);
+extern UniValue existsdata(const UniValue& params, bool fHelp);
 extern UniValue getdata(const UniValue& params, bool fHelp);
 extern UniValue whitelistdata(const UniValue& params, bool fHelp);
 extern UniValue blacklistdata(const UniValue& params, bool fHelp);
