@@ -3219,15 +3219,8 @@ bool static ShouldRequest(CTxDB& txdb, const CInv& inv)
     case MSG_QBLOCKDELTAH: // request a delta skeleton (with hashes of txs in the block) if it is new and not blacklisted
       return (!txdb.ContainsData(inv.hash,"qblockdeltah") && !txdb.ContainsDataBlacklist(inv.hash,"qblockdeltah"));
 
-    case MSG_QCTREEABBREV: // only request a ctree abbrev if it is whitelisted
-      return (!txdb.ContainsData(inv.hash,"qctreeabbrev") && txdb.ContainsDataWhitelist(inv.hash,"qctreeabbrev"));
-
-    case MSG_QFRAME: // only request a frame if it is whitelisted
-      return (!txdb.ContainsData(inv.hash,"qframe") && txdb.ContainsDataWhitelist(inv.hash,"qframe"));
-
-    case MSG_QROOTFRMABBR: // only request a root, frame, abbrev triple if it is whitelisted
-      return (!txdb.ContainsData(inv.hash,"qrootfrmabbr") && txdb.ContainsDataWhitelist(inv.hash,"qrootfrmabbr"));
-
+    case MSG_QCTREE: // only request a ctree element if it is whitelisted
+      return (!txdb.ContainsData(inv.hash,"qctree") && txdb.ContainsDataWhitelist(inv.hash,"qctree"));
 
     }
 
@@ -3795,7 +3788,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         pfrom->PushMessage("headers", vHeaders);
     }
 
-    else if (strCommand == "qtx" || strCommand == "qblockheader" || strCommand == "qblockdelta" || strCommand == "qblockdeltah" || strCommand == "qctreeabbrev" || strCommand == "qframe" || strCommand == "qrootfrmabbr")
+    else if (strCommand == "qtx" || strCommand == "qblockheader" || strCommand == "qblockdelta" || strCommand == "qblockdeltah" || strCommand == "qctree")
     {
       uint256 hash;
       vRecv >> hash;
