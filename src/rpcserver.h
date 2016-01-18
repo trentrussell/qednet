@@ -178,6 +178,7 @@ extern UniValue decoderawtransaction(const UniValue& params, bool fHelp);
 extern UniValue decodescript(const UniValue& params, bool fHelp);
 extern UniValue signrawtransaction(const UniValue& params, bool fHelp);
 extern UniValue sendrawtransaction(const UniValue& params, bool fHelp);
+extern UniValue importdatafile(const UniValue& params, bool fHelp);
 extern UniValue adddata(const UniValue& params, bool fHelp);
 extern UniValue adddatafromfile(const UniValue& params, bool fHelp);
 extern UniValue savedata(const UniValue& params, bool fHelp);

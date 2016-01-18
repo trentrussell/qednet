@@ -674,6 +674,70 @@ void checkknowndatatype(std::string strType)
     throw JSONRPCError(RPC_DESERIALIZATION_ERROR, "unknown data type");
 }
 
+UniValue importdatafile(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() < 1 || params.size() > 1)
+        throw runtime_error(
+            "importdatafile <filename>\n"
+            "Import data items from a file into local database.");
+
+    std::FILE *fp = std::fopen(params[0].get_str().c_str(), "rb");
+
+    if (fp)
+      {
+        char c[12];
+        uint256 h;
+        unsigned int l;
+        unsigned char* d;
+	while (std::fread(c,1,12,fp) == 12)
+	  {
+	    checkknowndatatype(c);
+	    if (std::fread(&h,20,1,fp) != 1) // little endian, only 160 bits, the rest should be 0
+	      throw JSONRPCError(RPC_DESERIALIZATION_ERROR, "data format error");
+	    if (std::fread(&l,4,1,fp) != 1) // little endian
+	      throw JSONRPCError(RPC_DESERIALIZATION_ERROR, "data format error");
+	    d = (unsigned char*) malloc(l);
+	    if (std::fread(d,1,l,fp) != l)
+	      throw JSONRPCError(RPC_DESERIALIZATION_ERROR, "data format error");
+	    string strType = string(c);
+	    if (!CTxDB("r").ContainsData(h,strType)) {
+	      vector<unsigned char> datatxData(ParseHex("0200000000000000000000000000")); // dummy tx with no inputs and no outputs, storing data in clamspeech
+	      if (l < 253) {
+		datatxData.push_back((unsigned char) l);
+	      } else if (l < 65536) {
+		datatxData.push_back((unsigned char) 253);
+		datatxData.push_back((unsigned char) (l%256));
+		datatxData.push_back((unsigned char) (l>>8));
+	      } else if (l < 1073741824) {
+		datatxData.push_back((unsigned char) 254);
+		datatxData.push_back((unsigned char) (l%256));
+		datatxData.push_back((unsigned char) ((l>>8)%256));
+		datatxData.push_back((unsigned char) ((l>>16)%256));
+		datatxData.push_back((unsigned char) (l>>24));
+	      } else { // too big
+		throw JSONRPCError(RPC_DESERIALIZATION_ERROR, "data too big; 1MB limit breached");
+	      }
+	      unsigned int i;
+	      for (i = 0; i < l; ++i) {
+		datatxData.push_back(d[i]);
+	      }
+	      CDataStream dtxData(datatxData, SER_NETWORK, PROTOCOL_VERSION);
+	      CTransaction datatx;
+	      dtxData >> datatx;
+	      CTxDB().WriteData(h,strType,datatx);
+	      if (strType == "qtx") {
+		fprintf(stderr,"\nQTX:%s\n",h.GetHex().c_str());
+	      }
+	      if (strType == "qblockheader") {
+		fprintf(stderr,"\nQHEADER:%s\n",h.GetHex().c_str());
+	      }
+	    }
+	    free(d);
+	  }
+      }
+    return "import apparently successful";
+}
+
 UniValue adddataaux(const UniValue& params, bool relay)
 {
     RPCTypeCheck(params, list_of(UniValue::VSTR));
@@ -746,7 +810,8 @@ UniValue adddatafromfileaux(const UniValue& params, bool relay)
 	std::fseek(fp, 0, SEEK_END);
 	contents.resize(std::ftell(fp));
 	std::rewind(fp);
-	std::fread(&contents[0], 1, contents.size(), fp);
+	if (std::fread(&contents[0], 1, contents.size(), fp) != 1)
+	  throw JSONRPCError(RPC_DESERIALIZATION_ERROR, "failed to read file contents");
 	std::fclose(fp);
 	const char* contentsc = contents.c_str();
 	for (unsigned int i = 0; i < contents.size(); ++i)
@@ -812,7 +877,7 @@ UniValue adddatafromfile(const UniValue& params, bool fHelp)
 {
     if (fHelp || params.size() < 3 || params.size() > 3)
         throw runtime_error(
-            "adddatafile <type> <hash160hex> <filename>\n"
+            "adddatafromfile <type> <hash160hex> <filename>\n"
             "Add data from a file to local database and send it as inv to peers.");
 
     return adddatafromfileaux(params,true);
