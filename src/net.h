@@ -94,6 +94,7 @@ enum
     MSG_QBLOCKDELTAH = 6,
     MSG_QCTREE = 7,
     MSG_QHCONS = 8,
+    MSG_QASSET = 9,
 };
 
 extern bool fDiscover;

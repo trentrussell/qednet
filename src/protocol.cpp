@@ -21,7 +21,8 @@ static const char* ppszTypeName[] =
     "qblockdelta", // block delta
     "qblockdeltah", // block delta skeleton (with only hashes of txs)
     "qctree", // a ctree element uniquely identified by its hash root and is either CLeaf(bool list,hashval), CLeft(hashval), CRight(hashval) or CBin(hashval,hashval)
-    "qhcons", // an hcons is uniquely identified by its hash root and is always an asset with an optional hashval (None means it is the last element)
+    "qhcons", // an hcons is uniquely identified by its hash root and is always an assetid with an optional hashval (None means it is the last element)
+    "qasset", // an asset is uniquely identified by its assetid
 };
 
 CMessageHeader::CMessageHeader()

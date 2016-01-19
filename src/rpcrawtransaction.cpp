@@ -670,7 +670,7 @@ UniValue sendrawtransaction(const UniValue& params, bool fHelp)
 
 void checkknowndatatype(std::string strType)
 {
-  if (!(strType == "qtx" || strType == "qblockheader" || strType == "qblockdelta" || strType == "qblockdeltah" || strType == "qctree" || strType == "qhcons"))
+  if (!(strType == "qtx" || strType == "qblockheader" || strType == "qblockdelta" || strType == "qblockdeltah" || strType == "qctree" || strType == "qhcons" || strType == "qasset"))
     throw JSONRPCError(RPC_DESERIALIZATION_ERROR, "unknown data type");
 }
 
