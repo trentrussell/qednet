@@ -3806,9 +3806,9 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
       LOCK(cs_main);
       CTxDB().WriteData(hash,strCommand,tx);
       if (strCommand == "qtx")
-	printf("\nQTX:%s\n",hash.GetHex().c_str());
+	fprintf(stderr,"\nQTX:%s\n",hash.GetHex().c_str());
       if (strCommand == "qblockheader")
-	printf("\nQHEADER:%s\n",hash.GetHex().c_str());
+	fprintf(stderr,"\nQHEADER:%s\n",hash.GetHex().c_str());
     }
 
     else if (strCommand == "tx")
