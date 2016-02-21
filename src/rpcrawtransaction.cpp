@@ -810,7 +810,7 @@ UniValue adddatafromfileaux(const UniValue& params, bool relay)
 	std::fseek(fp, 0, SEEK_END);
 	contents.resize(std::ftell(fp));
 	std::rewind(fp);
-	if (std::fread(&contents[0], 1, contents.size(), fp) != 1)
+	if (std::fread(&contents[0], 1, contents.size(), fp) != contents.size())
 	  throw JSONRPCError(RPC_DESERIALIZATION_ERROR, "failed to read file contents");
 	std::fclose(fp);
 	const char* contentsc = contents.c_str();
